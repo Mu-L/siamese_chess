@@ -21,6 +21,7 @@ var steady_piece:Dictionary = {}	# 待加入棋盘中的后备棋子放这里管
 # 格式：{ 棋子编号: [对象1、 对象2] }
 var mouse_start_position_name:String = ""
 var mouse_moved:bool = false
+var button_input_moved:bool = false
 var button_input_pointer:int = 0
 
 var state:State = null
@@ -83,41 +84,32 @@ func remove_piece_set() -> void:
 	backup_piece.clear()
 
 func button_input(_button:String, _pressed:bool) -> void:
-	match _button:
-		"up":
-			if !_pressed:
-				return
-			mouse_moved = true
-			if !((button_input_pointer - 16) & 0x88):
-				button_input_pointer -= 16
-				finger_on_position(Chess.to_position_name(button_input_pointer))
-		"down":
-			if !_pressed:
-				return
-			mouse_moved = true
-			if !((button_input_pointer + 16) & 0x88):
-				button_input_pointer += 16
-				finger_on_position(Chess.to_position_name(button_input_pointer))
-		"left":
-			if !_pressed:
-				return
-			mouse_moved = true
-			if !((button_input_pointer - 1) & 0x88):
-				button_input_pointer -= 1
-				finger_on_position(Chess.to_position_name(button_input_pointer))
-		"right":
-			if !_pressed:
-				return
-			mouse_moved = true
-			if !((button_input_pointer + 1) & 0x88):
-				button_input_pointer += 1
-				finger_on_position(Chess.to_position_name(button_input_pointer))
-		"accept":
-			if _pressed:
-				mouse_moved = false
-				tap_position(Chess.to_position_name(button_input_pointer), true)
-			elif mouse_moved:
-				tap_position(Chess.to_position_name(button_input_pointer), false)
+	var camera:Camera3D = get_viewport().get_camera_3d()
+	var direction:float = Vector2(global_position.x, global_position.z).angle_to_point(Vector2(camera.global_position.x, camera.global_position.z))
+	direction -= global_rotation.y
+	var direction_mapping:Dictionary = {}
+	if direction > 4 / PI && direction <= 4 / PI * 3:
+		direction_mapping = {"up": -16, "down": 16, "left": -1, "right": 1}
+	elif direction > -4 / PI && direction <= 4 / PI:
+		direction_mapping = {"up": -1, "down": 1, "left": 16, "right": -16}
+	elif direction > -4 / PI * 3 && direction <= -4 / PI:
+		direction_mapping = {"up": 16, "down": -16, "left": 1, "right": -1}
+	else:
+		direction_mapping = {"up": 1, "down": -1, "left": -16, "right": 16}
+
+	if _button in ["up", "down", "left", "right"]:
+		if !_pressed:
+			return
+		button_input_moved = true
+		if !((button_input_pointer + direction_mapping[_button]) & 0x88):
+			button_input_pointer += direction_mapping[_button]
+			finger_on_position(Chess.to_position_name(button_input_pointer))
+	elif _button =="accept":
+		if _pressed:
+			button_input_moved = false
+			tap_position(Chess.to_position_name(button_input_pointer), true)
+		elif button_input_moved:
+			tap_position(Chess.to_position_name(button_input_pointer), false)
 
 func area_input(_from:Node3D, _to:Area3D, _instant:bool, _pressed:bool, _event_position:Vector3, _normal:Vector3) -> void:
 	if _instant:
