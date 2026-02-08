@@ -29,7 +29,7 @@ func push_dialog(text:String, title:String, blackscreen:bool = false, _click_any
 	if $texture_rect_bottom/label.text != "" || $texture_rect_top/label.text != "":
 		clear()
 	tween = create_tween()
-	force_selection = false
+	force_selection = false	
 	waiting = _waiting
 	click_anywhere = _click_anywhere
 	$texture_rect_bottom/label.text = ""
@@ -45,7 +45,6 @@ func push_selection(_selection:PackedStringArray, title:String, _force_selection
 	click_anywhere = false
 	force_selection = _force_selection
 	selection = _selection
-	select_focus = -1
 	text = selection_to_bbcode()
 	if tween && tween.is_running():
 		tween.kill()
@@ -79,15 +78,23 @@ func next() -> void:
 	click_anywhere = false
 	waiting = false
 	force_selection = false
+	selection.clear()
+	select_focus = -1
 	on_next.emit.call_deferred()
 
 func direction(axis:int) -> void:
+	if !selection.size():
+		return
 	if select_focus == -1:
 		select_focus = 0
 	else:
 		select_focus += axis
 		select_focus = (select_focus + selection.size()) % selection.size()
 	selected = selection[select_focus]
+	$texture_rect_bottom/label.text = selection_to_bbcode()
+
+func cancel_focus() -> void:
+	select_focus = -1
 	$texture_rect_bottom/label.text = selection_to_bbcode()
 
 func clicked_selection(_selected:String) -> void:

@@ -5,6 +5,7 @@ var mouse_moved:bool = false
 var can_move:bool = true
 var inspectable_item_list:Array[InspectableItem] = []
 var current_area:Area3D = null
+var using_dialog:bool = false
 
 func _ready() -> void:
 	pass
@@ -15,13 +16,17 @@ func _physics_process(_delta:float) -> void:
 	#$head/camera.set_rotation(Vector3(0, 0, deg_to_rad(sin(Time.get_unix_time_from_system()) * 0.5)))
 	if !can_move:
 		return
-	if Dialog.block_input():
+	if Dialog.block_input() || using_dialog:
 		if Input.is_action_just_pressed("ui_left"):
 			Dialog.direction(-1)
 		if Input.is_action_just_pressed("ui_right"):
 			Dialog.direction(1)		
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_released("ui_accept"):
 			Dialog.next()
+			using_dialog = false
+		if Input.is_action_just_pressed("ui_cancel"):
+			using_dialog = false
+			Dialog.cancel_focus()
 		return
 	for item:InspectableItem in inspectable_item_list:
 		if !item.enabled:
@@ -46,6 +51,9 @@ func _physics_process(_delta:float) -> void:
 			item.button_input("accept", true)
 		if Input.is_action_just_released("ui_accept"):
 			item.button_input("accept", false)
+		if Input.is_action_just_pressed("ui_cancel"):
+			using_dialog = true
+			Dialog.direction(1)
 	
 
 func _unhandled_input(event:InputEvent) -> void:
