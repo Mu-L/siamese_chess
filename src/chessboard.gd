@@ -85,17 +85,17 @@ func remove_piece_set() -> void:
 
 func button_input(_button:String, _pressed:bool) -> void:
 	var camera:Camera3D = get_viewport().get_camera_3d()
-	var direction:float = Vector2(global_position.x, global_position.z).angle_to_point(Vector2(camera.global_position.x, camera.global_position.z))
+	var direction:float = camera.global_rotation.y
 	direction -= global_rotation.y
 	var direction_mapping:Dictionary = {}
-	if direction > 4 / PI && direction <= 4 / PI * 3:
-		direction_mapping = {"up": -16, "down": 16, "left": -1, "right": 1}
-	elif direction > -4 / PI && direction <= 4 / PI:
-		direction_mapping = {"up": -1, "down": 1, "left": 16, "right": -16}
-	elif direction > -4 / PI * 3 && direction <= -4 / PI:
-		direction_mapping = {"up": 16, "down": -16, "left": 1, "right": -1}
-	else:
+	if direction > -PI / 4 * 3 && direction <= -PI / 4:
 		direction_mapping = {"up": 1, "down": -1, "left": -16, "right": 16}
+	elif direction > -PI / 4 && direction <=  PI / 4:
+		direction_mapping = {"up": -16, "down":16, "left": -1, "right": 1}
+	elif direction >  PI / 4 && direction <=  PI / 4 * 3:
+		direction_mapping = {"up": -1, "down": 1, "left": 16, "right": -16}
+	else:
+		direction_mapping = {"up": 16, "down": -16, "left": 1, "right": -1}
 
 	if _button in ["up", "down", "left", "right"]:
 		if !_pressed:
