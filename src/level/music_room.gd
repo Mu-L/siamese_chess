@@ -8,4 +8,5 @@ func _ready() -> void:
 	cheshire_instance.position = $chessboard.convert_name_to_position(Chess.to_position_name(cheshire_by))
 	$chessboard.state.add_piece(cheshire_by, ord("k"))
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
+	chessboard.button_input_pointer = cheshire_by
 	$player.force_set_camera($camera)
