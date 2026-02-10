@@ -12,4 +12,5 @@ func _ready() -> void:
 		"2F": Loading.change_scene.bind("res://scene/level/hallway_2f.tscn", {"by": 2})}
 	$chessboard.state.add_piece(cheshire_by, ord("k"))
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
+	chessboard.button_input_pointer = cheshire_by
 	$player.force_set_camera($camera)

@@ -14,6 +14,7 @@ func _ready() -> void:
 	engine = PastorEngine.new()
 	var state = State.new()
 	chessboard = $chessboard
+	$player.add_inspectable_item(chessboard)
 	for node:Node in get_children():
 		if node is Actor && node.piece_type != 0:
 			var by:int = Chess.to_position_int(chessboard.get_position_name(node.position))
@@ -374,7 +375,6 @@ func state_ready_versus_player(_arg:Dictionary) -> void:
 			can_introduce = true
 		else:
 			start_from |= Chess.mask(Chess.to_64(Chess.from(iter)))
-
 
 	state_signal_connect(chessboard.click_selection, func () -> void:
 		change_state("versus_ready_to_move", {"from": chessboard.selected})

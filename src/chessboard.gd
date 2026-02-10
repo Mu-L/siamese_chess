@@ -21,6 +21,9 @@ var steady_piece:Dictionary = {}	# 待加入棋盘中的后备棋子放这里管
 # 格式：{ 棋子编号: [对象1、 对象2] }
 var mouse_start_position_name:String = ""
 var mouse_moved:bool = false
+var button_input_moved:bool = false
+var button_input_pointer:int = 0
+
 var state:State = null
 var chessboard_piece:Dictionary[int, Actor] = {}
 var king_instance:Array[Actor] = [null, null]
@@ -80,19 +83,47 @@ func remove_piece_set() -> void:
 	chessboard_piece.clear()
 	backup_piece.clear()
 
-func input(_from:Node3D, _to:Area3D, _event:InputEvent, _event_position:Vector3, _normal:Vector3) -> void:
-	if _event is InputEventMouseButton:
-		if _event.pressed && _event.button_index == MOUSE_BUTTON_LEFT:
+func button_input(_button:String, _pressed:bool) -> void:
+	var camera:Camera3D = get_viewport().get_camera_3d()
+	var direction:float = camera.global_rotation.y
+	direction -= global_rotation.y
+	var direction_mapping:Dictionary = {}
+	if direction > -PI / 4 * 3 && direction <= -PI / 4:
+		direction_mapping = {"up": 1, "down": -1, "left": -16, "right": 16}
+	elif direction > -PI / 4 && direction <=  PI / 4:
+		direction_mapping = {"up": -16, "down":16, "left": -1, "right": 1}
+	elif direction >  PI / 4 && direction <=  PI / 4 * 3:
+		direction_mapping = {"up": -1, "down": 1, "left": 16, "right": -16}
+	else:
+		direction_mapping = {"up": 16, "down": -16, "left": 1, "right": -1}
+
+	if _button in ["up", "down", "left", "right"]:
+		if !_pressed:
+			return
+		button_input_moved = true
+		if !((button_input_pointer + direction_mapping[_button]) & 0x88):
+			button_input_pointer += direction_mapping[_button]
+			finger_on_position(Chess.to_position_name(button_input_pointer))
+	elif _button =="accept":
+		if _pressed:
+			button_input_moved = false
+			tap_position(Chess.to_position_name(button_input_pointer), true)
+		elif button_input_moved:
+			tap_position(Chess.to_position_name(button_input_pointer), false)
+
+func area_input(_from:Node3D, _to:Area3D, _instant:bool, _pressed:bool, _event_position:Vector3, _normal:Vector3) -> void:
+	if _instant:
+		if _pressed:
 			finger_on_position(_to.get_name())
 			tap_position(_to.get_name(), true)
 			mouse_moved = false
 			mouse_start_position_name = _to.get_name()
 			clicked.emit.call_deferred()
-		elif !_event.pressed && mouse_moved && _event.button_index == MOUSE_BUTTON_LEFT:
+		elif mouse_moved && !_pressed:
 			tap_position(_to.get_name(), false)
 			finger_up()
 			mouse_start_position_name = ""
-	if _event is InputEventMouseMotion:
+	else:
 		var position_name:String = _to.get_name()
 		if mouse_start_position_name != position_name:
 			mouse_moved = true
@@ -387,8 +418,8 @@ func king_explore_instance(from:int, path:PackedInt32Array) -> void:
 		await instance.animation_finished
 	animation_finished.emit.call_deferred()
 
-func set_enabled(enabled:bool) -> void:
-	super.set_enabled(enabled)
+func set_enabled(_enabled:bool) -> void:
+	super.set_enabled(_enabled)
 	if !enabled:
 		$canvas.clear_pointer("move")
 		$canvas.clear_pointer("pointer")
