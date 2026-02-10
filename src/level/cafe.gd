@@ -21,6 +21,7 @@ func _ready() -> void:
 	standard_engine.set_think_time(INF)
 	$player.force_set_camera($camera)
 	$table_0/chessboard_standard.set_enabled(false)
+	$player.add_inspectable_item($table_0/chessboard_standard)
 	$pastor.play_animation("thinking")
 	interact_list[0x54] = {"YULAN_INTERACT_PLAY_CHESS": interact_pastor.bind(false), "YULAN_INTERACT_CUSTOM_POSITION": interact_pastor.bind(true)}
 	title[0x54] = "CHAR_YULAN"
