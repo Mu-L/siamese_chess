@@ -1927,7 +1927,7 @@ void Chess::apply_move(const godot::Ref<State> &_state, int _move)
 		{
 			_state->set_castle(_state->get_castle() & 12);
 		}
-		if (extra)
+		if (extra == 'K' || extra == 'Q')
 		{
 			if (to == Chess::g1())
 			{
