@@ -15,7 +15,6 @@ signal animation_finished()
 @export var COLOR_MOVE:Color = Color(0.56, 0.157, 0.164, 1.0)
 @export var COLOR_POINTER:Color = Color(0.176, 0.176, 0.176, 1.0)
 
-@onready var fallback_piece:Actor = load("res://scene/actor/piece_shrub.tscn").instantiate()
 var backup_piece:Array = []	# 被吃的子统一放这里管理
 var steady_piece:Dictionary = {}	# 待加入棋盘中的后备棋子放这里管理，跟被吃棋子区别在于这些棋子可以派上场
 # 格式：{ 棋子编号: [对象1、 对象2] }
