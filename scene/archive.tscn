@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcxfcmifrtqxa"]
+[gd_scene format=3 uid="uid://dcxfcmifrtqxa"]
 
 [ext_resource type="Script" uid="uid://64c61l6gwxim" path="res://src/archive.gd" id="1_550ee"]
 [ext_resource type="PackedScene" uid="uid://bsobwdwnm840s" path="res://scene/document_browser.tscn" id="1_jqjfb"]
@@ -19,11 +19,11 @@ gradient = SubResource("Gradient_j3y3i")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5kv4"]
 
-[node name="archive" type="CanvasLayer"]
+[node name="archive" type="CanvasLayer" unique_id=427270618]
 layer = 3
 script = ExtResource("1_550ee")
 
-[node name="texture_rect" type="TextureRect" parent="."]
+[node name="texture_rect" type="TextureRect" parent="." unique_id=915968779]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -34,7 +34,7 @@ texture = SubResource("GradientTexture1D_550ee")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="scroll_container" type="ScrollContainer" parent="texture_rect"]
+[node name="scroll_container" type="ScrollContainer" parent="texture_rect" unique_id=776357105]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.042000003
@@ -46,17 +46,17 @@ offset_top = 0.039985657
 offset_right = -0.5680237
 offset_bottom = 0.21594238
 
-[node name="v_box_container" type="VBoxContainer" parent="texture_rect/scroll_container"]
+[node name="v_box_container" type="VBoxContainer" parent="texture_rect/scroll_container" unique_id=1533975025]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 6
 
-[node name="document_browser" parent="texture_rect" instance=ExtResource("1_jqjfb")]
+[node name="document_browser" parent="texture_rect" unique_id=2141126833 instance=ExtResource("1_jqjfb")]
 layout_mode = 1
 offset_left = 359.0
 mouse_filter = 1
 
-[node name="button_close" type="Button" parent="texture_rect"]
+[node name="button_close" type="Button" parent="texture_rect" unique_id=821186320]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.013
@@ -79,7 +79,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_x4nah")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w5kv4")
 text = ""
 
-[node name="h_box_container" type="HBoxContainer" parent="texture_rect"]
+[node name="h_box_container" type="HBoxContainer" parent="texture_rect" unique_id=1804693783]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.043
@@ -91,7 +91,7 @@ offset_top = -0.0960083
 offset_right = 0.527985
 offset_bottom = 0.104004
 
-[node name="button_rename" type="Button" parent="texture_rect/h_box_container"]
+[node name="button_rename" type="Button" parent="texture_rect/h_box_container" unique_id=990331310]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
@@ -106,7 +106,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_x4nah")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w5kv4")
 text = ""
 
-[node name="button_delete" type="Button" parent="texture_rect/h_box_container"]
+[node name="button_delete" type="Button" parent="texture_rect/h_box_container" unique_id=30893415]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
@@ -121,7 +121,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_x4nah")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w5kv4")
 text = ""
 
-[node name="button_duplicate" type="Button" parent="texture_rect/h_box_container"]
+[node name="button_duplicate" type="Button" parent="texture_rect/h_box_container" unique_id=1826444670]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
@@ -136,7 +136,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_x4nah")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w5kv4")
 text = ""
 
-[node name="button_add_empty" type="Button" parent="texture_rect/h_box_container"]
+[node name="button_add_empty" type="Button" parent="texture_rect/h_box_container" unique_id=2124856900]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
