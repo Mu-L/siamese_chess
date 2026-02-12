@@ -1,19 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bi6pvnsvmtkfx"]
+[gd_scene format=3 uid="uid://bi6pvnsvmtkfx"]
 
 [ext_resource type="PackedScene" uid="uid://cyjn8gwybcvvb" path="res://assets/model/stranger.glb" id="1_atibo"]
+[ext_resource type="Script" uid="uid://bfok7caluxy5t" path="res://src/actor/stranger.gd" id="2_mx01q"]
 
-[node name="stranger" instance=ExtResource("1_atibo")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_mx01q"]
+radius = 1.0
 
-[node name="Skeleton3D" parent="骨架" index="0"]
-bones/6/rotation = Quaternion(0.880508, 1.97093e-09, 2.13099e-07, -0.474032)
-bones/12/rotation = Quaternion(-0.0324377, -0.053176, -0.57358, 0.816778)
-bones/34/rotation = Quaternion(-0.58565, 0.590345, 0.0319226, 0.554515)
-bones/40/rotation = Quaternion(-0.0518536, 0.992289, 0.0516985, -0.100004)
-bones/41/rotation = Quaternion(-0.00790639, 0.963204, -0.0082057, -0.268531)
-bones/55/rotation = Quaternion(0.609963, 0.341318, 0.607442, -0.377441)
-bones/61/rotation = Quaternion(0.990837, -0.00204812, 0.0151224, -0.134195)
-bones/62/rotation = Quaternion(-0.0736165, 0.0161115, -0.00343878, 0.997151)
-bones/63/rotation = Quaternion(0.112512, 2.92493e-09, 0.00707895, 0.993625)
-bones/64/rotation = Quaternion(0.158355, -1.74623e-10, 0.00996323, 0.987332)
-bones/65/rotation = Quaternion(0.153217, 2.65118e-09, 0.00963997, 0.988146)
-bones/66/rotation = Quaternion(0.0417023, 2.73121e-09, 0.00262379, 0.999127)
+[node name="stranger" unique_id=1968960436 instance=ExtResource("1_atibo")]
+script = ExtResource("2_mx01q")
+
+[node name="Skeleton3D" parent="骨架" parent_id_path=PackedInt32Array(1199989445) index="0" unique_id=1090908392]
+bones/6/rotation = Quaternion(0.8805075, 1.9709328e-09, 2.1309913e-07, -0.47403228)
+bones/12/rotation = Quaternion(-0.032437656, -0.05317598, -0.5735796, 0.81677824)
+bones/34/rotation = Quaternion(-0.58565, 0.5903454, 0.03192264, 0.5545154)
+bones/40/rotation = Quaternion(-0.05185356, 0.9922891, 0.051698536, -0.100003906)
+bones/41/rotation = Quaternion(-0.00790639, 0.9632036, -0.008205699, -0.26853108)
+bones/55/rotation = Quaternion(0.6099629, 0.3413181, 0.60744214, -0.37744054)
+bones/61/rotation = Quaternion(0.99083745, -0.002048122, 0.015122398, -0.13419533)
+bones/62/rotation = Quaternion(-0.07361653, 0.016111454, -0.003438785, 0.99715054)
+bones/63/rotation = Quaternion(0.11251233, 2.924935e-09, 0.007078947, 0.99362516)
+bones/64/rotation = Quaternion(0.15835483, -1.7462298e-10, 0.009963229, 0.98733205)
+bones/65/rotation = Quaternion(0.153217, 2.651177e-09, 0.00963997, 0.9881456)
+bones/66/rotation = Quaternion(0.041702315, 2.7312124e-09, 0.0026237876, 0.9991266)
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="." index="2" unique_id=200913038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003988564, 0.86261296, 0.0020794868)
+shape = SubResource("SphereShape3D_mx01q")

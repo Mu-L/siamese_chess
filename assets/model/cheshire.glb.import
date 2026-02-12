@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/cheshire.glb-35e93b2be208c2181bf4343caef30faa
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="CharacterBody3D"
 nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true
