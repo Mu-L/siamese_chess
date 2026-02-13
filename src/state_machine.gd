@@ -15,8 +15,9 @@ func add_state(new_state:String, ready_callback:Callable = Callable(), exit_call
 		"process": process_callback,
 	}
 
-func _physics_process(_delta:float) -> void:
-	state_list[current_state]["process"].call(_delta)
+func process(_delta:float) -> void:
+	if state_list[current_state]["process"].is_valid():
+		state_list[current_state]["process"].call(_delta)
 
 func change_state(next_state:String, arg:Dictionary = {}) -> void:
 	mutex.lock()
