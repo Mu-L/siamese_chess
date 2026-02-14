@@ -254,11 +254,13 @@ func state_ready_explore_check_premove(_arg:Dictionary) -> void:
 		state_machine.change_state("explore_check_move", {"from": premove_from, "to": premove_to, "move_list": Chess.generate_explore_move(chessboard.state, 1)})
 		premove_from = -1
 		premove_to = -1
-	elif premove_from != -1:
+	elif premove_from != -1 && (chessboard.mouse_hold || chessboard.button_input_hold):
 		state_machine.change_state("explore_ready_to_move", {"from": premove_from})
 		premove_from = -1
 		premove_to = -1
 	else:
+		premove_from = -1
+		premove_to = -1
 		state_machine.change_state("explore_idle")
 
 func state_ready_explore_select_empty_square(_arg:Dictionary) -> void:
@@ -384,12 +386,15 @@ func state_ready_versus_move(_arg:Dictionary) -> void:
 			state_machine.change_state("versus_check_move", {"from": premove_from, "to": premove_to, "move_list": Chess.generate_valid_move(chessboard.state, 1)})
 			premove_from = -1
 			premove_to = -1
-		elif premove_from != -1:
+		elif premove_from != -1 && (chessboard.mouse_hold || chessboard.button_input_hold):
 			state_machine.change_state("versus_ready_to_move", {"from": premove_from})
 			premove_from = -1
 			premove_to = -1
 		else:
-			state_machine.change_state("versus_player"))
+			state_machine.change_state("versus_player")
+			premove_from = -1
+			premove_to = -1
+	)
 	
 	assert(chessboard.state.get_turn() == Chess.group(chessboard.state.get_piece(Chess.from(_arg["move"]))) 
 	|| Chess.from(_arg["move"]) == Chess.to(_arg["move"]) && !chessboard.state.has_piece(Chess.from(_arg["move"])))

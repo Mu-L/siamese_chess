@@ -19,7 +19,9 @@ var backup_piece:Array = []	# 被吃的子统一放这里管理
 var steady_piece:Dictionary = {}	# 待加入棋盘中的后备棋子放这里管理，跟被吃棋子区别在于这些棋子可以派上场
 # 格式：{ 棋子编号: [对象1、 对象2] }
 var mouse_start_position_name:String = ""
+var mouse_hold:bool = false
 var mouse_moved:bool = false
+var button_input_hold:bool = false
 var button_input_moved:bool = false
 var button_input_pointer:int = 0
 
@@ -105,23 +107,33 @@ func button_input(_button:String, _pressed:bool) -> void:
 			finger_on_position(Chess.to_position_name(button_input_pointer))
 	elif _button =="accept":
 		if _pressed:
+			button_input_hold = true
 			button_input_moved = false
 			tap_position(Chess.to_position_name(button_input_pointer), true)
 		elif button_input_moved:
 			tap_position(Chess.to_position_name(button_input_pointer), false)
+			button_input_moved = false
+			button_input_hold = false
+		else:
+			button_input_hold = false
 
 func area_input(_from:Node3D, _to:Area3D, _instant:bool, _pressed:bool, _event_position:Vector3, _normal:Vector3) -> void:
 	if _instant:
 		if _pressed:
 			finger_on_position(_to.get_name())
 			tap_position(_to.get_name(), true)
+			mouse_hold = true
 			mouse_moved = false
 			mouse_start_position_name = _to.get_name()
 			clicked.emit.call_deferred()
-		elif mouse_moved && !_pressed:
+		elif mouse_moved:
 			tap_position(_to.get_name(), false)
 			finger_up()
 			mouse_start_position_name = ""
+			mouse_moved = false
+			mouse_hold = false
+		else:
+			mouse_hold = false
 	else:
 		var position_name:String = _to.get_name()
 		if mouse_start_position_name != position_name:
