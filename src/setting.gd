@@ -18,6 +18,13 @@ var languages:Dictionary[String, String] = {
 	"zh_CN": "简体中文"
 }
 
+var axis:Array[Vector2i] = [
+	Vector2(1, 1),
+	Vector2(1, -1),
+	Vector2(-1, 1),
+	Vector2(-1, -1)
+]
+
 @onready var resolution_input:OptionButton = $texture_rect/tab_container/video_audio/v_box_container/margin_container_resolution/h_box_container/option_button
 @onready var fullscreen_input:CheckBox = $texture_rect/tab_container/video_audio/v_box_container/margin_container_fullscreen/h_box_container/check_box
 @onready var master_volume_input:HSlider = $texture_rect/tab_container/video_audio/v_box_container/margin_container_master_volume/v_box_container/h_slider
@@ -30,6 +37,7 @@ var languages:Dictionary[String, String] = {
 @onready var camera_move_speed_value:Label = $texture_rect/tab_container/control/v_box_container/margin_container_camera_move_speed/v_box_container/h_box_container/label_value
 @onready var camera_rotate_sensitive_input:HSlider = $texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_sensitive/v_box_container/h_slider
 @onready var camera_rotate_sensitive_value:Label = $texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_sensitive/v_box_container/h_box_container/label_value
+@onready var camera_rotate_axis_input:OptionButton = $texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_axis/h_box_container/option_button
 @onready var language_input:OptionButton = $texture_rect/tab_container/accessibility/v_box_container/margin_container_language/h_box_container/option_button
 @onready var relax_input:CheckBox = $texture_rect/tab_container/game/v_box_container/margin_container_relax/v_box_container/h_box_container/check_box
 @onready var clean_archive_input:Button = $texture_rect/tab_container/files/v_box_container/margin_container_clean_archive/h_box_container/button
@@ -55,7 +63,7 @@ func _ready() -> void:
 	camera_move_speed_value.text = "%d%%" % (Progress.get_value("camera_move_speed", 50))
 	camera_rotate_sensitive_input.set_value_no_signal(Progress.get_value("camera_rotate_sensitive", 50))
 	camera_rotate_sensitive_value.text = "%d%%" % (Progress.get_value("camera_rotate_sensitive", 50))
-	
+	camera_rotate_axis_input.select(Progress.get_value("camera_rotate_axis", 0))
 	resolution_input.connect("item_selected", set_resolution)
 	fullscreen_input.connect("toggled", set_fullscreen)
 	master_volume_input.connect("value_changed", set_master_volume)
@@ -63,6 +71,7 @@ func _ready() -> void:
 	env_volume_input.connect("value_changed", set_env_volume)
 	camera_move_speed_input.connect("value_changed", set_camera_move_speed)
 	camera_rotate_sensitive_input.connect("value_changed", set_camera_rotate_sensitive)
+	camera_rotate_axis_input.connect("item_selected", set_camera_rotate_axis)
 	language_input.connect("item_selected", set_language)
 	relax_input.connect("toggled", set_relax)
 	clean_archive_input.connect("button_down", set_clean_archive)
@@ -104,6 +113,9 @@ func set_camera_move_speed(value:float) -> void:
 func set_camera_rotate_sensitive(value:float) -> void:
 	Progress.set_value("camera_rotate_sensitive", value)
 	camera_rotate_sensitive_value.text = "%d%%" % value
+
+func set_camera_rotate_axis(index:int) -> void:
+	Progress.set_value("camera_rotate_axis", index)
 
 func set_language(index:int) -> void:
 	TranslationServer.set_locale(languages.keys()[index])

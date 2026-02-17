@@ -355,6 +355,44 @@ horizontal_alignment = 2
 layout_mode = 2
 focus_mode = 3
 
+[node name="margin_container_camera_rotate_axis" type="MarginContainer" parent="texture_rect/tab_container/control/v_box_container" unique_id=1680703829]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 20
+
+[node name="h_box_container" type="HBoxContainer" parent="texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_axis" unique_id=1728862580]
+layout_mode = 2
+
+[node name="label_name" type="Label" parent="texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_axis/h_box_container" unique_id=2074814429]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_xthoy")
+text = "SETTINGS_CAMERA_ROTATE_AXIS"
+label_settings = SubResource("LabelSettings_ahr6q")
+
+[node name="option_button" type="OptionButton" parent="texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_axis/h_box_container" unique_id=1694842823]
+layout_mode = 2
+size_flags_horizontal = 10
+focus_mode = 3
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_xthoy")
+theme_override_font_sizes/font_size = 25
+flat = true
+item_count = 4
+popup/item_0/text = "SETTINGS_CAMERA_AXIS_0"
+popup/item_0/id = 0
+popup/item_1/text = "SETTINGS_CAMERA_AXIS_1"
+popup/item_1/id = 1
+popup/item_2/text = "SETTINGS_CAMERA_AXIS_2"
+popup/item_2/id = 2
+popup/item_3/text = "SETTINGS_CAMERA_AXIS_3"
+popup/item_3/id = 3
+
 [node name="accessibility" type="Control" parent="texture_rect/tab_container" unique_id=822844970]
 visible = false
 layout_mode = 2
