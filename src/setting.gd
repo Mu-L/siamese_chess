@@ -25,14 +25,16 @@ var axis:Array[Vector2i] = [
 	Vector2(-1, -1)
 ]
 
-@onready var resolution_input:OptionButton = $texture_rect/tab_container/video_audio/v_box_container/margin_container_resolution/h_box_container/option_button
-@onready var fullscreen_input:CheckBox = $texture_rect/tab_container/video_audio/v_box_container/margin_container_fullscreen/h_box_container/check_box
-@onready var master_volume_input:HSlider = $texture_rect/tab_container/video_audio/v_box_container/margin_container_master_volume/v_box_container/h_slider
-@onready var master_volume_value:Label = $texture_rect/tab_container/video_audio/v_box_container/margin_container_master_volume/v_box_container/h_box_container/label_value
-@onready var sfx_volume_input:HSlider = $texture_rect/tab_container/video_audio/v_box_container/margin_container_sfx_volume/v_box_container/h_slider
-@onready var sfx_volume_value:Label = $texture_rect/tab_container/video_audio/v_box_container/margin_container_sfx_volume/v_box_container/h_box_container/label_value
-@onready var env_volume_input:HSlider = $texture_rect/tab_container/video_audio/v_box_container/margin_container_env_volume/v_box_container/h_slider
-@onready var env_volume_value:Label = $texture_rect/tab_container/video_audio/v_box_container/margin_container_env_volume/v_box_container/h_box_container/label_value
+var table:Dictionary = {}
+
+@onready var resolution_input:OptionButton = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_left/margin_container_resolution/h_box_container/option_button
+@onready var fullscreen_input:CheckBox = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_left/margin_container_fullscreen/h_box_container/check_box
+@onready var master_volume_input:HSlider = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_master_volume/v_box_container/h_slider
+@onready var master_volume_value:Label = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_master_volume/v_box_container/h_box_container/label_value
+@onready var sfx_volume_input:HSlider = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_sfx_volume/v_box_container/h_slider
+@onready var sfx_volume_value:Label = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_sfx_volume/v_box_container/h_box_container/label_value
+@onready var env_volume_input:HSlider = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_env_volume/v_box_container/h_slider
+@onready var env_volume_value:Label = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_env_volume/v_box_container/h_box_container/label_value
 @onready var camera_move_speed_input:HSlider = $texture_rect/tab_container/control/v_box_container/margin_container_camera_move_speed/v_box_container/h_slider
 @onready var camera_move_speed_value:Label = $texture_rect/tab_container/control/v_box_container/margin_container_camera_move_speed/v_box_container/h_box_container/label_value
 @onready var camera_rotate_sensitive_input:HSlider = $texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_sensitive/v_box_container/h_slider
@@ -44,26 +46,15 @@ var axis:Array[Vector2i] = [
 @onready var reset_progress_input:Button = $texture_rect/tab_container/files/v_box_container/margin_container_reset_progress/v_box_container/h_box_container/button
 
 func _ready() -> void:
+	if !resolutions.has(get_viewport().size):
+		resolutions.push_front(get_viewport().size)
+	
 	for iter:Vector2i in resolutions:
 		resolution_input.add_item("%d * %d" % [iter.x, iter.y])
 	for key:String in languages:
 		language_input.add_item(languages[key])
-	
-	resolution_input.select(2)
-	fullscreen_input.set_pressed_no_signal(false)
-	master_volume_input.set_value_no_signal(AudioServer.get_bus_volume_linear(AudioServer.get_bus_index(&"Master")) * 100)
-	master_volume_value.text = "%d%%" % (AudioServer.get_bus_volume_linear(AudioServer.get_bus_index(&"Master")) * 100)
-	sfx_volume_input.set_value_no_signal(AudioServer.get_bus_volume_linear(AudioServer.get_bus_index(&"SFX")) * 100)
-	sfx_volume_value.text = "%d%%" % (AudioServer.get_bus_volume_linear(AudioServer.get_bus_index(&"SFX")) * 100)
-	env_volume_input.set_value_no_signal(AudioServer.get_bus_volume_linear(AudioServer.get_bus_index(&"Ambient")) * 100)
-	env_volume_value.text = "%d%%" % (AudioServer.get_bus_volume_linear(AudioServer.get_bus_index(&"Ambient")) * 100)
-	language_input.select(languages.keys().find(TranslationServer.get_locale()))
-	relax_input.set_pressed_no_signal(Progress.get_value("relax", false))
-	camera_move_speed_input.set_value_no_signal(Progress.get_value("camera_move_speed", 50))
-	camera_move_speed_value.text = "%d%%" % (Progress.get_value("camera_move_speed", 50))
-	camera_rotate_sensitive_input.set_value_no_signal(Progress.get_value("camera_rotate_sensitive", 50))
-	camera_rotate_sensitive_value.text = "%d%%" % (Progress.get_value("camera_rotate_sensitive", 50))
-	camera_rotate_axis_input.select(Progress.get_value("camera_rotate_axis", 0))
+	load_file()
+
 	resolution_input.connect("item_selected", set_resolution)
 	fullscreen_input.connect("toggled", set_fullscreen)
 	master_volume_input.connect("value_changed", set_master_volume)
@@ -77,51 +68,91 @@ func _ready() -> void:
 	clean_archive_input.connect("button_down", set_clean_archive)
 	reset_progress_input.connect("button_down", set_reset_progress)
 	$texture_rect/button_close.connect("button_down", close)
+
+	resolution_input.select(table.get_or_add("resolution", 0))
+	set_resolution(table.get_or_add("resolution"))
+	fullscreen_input.set_pressed(table.get_or_add("fullscreen", false))
+	master_volume_input.set_value(table.get_or_add("master_volume", 80))
+	master_volume_value.text = "%d%%" % table.get_or_add("master_volume", 80)
+	sfx_volume_input.set_value(table.get_or_add("sfx_volume", 80))
+	sfx_volume_value.text = "%d%%" % table.get_or_add("sfx_volume", 80)
+	env_volume_input.set_value(table.get_or_add("env_volume", 80))
+	env_volume_value.text = "%d%%" % (table.get_or_add("env_volume", 80))
+	language_input.select(table.get_or_add("language", languages.keys().find(TranslationServer.get_locale())))
+	set_language(table.get_or_add("language"))
+	relax_input.set_pressed(table.get_or_add("relax", false))
+	camera_move_speed_input.set_value(table.get_or_add("camera_move_speed", 50))
+	camera_move_speed_value.text = "%d%%" % (table.get_or_add("camera_move_speed", 50))
+	camera_rotate_sensitive_input.set_value(table.get_or_add("camera_rotate_sensitive", 50))
+	camera_rotate_sensitive_value.text = "%d%%" % (table.get_or_add("camera_rotate_sensitive", 50))
+	camera_rotate_axis_input.select(table.get_or_add("camera_rotate_axis", 0))
 	visible = false
 
 func open() -> void:
 	visible = true
 
 func close() -> void:
+	save_file()
 	visible = false
 
+func load_file() -> void:
+	var file:FileAccess = FileAccess.open("user://settings.json", FileAccess.READ)
+	if !is_instance_valid(file):
+		return
+	table = JSON.parse_string(file.get_as_text())
+	file.close()
+
+func save_file() -> void:
+	var file:FileAccess = FileAccess.open("user://settings.json", FileAccess.WRITE)
+	file.store_string(JSON.stringify(table))
+	file.close()
+
+func get_value(key:String) -> Variant:
+	return table[key]
+
 func set_resolution(index:int) -> void:
+	table.set("resolution", index)
 	get_viewport().size = resolutions[index]
 
 func set_fullscreen(toggled_on:bool) -> void:
+	table.set("fullscreen", toggled_on)
 	if toggled_on:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 func set_master_volume(value:float) -> void:
+	table.set("master_volume", value)
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"Master"), value / 100.0)
 	master_volume_value.text = "%d%%" % value
 
 func set_sfx_volume(value:float) -> void:
+	table.set("sfx_volume", value)
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"SFX"), value / 100.0)
 	sfx_volume_value.text = "%d%%" % value
 
 func set_env_volume(value:float) -> void:
+	table.set("env_volume", value)
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index(&"Ambient"), value / 100.0)
 	env_volume_value.text = "%d%%" % value
 
 func set_camera_move_speed(value:float) -> void:
-	Progress.set_value("camera_move_speed", value)
+	table.set("camera_move_speed", value)
 	camera_move_speed_value.text = "%d%%" % value
 
 func set_camera_rotate_sensitive(value:float) -> void:
-	Progress.set_value("camera_rotate_sensitive", value)
+	table.set("camera_rotate_sensitive", value)
 	camera_rotate_sensitive_value.text = "%d%%" % value
 
 func set_camera_rotate_axis(index:int) -> void:
-	Progress.set_value("camera_rotate_axis", index)
+	table.set("camera_rotate_axis", index)
 
 func set_language(index:int) -> void:
+	table.set("language", index)
 	TranslationServer.set_locale(languages.keys()[index])
 
 func set_relax(toggled_on:bool) -> void:
-	Progress.set_value("relax", toggled_on)
+	table.set("relax", toggled_on)
 
 func set_clean_archive() -> void:
 	if DirAccess.dir_exists_absolute("user://archive"):
