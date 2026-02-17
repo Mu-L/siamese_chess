@@ -17,11 +17,11 @@ func _physics_process(_delta:float) -> void:
 	if !can_move:
 		return
 	var vision_look_at:Vector2 = Input.get_vector("vision_look_left", "vision_look_right", "vision_look_up", "vision_look_down")
-	$head.global_rotation.y -= vision_look_at.x / 1000 * Progress.get_value("camera_rotate_sensitive", 50) * Setting.axis[Progress.get_value("camera_rotate_axis", 0)].x
-	$head.global_rotation.x -= vision_look_at.y / 2000 * Progress.get_value("camera_rotate_sensitive", 50) * Setting.axis[Progress.get_value("camera_rotate_axis", 0)].y
+	$head.global_rotation.y -= vision_look_at.x / 1000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].x
+	$head.global_rotation.x -= vision_look_at.y / 2000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].y
 	var vision_move:Vector2 = Input.get_vector("vision_move_left", "vision_move_right", "vision_move_forward", "vision_move_back")
-	$head.global_position += ($head.global_basis.x * vision_move.x / 20 + $head.global_basis.z * vision_move.y / 20) * Progress.get_value("camera_move_speed", 50) / 20
-	$head.global_position += $head.global_basis.y * Input.get_axis("vision_move_down", "vision_move_up") / 20 * Progress.get_value("camera_move_speed", 50) / 20
+	$head.global_position += ($head.global_basis.x * vision_move.x / 20 + $head.global_basis.z * vision_move.y / 20) * Setting.get_value("camera_move_speed") / 20
+	$head.global_position += $head.global_basis.y * Input.get_axis("vision_move_down", "vision_move_up") / 20 * Setting.get_value("camera_move_speed") / 20
 	if vision_look_at || vision_move:
 		return
 	if Dialog.block_input() || using_dialog:
@@ -75,12 +75,12 @@ func _unhandled_input(event:InputEvent) -> void:
 			current_area.emit_signal("input", self, current_area, instant, pressed, $ray_cast.get_collision_point(), $ray_cast.get_collision_normal())
 	elif event is InputEventMultiScreenDrag:
 		if event.fingers == 2:
-			$head.global_rotation.y -= event.relative.x / 20000 * Progress.get_value("camera_rotate_sensitive", 50) * Setting.axis[Progress.get_value("camera_rotate_axis", 0)].x
-			$head.global_rotation.x -= event.relative.y / 10000 * Progress.get_value("camera_rotate_sensitive", 50) * Setting.axis[Progress.get_value("camera_rotate_axis", 0)].y
+			$head.global_rotation.y -= event.relative.x / 20000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].x
+			$head.global_rotation.x -= event.relative.y / 10000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].y
 		else:
-			$head.global_position += (-$head.global_basis.x * event.relative.x / 100 + $head.global_basis.y * event.relative.y / 100) * Progress.get_value("camera_move_speed", 50) / 50
+			$head.global_position += (-$head.global_basis.x * event.relative.x / 100 + $head.global_basis.y * event.relative.y / 100) * Setting.get_value("camera_move_speed") / 50
 	elif event is InputEventScreenPinch:
-		$head.global_position += -$head.global_basis.z * event.relative / 5000 * Progress.get_value("camera_move_speed", 50)
+		$head.global_position += -$head.global_basis.z * event.relative / 5000 * Setting.get_value("camera_move_speed")
 	get_viewport().set_input_as_handled()
 
 func click_area(screen_position:Vector2) -> Area3D:

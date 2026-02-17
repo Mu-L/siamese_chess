@@ -363,7 +363,7 @@ func state_ready_versus_enemy(_arg:Dictionary) -> void:
 		assert(chessboard.state.get_turn() == Chess.group(chessboard.state.get_piece(Chess.from(engine.get_search_result()))))
 		state_machine.change_state("versus_move", {"move": engine.get_search_result()})
 	)
-	if !Progress.get_value("relax", false):
+	if !Setting.get_value("relax"):
 		engine.set_max_depth(20)
 		engine.set_quies(false)
 	else:
