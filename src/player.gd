@@ -22,6 +22,8 @@ func _physics_process(_delta:float) -> void:
 	var vision_move:Vector2 = Input.get_vector("vision_move_left", "vision_move_right", "vision_move_forward", "vision_move_back")
 	$head.global_position += $head.global_basis.x * vision_move.x / 20 + $head.global_basis.z * vision_move.y / 20
 	$head.global_position += $head.global_basis.y * Input.get_axis("vision_move_down", "vision_move_up") / 20
+	if vision_look_at || vision_move:
+		return
 	if Dialog.block_input() || using_dialog:
 		if Input.is_action_just_pressed("ui_left"):
 			Dialog.direction(-1)
