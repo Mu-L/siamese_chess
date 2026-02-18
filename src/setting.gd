@@ -192,7 +192,6 @@ func set_clean_archive() -> void:
 		DirAccess.remove_absolute("user://archive")
 
 func set_reset_progress() -> void:
-	if FileAccess.file_exists("user://progress/prototype_2.json"):
-		DirAccess.remove_absolute("user://progress/prototype_2.json")
+	Progress.clear()
 	Loading.change_scene("res://scene/startup.tscn", {})
 	close()
