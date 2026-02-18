@@ -69,9 +69,11 @@ func interact_pastor(custom_state:bool) -> void:
 	from = Chess.to_x88(from)
 	if from != 0x54:
 		$chessboard.execute_move(Chess.create(from, 0x54, 0))
+		await $chessboard.animation_finished
 	$chessboard.set_enabled(false)
 	$table_0/chessboard_standard.set_enabled(true)
 	$chessboard/pieces/cheshire.set_position($chessboard.convert_name_to_position("e2"))
+	$chessboard/pieces/cheshire.set_rotation(Vector3(0, PI / 2, 0))
 	$chessboard/pieces/cheshire.play_animation("thinking")
 	$player.force_set_camera($camera_chessboard)
 	state_machine.change_state("in_game_start", {"state": state})
