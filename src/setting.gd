@@ -29,6 +29,8 @@ var table:Dictionary = {}
 
 @onready var resolution_input:OptionButton = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_left/margin_container_resolution/h_box_container/option_button
 @onready var fullscreen_input:CheckBox = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_left/margin_container_fullscreen/h_box_container/check_box
+@onready var fps_input:OptionButton = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_left/margin_container_fps/h_box_container/option_button
+@onready var vsync_input:CheckBox = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_left/margin_container_vsync/h_box_container/check_box
 @onready var master_volume_input:HSlider = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_master_volume/v_box_container/h_slider
 @onready var master_volume_value:Label = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_master_volume/v_box_container/h_box_container/label_value
 @onready var sfx_volume_input:HSlider = $texture_rect/tab_container/video_audio/h_box_container/v_box_container_right/margin_container_sfx_volume/v_box_container/h_slider
@@ -57,6 +59,8 @@ func _ready() -> void:
 
 	resolution_input.connect("item_selected", set_resolution)
 	fullscreen_input.connect("toggled", set_fullscreen)
+	fps_input.connect("item_selected", set_fps)
+	vsync_input.connect("toggled", set_vsync)
 	master_volume_input.connect("value_changed", set_master_volume)
 	sfx_volume_input.connect("value_changed", set_sfx_volume)
 	env_volume_input.connect("value_changed", set_env_volume)
@@ -72,6 +76,9 @@ func _ready() -> void:
 	resolution_input.select(table.get_or_add("resolution", 0))
 	set_resolution(table.get_or_add("resolution"))
 	fullscreen_input.set_pressed(table.get_or_add("fullscreen", false))
+	fps_input.select(table.get_or_add("fps", 2))
+	set_fps(table.get_or_add("fps"))
+	vsync_input.set_pressed(table.get_or_add("vsync", true))
 	master_volume_input.set_value(table.get_or_add("master_volume", 80))
 	master_volume_value.text = "%d%%" % table.get_or_add("master_volume", 80)
 	sfx_volume_input.set_value(table.get_or_add("sfx_volume", 80))
@@ -120,6 +127,23 @@ func set_fullscreen(toggled_on:bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+func set_fps(index:int) -> void:
+	table.set("fps", index)
+	match index:
+		0:
+			Engine.max_fps = 30
+		1:
+			Engine.max_fps = 60
+		2:
+			Engine.max_fps = -1
+
+func set_vsync(toggled_on:bool) -> void:
+	table.set("vsync", toggled_on)
+	if toggled_on:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSyncMode.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSyncMode.VSYNC_DISABLED)
 
 func set_master_volume(value:float) -> void:
 	table.set("master_volume", value)
