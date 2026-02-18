@@ -6,10 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwvyc2qlcdag0" path="res://scene/chessboard_large.tscn" id="5_up75d"]
 [ext_resource type="PackedScene" uid="uid://c4wyvxxvc66cl" path="res://scene/actor/shrub.tscn" id="7_6yoeu"]
 [ext_resource type="PackedScene" uid="uid://bfl3bn4u2am21" path="res://scene/actor/tree.tscn" id="8_kcqwh"]
-[ext_resource type="PackedScene" uid="uid://ekjtt81nkr2f" path="res://scene/actor/flower.tscn" id="9_3g7ix"]
-[ext_resource type="PackedScene" uid="uid://d13fcqueggvup" path="res://assets/model/fence.glb" id="10_agd6e"]
 [ext_resource type="Texture2D" uid="uid://cv64jbrjk4a11" path="res://assets/texture/piece_pawn.svg" id="11_crw01"]
-[ext_resource type="Script" uid="uid://bt4vtnpxu5i4x" path="res://src/actor.gd" id="11_not3w"]
 [ext_resource type="PackedScene" uid="uid://bwss6iu3vs38d" path="res://assets/model/hotel_gate.glb" id="12_not3w"]
 [ext_resource type="PackedScene" uid="uid://dmwl65mg7565u" path="res://scene/actor/piece_pawn_black.tscn" id="12_owa5c"]
 [ext_resource type="PackedScene" uid="uid://c7joe7stxo7vb" path="res://scene/card_item.tscn" id="12_sq15a"]
@@ -97,65 +94,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -3)
 
 [node name="tree_10" parent="." unique_id=1081096533 instance=ExtResource("8_kcqwh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -1)
-
-[node name="flower" parent="." unique_id=1160583547 instance=ExtResource("9_3g7ix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3)
-piece_type = 0
-
-[node name="flower_5" parent="." unique_id=1246507832 instance=ExtResource("9_3g7ix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -1)
-piece_type = 0
-
-[node name="flower_6" parent="." unique_id=914463250 instance=ExtResource("9_3g7ix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
-piece_type = 0
-
-[node name="flower_7" parent="." unique_id=633398106 instance=ExtResource("9_3g7ix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -1)
-piece_type = 0
-
-[node name="flower_8" parent="." unique_id=1110680463 instance=ExtResource("9_3g7ix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
-piece_type = 0
-
-[node name="flower_13" parent="." unique_id=1000504120 instance=ExtResource("9_3g7ix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
-piece_type = 0
-
-[node name="fence_0" parent="." unique_id=594065073 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, -3)
-script = ExtResource("11_not3w")
-piece_type = 35
-
-[node name="fence_1" parent="." unique_id=1765484943 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, -5)
-script = ExtResource("11_not3w")
-piece_type = 35
-
-[node name="fence_2" parent="." unique_id=1652631266 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, -1)
-script = ExtResource("11_not3w")
-piece_type = 35
-
-[node name="fence_3" parent="." unique_id=2124536036 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, 1)
-script = ExtResource("11_not3w")
-piece_type = 35
-
-[node name="fence_4" parent="." unique_id=1953947676 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, 3)
-script = ExtResource("11_not3w")
-piece_type = 35
-
-[node name="fence_5" parent="." unique_id=285109236 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, 5)
-script = ExtResource("11_not3w")
-piece_type = 35
-
-[node name="fence_6" parent="." unique_id=1016647685 instance=ExtResource("10_agd6e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, 7)
-script = ExtResource("11_not3w")
-piece_type = 35
 
 [node name="card_item" parent="." unique_id=2102297026 instance=ExtResource("12_sq15a")]
 transform = Transform3D(-7, 0, -6.119594e-07, 0, 7, 0, 6.119594e-07, 0, -7, 1.0000005, 0, -1.0000005)

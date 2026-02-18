@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://8kbw64nuq0ai" path="res://assets/model/fence_turn.glb" id="6_78g2j"]
 [ext_resource type="PackedScene" uid="uid://bwss6iu3vs38d" path="res://assets/model/hotel_gate.glb" id="7_h0t85"]
 [ext_resource type="PackedScene" uid="uid://cddqnr41xmo4x" path="res://assets/model/lotus_leaf.glb" id="8_h0t85"]
-[ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="10_as14m"]
+[ext_resource type="Script" path="res://src/marker_actor.gd" id="10_as14m"]
 [ext_resource type="PackedScene" uid="uid://cwjgphuayqvy3" path="res://assets/model/hotel_door_large.glb" id="10_lvxho"]
 [ext_resource type="PackedScene" uid="uid://bfl3bn4u2am21" path="res://scene/actor/tree.tscn" id="12_x41v6"]
 [ext_resource type="PackedScene" uid="uid://dgvq7kuhcahlb" path="res://scene/teleport_pointer.tscn" id="13_as14m"]
@@ -190,97 +190,81 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3832865, 0.2866273, 1.83669
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_1" type="Marker3D" parent="." unique_id=1373615903]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_2" type="Marker3D" parent="." unique_id=794758245]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_3" type="Marker3D" parent="." unique_id=2146985899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_4" type="Marker3D" parent="." unique_id=133889861]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_5" type="Marker3D" parent="." unique_id=335279204]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_6" type="Marker3D" parent="." unique_id=622476471]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_7" type="Marker3D" parent="." unique_id=983314226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_8" type="Marker3D" parent="." unique_id=1881448190]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_9" type="Marker3D" parent="." unique_id=504061307]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_10" type="Marker3D" parent="." unique_id=466753771]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_11" type="Marker3D" parent="." unique_id=1318055746]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_12" type="Marker3D" parent="." unique_id=1974266183]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_13" type="Marker3D" parent="." unique_id=1421553342]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_14" type="Marker3D" parent="." unique_id=62239039]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="actor_y_15" type="Marker3D" parent="." unique_id=1702359204]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 script = ExtResource("10_as14m")
 piece = 35
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="hotel_door_large" parent="." unique_id=1782642306 instance=ExtResource("10_lvxho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27220386, 11.386337)
@@ -290,21 +274,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -8)
 script = ExtResource("10_as14m")
 piece = 35
 actor = ExtResource("12_x41v6")
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="tree_5" type="Marker3D" parent="." unique_id=1497858508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 4)
 script = ExtResource("10_as14m")
 piece = 35
 actor = ExtResource("12_x41v6")
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="tree_6" type="Marker3D" parent="." unique_id=949886652]
 transform = Transform3D(-0.082703836, 0, 0.99657416, 0, 1, 0, -0.99657416, 0, -0.082703836, -7, 0, -8)
 script = ExtResource("10_as14m")
 piece = 35
 actor = ExtResource("12_x41v6")
-metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="lotus_leaf_11" parent="." unique_id=2027585133 instance=ExtResource("8_h0t85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8758287, 0.2866273, 2.3786383)
