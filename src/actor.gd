@@ -1,15 +1,12 @@
-extends InspectableItem
+extends CharacterBody3D
 class_name Actor
 
 signal animation_finished()
 
 # SiameseChess中100%的人都会参与到战斗中。
 
-# 由于棋子总量有限，SiameseChess中部分人会兼有其他定位
-@export var piece_type:int = 0
-
 func _ready() -> void:
-	super._ready()
+	pass
 
 func introduce(_pos:Vector3) -> void:	# 登场动画
 	visible = true

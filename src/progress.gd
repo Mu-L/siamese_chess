@@ -41,3 +41,8 @@ func accumulate(key:String, data:Variant) -> void:
 func create_if_not_exist(key:String, data:Variant) -> void:
 	if !has_key(key):
 		table[key] = data
+
+func clear() -> void:
+	if FileAccess.file_exists("user://progress/prototype_2.json"):
+		DirAccess.remove_absolute("user://progress/prototype_2.json")
+	Progress.table = {}

@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/piece_queen.glb-dc0ff012760e0bdaacc3dc9477296
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="CharacterBody3D"
 nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true

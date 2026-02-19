@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4wyvxxvc66cl"]
+[gd_scene format=3 uid="uid://c4wyvxxvc66cl"]
 
 [ext_resource type="PackedScene" uid="uid://biv8ghyjqw63y" path="res://assets/model/shrub.glb" id="1_08tlt"]
 [ext_resource type="Script" uid="uid://df1er0legxfcr" path="res://src/actor/shrub.gd" id="2_4hxfj"]
@@ -37,13 +37,11 @@ random_pitch = 1.47
 streams_count = 1
 stream_0/stream = ExtResource("3_71i6i")
 
-[node name="shrub" type="Node3D"]
+[node name="shrub" type="CharacterBody3D" unique_id=2044898220]
 script = ExtResource("2_4hxfj")
-breakable = true
-piece_type = 42
 metadata/_custom_type_script = "uid://r84cy7gvn2eo"
 
-[node name="gpu_particles_died" type="GPUParticles3D" parent="."]
+[node name="gpu_particles_died" type="GPUParticles3D" parent="." unique_id=1087196479]
 emitting = false
 amount = 30
 lifetime = 2.0
@@ -52,8 +50,8 @@ explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_dmn6y")
 draw_pass_1 = SubResource("PlaneMesh_2sf7p")
 
-[node name="audio_stream_player_3d" type="AudioStreamPlayer3D" parent="."]
+[node name="audio_stream_player_3d" type="AudioStreamPlayer3D" parent="." unique_id=971881231]
 stream = SubResource("AudioStreamRandomizer_71i6i")
 
-[node name="0" parent="." instance=ExtResource("1_08tlt")]
+[node name="0" parent="." unique_id=1135045989 instance=ExtResource("1_08tlt")]
 transform = Transform3D(2, 0, 0, 0, 1.36, 0, 0, 0, 2, 0, 0, 0)

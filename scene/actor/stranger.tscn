@@ -1,19 +1,72 @@
-[gd_scene load_steps=2 format=3 uid="uid://bi6pvnsvmtkfx"]
+[gd_scene format=3 uid="uid://bi6pvnsvmtkfx"]
 
 [ext_resource type="PackedScene" uid="uid://cyjn8gwybcvvb" path="res://assets/model/stranger.glb" id="1_atibo"]
+[ext_resource type="Script" uid="uid://bfok7caluxy5t" path="res://src/actor/stranger.gd" id="2_mx01q"]
 
-[node name="stranger" instance=ExtResource("1_atibo")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mx01q"]
+radius = 0.3251953
+height = 1.690918
 
-[node name="Skeleton3D" parent="骨架" index="0"]
-bones/6/rotation = Quaternion(0.880508, 1.97093e-09, 2.13099e-07, -0.474032)
-bones/12/rotation = Quaternion(-0.0324377, -0.053176, -0.57358, 0.816778)
-bones/34/rotation = Quaternion(-0.58565, 0.590345, 0.0319226, 0.554515)
-bones/40/rotation = Quaternion(-0.0518536, 0.992289, 0.0516985, -0.100004)
-bones/41/rotation = Quaternion(-0.00790639, 0.963204, -0.0082057, -0.268531)
-bones/55/rotation = Quaternion(0.609963, 0.341318, 0.607442, -0.377441)
-bones/61/rotation = Quaternion(0.990837, -0.00204812, 0.0151224, -0.134195)
-bones/62/rotation = Quaternion(-0.0736165, 0.0161115, -0.00343878, 0.997151)
-bones/63/rotation = Quaternion(0.112512, 2.92493e-09, 0.00707895, 0.993625)
-bones/64/rotation = Quaternion(0.158355, -1.74623e-10, 0.00996323, 0.987332)
-bones/65/rotation = Quaternion(0.153217, 2.65118e-09, 0.00963997, 0.988146)
-bones/66/rotation = Quaternion(0.0417023, 2.73121e-09, 0.00262379, 0.999127)
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mx01q"]
+animation = &"evade"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vy2n6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ilm8f"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iqosf"]
+xfade_time = 0.2
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0hfyq"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6t2tw"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_84t0p"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mx01q"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vy2n6"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0hfyq"]
+states/evade/node = SubResource("AnimationNodeAnimation_mx01q")
+states/evade/position = Vector2(680, 134)
+states/idle/node = SubResource("AnimationNodeAnimation_vy2n6")
+states/idle/position = Vector2(531, 43)
+states/walk/node = SubResource("AnimationNodeAnimation_ilm8f")
+states/walk/position = Vector2(402, 134.48979)
+transitions = ["evade", "idle", SubResource("AnimationNodeStateMachineTransition_iqosf"), "idle", "evade", SubResource("AnimationNodeStateMachineTransition_0hfyq"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_6t2tw"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_84t0p"), "walk", "evade", SubResource("AnimationNodeStateMachineTransition_mx01q"), "evade", "walk", SubResource("AnimationNodeStateMachineTransition_vy2n6")]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mx01q"]
+radius = 1.1904546
+
+[node name="stranger" unique_id=824909588 instance=ExtResource("1_atibo")]
+collision_layer = 4
+collision_mask = 4
+motion_mode = 1
+script = ExtResource("2_mx01q")
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="." index="1" unique_id=200913038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003988564, 0.70807195, 0.0020794868)
+shape = SubResource("CapsuleShape3D_mx01q")
+
+[node name="animation_tree" type="AnimationTree" parent="." index="3" unique_id=251224311]
+tree_root = SubResource("AnimationNodeStateMachine_0hfyq")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="area_3d" type="Area3D" parent="." index="4" unique_id=1172186000]
+collision_layer = 0
+monitorable = false
+
+[node name="collision_shape_3d" type="CollisionShape3D" parent="area_3d" index="0" unique_id=1463815566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93384314, 0.8265623)
+shape = SubResource("SphereShape3D_mx01q")
