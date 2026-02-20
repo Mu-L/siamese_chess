@@ -51,7 +51,7 @@ func interact_pastor(custom_state:bool) -> void:
 	Dialog.push_selection(["SELECTION_PLAY_AS_BLACK", "SELECTION_PLAY_AS_WHITE", "SELECTION_PLAY_AS_RANDOM", "SELECTION_CANCEL"], "", true, false)
 	await Dialog.on_next
 	if Dialog.selected == "SELECTION_CANCEL":
-		state_machine.change_state("explore_idle")
+		state_machine.change_state("versus_player")
 		return
 	elif Dialog.selected == "SELECTION_PLAY_AS_WHITE":
 		player_group = 0
@@ -285,4 +285,4 @@ func state_ready_game_end(_arg:Dictionary) -> void:
 	$chessboard/pieces/cheshire.set_position($chessboard.convert_name_to_position("e3"))
 	$chessboard.set_enabled(true)
 	$table_0/chessboard_standard.set_enabled(false)
-	state_machine.change_state("explore_idle")
+	state_machine.change_state("versus_player")

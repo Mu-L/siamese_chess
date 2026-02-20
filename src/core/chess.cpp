@@ -1819,14 +1819,18 @@ int Chess::name_to_move(const godot::Ref<State> &_state, const godot::String &_n
 
 void Chess::apply_move(const godot::Ref<State> &_state, int _move)
 {
-	if (_state->get_turn() == 1)
+	if (_state->get_turn() == 1 && _state->get_bit('A'))
 	{
 		_state->set_round(_state->get_round() + 1);
 		_state->set_turn(0);
 	}
-	else if (_state->get_turn() == 0)
+	else if (_state->get_turn() == 0 && _state->get_bit('a'))
 	{
 		_state->set_turn(1);
+	}
+	if (_move == -1)
+	{
+		return;
 	}
 	_state->set_step_to_draw(_state->get_step_to_draw() + 1);
 	int from = Chess::from(_move);
@@ -1996,6 +2000,11 @@ void Chess::apply_move(const godot::Ref<State> &_state, int _move)
 godot::Dictionary Chess::apply_move_custom(const godot::Ref<State> &_state, int _move)
 {
 	godot::Dictionary output;
+	if (_move == -1)
+	{
+		output["type"] = "pass";
+		return output;
+	}
 	int from = Chess::from(_move);
 	int from_piece = _state->get_piece(from);
 	int from_group = Chess::group(from_piece);

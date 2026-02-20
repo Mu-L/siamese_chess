@@ -263,6 +263,9 @@ func receive_event(event:Dictionary) -> Dictionary:
 				"from": event["from"],
 				"to": event["path"][-1]
 			}
+		"pass":
+			do_nothing()
+			return event.duplicate()
 	return {}
 
 func receive_rollback_event(event:Dictionary) -> void:
@@ -290,6 +293,8 @@ func receive_rollback_event(event:Dictionary) -> void:
 			move_piece_instance_from_steady(event["by"], event["piece"])
 		"king_explore":
 			move_piece_instance(event["to"], event["from"])
+		"pass":
+			do_nothing()
 
 func add_piece_instance(instance:Actor, by:int) -> void:	# 注意根据state摆放棋盘
 	$pieces.add_child(instance)
@@ -427,6 +432,10 @@ func king_explore_instance(from:int, path:PackedInt32Array) -> void:
 	for to:int in path:
 		instance.move(get_node(Chess.to_position_name(to)).global_position)
 		await instance.animation_finished
+	animation_finished.emit.call_deferred()
+
+func do_nothing() -> void:
+	# 由于牵扯到发送信号，空着也需要写函数
 	animation_finished.emit.call_deferred()
 
 func set_enabled(_enabled:bool) -> void:
