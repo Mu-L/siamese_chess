@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var template_list:Dictionary = {
 	"printed": "res://scene/printed_paper.tscn",
+	"photo": "res://scene/printed_paper.tscn",
 	"history": "res://scene/history.tscn",
 	"draft": "res://scene/draft.tscn",
 	"piece": "res://scene/model.tscn",
@@ -70,11 +71,11 @@ func update_list() -> void:
 			if !mouse_moved:
 				open_document(iter)
 		)
-		button.connect("gui_input", button_input.bind(button))
+		button.connect("gui_input", button_input)
 		$texture_rect/scroll_container/v_box_container.add_child(button)
 		button_list.push_back(button)
 
-func button_input(event:InputEvent, button:Button) -> void:
+func button_input(event:InputEvent) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			mouse_move_start = event.global_position

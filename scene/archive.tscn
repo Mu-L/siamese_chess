@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://bsobwdwnm840s" path="res://scene/document_browser.tscn" id="1_jqjfb"]
 [ext_resource type="FontFile" uid="uid://bq5ty1txvcybm" path="res://assets/fonts/Font Awesome 7 Free-Regular-400.otf" id="3_w5kv4"]
 
-[sub_resource type="Gradient" id="Gradient_j3y3i"]
+[sub_resource type="Gradient" id="Gradient_w5kv4"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_550ee"]
-gradient = SubResource("Gradient_j3y3i")
+gradient = SubResource("Gradient_w5kv4")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uibjj"]
 

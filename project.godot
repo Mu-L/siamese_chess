@@ -8,10 +8,6 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="SiameseChess"
@@ -34,6 +30,7 @@ Progress="*res://src/progress.gd"
 Ambient="*res://scene/ambient.tscn"
 Clock="*res://src/clock.gd"
 Setting="*res://scene/setting.tscn"
+Photo="*uid://msaedai05yen"
 
 [debug]
 
@@ -177,6 +174,8 @@ locale/translations=PackedStringArray("res://assets/translation.en.translation",
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=2
