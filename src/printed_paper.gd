@@ -3,12 +3,20 @@ extends Document
 @export var img_path:String = ""
 
 func _ready() -> void:
-	$sprite_2d.texture = load(img_path)
+	if ResourceLoader.exists(img_path):
+		$sprite_2d.texture = load(img_path)
+	else:
+		var image:Image = Image.load_from_file(img_path)
+		$sprite_2d.texture = ImageTexture.create_from_image(image)
 
 func parse(data:String) -> void:
 	var data_dict:Dictionary = JSON.parse_string(data)
 	img_path = data_dict["path"]
-	$sprite_2d.texture = load(img_path)
+	if ResourceLoader.exists(img_path):
+		$sprite_2d.texture = load(img_path)
+	else:
+		var image:Image = Image.load_from_file(img_path)
+		$sprite_2d.texture = ImageTexture.create_from_image(image)
 	draw_lines(data_dict["lines"])
 
 func stringify() -> String:
