@@ -6,6 +6,7 @@ func _ready() -> void:
 	$button_close.connect("pressed", close)
 	$button_shot.connect("pressed", save_photo)
 	$texture_rect/margin_container/sub_viewport_container.connect("gui_input", sub_viewport_container_gui_input)
+	head.get_node("camera_3d").fov = 100.0
 
 func _physics_process(_delta:float) -> void:
 	var vision_look_at:Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -19,7 +20,8 @@ func sub_viewport_container_gui_input(event:InputEvent) -> void:
 		head.global_rotation.y -= event.relative.x / 20000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].x
 		head.global_rotation.x += event.relative.y / 10000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].y
 	elif event is InputEventScreenPinch:
-		head.global_position += -head.global_basis.z * event.relative / 5000 * Setting.get_value("camera_move_speed")
+		head.get_node("camera_3d").fov -= event.relative / 1000 * Setting.get_value("camera_move_speed")
+		head.get_node("camera_3d").fov = clamp(head.get_node("camera_3d").fov, 30, 120)
 
 func open() -> void:
 	set_physics_process(true)
