@@ -179,8 +179,8 @@ func state_ready_versus_move(_arg:Dictionary) -> void:
 			state_machine.change_state("draw")
 		elif end_type == "stalemate_white":
 			state_machine.change_state("draw")
-		elif end_type == "not_enough_piece":
-			state_machine.change_state("draw")
+		#elif end_type == "not_enough_piece":
+		#	state_machine.change_state("draw")
 		elif chessboard.state.get_turn() == 0 && chessboard.state.get_bit(ord("A")):
 			state_machine.change_state("versus_enemy")
 		elif premove_from != -1 && premove_to != -1:

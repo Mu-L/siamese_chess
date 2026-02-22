@@ -878,7 +878,8 @@ godot::String Chess::get_end_type(const godot::Ref<State> &_state)
 	{
 		return "50_moves";
 	}
-	if (population((_state->get_bit('A') | _state->get_bit('a')) ^ _state->get_bit('K') ^ _state->get_bit('k')) == 0 &&
+	if (population((_state->get_bit('A') | _state->get_bit('a')) ^ _state->get_bit('K') ^ _state->get_bit('k')) == 0
+	 && _state->get_bit('K') && _state->get_bit('k') &&
 		_state->get_bit(STORAGE_PIECE) == 0)
 	{
 		return "not_enough_piece";
