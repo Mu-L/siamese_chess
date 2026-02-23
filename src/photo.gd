@@ -23,9 +23,9 @@ func _physics_process(_delta:float) -> void:
 	yaw = clamp(yaw, -PI / 2, PI * 2 / 6)
 	head.global_rotation.x = yaw
 	if zoom_plus.button_pressed:
-		zoom_camera(slider.value - _delta * Setting.get_value("camera_move_speed"))
-	if zoom_minus.button_pressed:
 		zoom_camera(slider.value + _delta * Setting.get_value("camera_move_speed"))
+	if zoom_minus.button_pressed:
+		zoom_camera(slider.value - _delta * Setting.get_value("camera_move_speed"))
 
 func sub_viewport_container_gui_input(event:InputEvent) -> void:
 	if event is InputEventMouseMotion:
