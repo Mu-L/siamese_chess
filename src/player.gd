@@ -11,7 +11,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(_delta:float) -> void:
-	if Setting.visible || Archive.visible:
+	if Setting.visible || Archive.visible || Photo.visible:
 		return
 	if Dialog.block_input() || using_dialog:
 		if Input.is_action_just_pressed("ui_left"):
@@ -26,7 +26,7 @@ func _physics_process(_delta:float) -> void:
 			Dialog.cancel_focus()
 		return
 
-	$head/ camera.set_rotation(Vector3(deg_to_rad(sin(Time.get_unix_time_from_system())), 0, 0))
+	$head/camera.set_rotation(Vector3(deg_to_rad(sin(Time.get_unix_time_from_system())), 0, 0))
 	if !can_move:
 		return
 
@@ -59,7 +59,7 @@ func _physics_process(_delta:float) -> void:
 	
 
 func _unhandled_input(event:InputEvent) -> void:
-	if !can_move || Dialog.block_input():
+	if !can_move || Dialog.block_input() || Setting.visible || Archive.visible || Photo.visible:
 		return
 	if event is InputEventMouseButton || event is InputEventMouseMotion:
 		current_area = click_area(event.position)
