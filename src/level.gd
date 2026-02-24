@@ -21,20 +21,30 @@ func _ready() -> void:
 		if node is MarkerActor:
 			var by:int = Chess.to_position_int(chessboard.get_position_name(node.position))
 			state.add_piece(by, node.piece)
+		if node is MarkerMultiActor:
+			var bit:int = node.bit
+			while bit:
+				var by:int = Chess.to_x88(Chess.first_bit(bit))
+				state.add_piece(by, node.piece)
+				bit = Chess.next_bit(bit)
 		if node is MarkerBit:
-			var by:int = Chess.to_position_int(chessboard.get_position_name(node.position))
-			state.set_bit(node.piece, state.get_bit(node.piece) | Chess.mask(Chess.to_64(by)))
+			state.set_bit(node.piece, state.get_bit(node.piece) | node.bit)
 		if node is MarkerEvent:
-			var by:int = Chess.to_position_int($chessboard.get_position_name(node.global_position))
-			state.set_bit(ord("Z"), state.get_bit(ord("Z")) | Chess.mask(Chess.to_64(by)))
-			interact_list[by] = {"": node.event}
+			state.set_bit(ord("Z"), state.get_bit(ord("Z")) | node.bit)
+			var bit:int = node.bit
+			while bit:
+				interact_list[Chess.to_x88(Chess.first_bit(bit))] = {"": node.event}
+				bit = Chess.next_bit(bit)
 		if node is MarkerSelection:
-			var by:int = Chess.to_position_int($chessboard.get_position_name(node.global_position))
-			state.set_bit(ord("z"), state.get_bit(ord("z")) | Chess.mask(Chess.to_64(by)))
-			if !interact_list.has(by):
-				interact_list[by] = {}
-			interact_list[by][node.selection] = node.event
-			title[by] = ""
+			state.set_bit(ord("z"), state.get_bit(ord("z")) | node.bit)
+			var bit:int = node.bit
+			while bit:
+				var by:int = Chess.to_x88(Chess.first_bit(bit))
+				if !interact_list.has(by):
+					interact_list[by] = {}
+				interact_list[by][node.selection] = node.event
+				title[by] = ""
+				bit = Chess.next_bit(bit)
 	var storage_piece:int = 0
 	storage_piece += int(Progress.get_value("storage_queen", 0)) << (5 * 4)
 	storage_piece += int(Progress.get_value("storage_rook", 0)) << (6 * 4)

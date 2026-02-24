@@ -84,10 +84,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.96607, 1.51379, -2.79782)
 size = Vector3(0.408875, 3, 10.4044)
 material = SubResource("StandardMaterial3D_gimty")
 
-[node name="marker_elevator" type="Marker3D" parent="." unique_id=1221665632]
+[node name="marker_elevator" type="Node3D" parent="." unique_id=812682779]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -7)
 script = ExtResource("10_h67uj")
 piece = 122
+bit = 2
+metadata/_custom_type_script = "uid://chtqhpiu556i1"
 
 [node name="hotel_sofa2" parent="." unique_id=431642248 instance=ExtResource("12_4fyxn")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 7, 0, 4)
@@ -160,20 +162,15 @@ to = "res://scene/level/cafe.tscn"
 args = {
 "by": 53
 }
+bit = 1099511627776
 
-[node name="marker_teleport_cafe_2" parent="." unique_id=932114422 instance=ExtResource("17_088yb")]
-transform = Transform3D(1.0000001, 0, -4.37114e-08, 0, 1, 0, 4.37114e-08, 0, 1.0000001, -1, 0, 7)
+[node name="marker_teleport_entrance" parent="." unique_id=932114422 instance=ExtResource("17_088yb")]
+transform = Transform3D(1.0000001, 0, -4.37114e-08, 0, 1, 0, 4.37114e-08, 0, 1.0000001, 0, 0, 7)
 to = "res://scene/level/entrance.tscn"
 args = {
 "by": 116
 }
-
-[node name="marker_teleport_cafe_3" parent="." unique_id=947803542 instance=ExtResource("17_088yb")]
-transform = Transform3D(1.0000001, 0, -4.37114e-08, 0, 1, 0, 4.37114e-08, 0, 1.0000001, 1, 0, 7)
-to = "res://scene/level/entrance.tscn"
-args = {
-"by": 115
-}
+bit = 1729382256910270464
 
 [node name="csg_wall_2" type="CSGBox3D" parent="." unique_id=76291114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0408626, 1.51379, -8.2439575)
