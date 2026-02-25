@@ -24,12 +24,14 @@ func _ready() -> void:
 	$texture_rect/h_box_container/button_duplicate.connect("button_up", duplicate_pressed)
 	$texture_rect/h_box_container/button_delete.connect("button_up", delete_pressed)
 	$texture_rect/scroll_container.connect("gui_input", scroll_container_input)
+	set_process(false)
 
 func _process(_delta:float) -> void:
 	$texture_rect/scroll_container.scroll_vertical -= scroll_velocity
 	scroll_velocity = max(0, abs(scroll_velocity) - 1) if scroll_velocity > 0 else -max(0, abs(scroll_velocity) - 1)
 
 func open() -> void:
+	set_process(true)
 	$texture_rect/button_close.grab_focus()
 	visible = true
 	update_list()
@@ -100,6 +102,7 @@ func open_document(filename:String) -> void:
 func close() -> void:
 	$texture_rect/document_browser.visible = false
 	visible = false
+	set_process(false)
 
 func rename_pressed() -> void:
 	if !is_instance_valid(document):
