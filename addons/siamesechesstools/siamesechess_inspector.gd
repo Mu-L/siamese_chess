@@ -9,7 +9,7 @@ func _can_handle(object):
 
 func _parse_property(object, type, name, hint_type, hint_string, usage_flags, wide):
 	# We handle properties of type integer.
-	if type == TYPE_INT && name == "bit":
+	if type == TYPE_INT && hint_string == "bitboard":
 		# Create an instance of the custom property editor and register
 		# it to a specific property path.
 		add_property_editor(name, bitboard_inspector.new())
