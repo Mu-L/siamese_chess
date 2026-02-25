@@ -44,3 +44,9 @@ func target() -> void:	# 作为轻子威胁重子，或牵制对手的棋子时�
 
 func defend() -> void:  # 被轻子威胁，或被牵制时采取防御姿态
 	pass
+
+func ready_to_move() -> void:
+	pass
+
+func idle() -> void:
+	pass

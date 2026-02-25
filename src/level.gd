@@ -256,6 +256,7 @@ func state_ready_versus_ready_to_move(_arg:Dictionary) -> void:
 	var introduce_selection:int = 0
 	var from:int = _arg["from"]
 	var from_piece:int = chessboard.state.get_piece(from)
+	var actor:Actor = chessboard.chessboard_piece[from]
 	for iter:int in move_list:
 		if Chess.from(iter) == from:
 			selection |= Chess.mask(Chess.to_64(Chess.to(iter)))
@@ -263,10 +264,14 @@ func state_ready_versus_ready_to_move(_arg:Dictionary) -> void:
 			introduce_selection |= Chess.mask(Chess.to_64(Chess.from(iter)))
 	if selection == 0:
 		state_machine.change_state("versus_player")
+		return
 	state_machine.state_signal_connect(chessboard.click_selection, func () -> void:
 		state_machine.change_state("versus_check_move", {"from": from, "to": chessboard.selected, "move_list": move_list})
 	)
-	state_machine.state_signal_connect(chessboard.click_empty, state_machine.change_state.bind("versus_player"))
+	state_machine.state_signal_connect(chessboard.click_empty, func () -> void:
+		actor.idle()
+		state_machine.change_state("versus_player")
+	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.bind("white_win"))
 	state_machine.state_signal_connect(Dialog.on_next, func() -> void:
 		match Dialog.selected:
@@ -299,6 +304,7 @@ func state_ready_versus_ready_to_move(_arg:Dictionary) -> void:
 	else:
 		Dialog.push_selection(["SELECTION_CANCEL"], "", false, false)
 		Dialog.push_selection(dialog_selection, "", false, false)
+	actor.ready_to_move()
 	chessboard.set_square_selection(selection)
 
 func state_exit_versus_ready_to_move() -> void:

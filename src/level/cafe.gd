@@ -226,13 +226,18 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 	var move_list:PackedInt32Array = Chess.generate_valid_move($table_0/chessboard_standard.state, player_group)
 	var selection:int = 0
 	var from:int = _arg["from"]
+	var actor:Actor = $table_0/chessboard_standard.chessboard_piece[from]
 	for iter:int in move_list:
 		if Chess.from(iter) == from:
 			selection |= Chess.mask(Chess.to_64(Chess.to(iter)))
 	state_machine.state_signal_connect($table_0/chessboard_standard.click_selection, func () -> void:
 		state_machine.change_state("in_game_check_move", {"from": from, "to": $table_0/chessboard_standard.selected, "move_list": move_list})
 	)
-	state_machine.state_signal_connect($table_0/chessboard_standard.click_empty, state_machine.change_state.bind("in_game_player"))
+	state_machine.state_signal_connect($table_0/chessboard_standard.click_empty, func () -> void:
+		actor.idle()
+		state_machine.change_state("in_game_player")
+	)
+	actor.ready_to_move()
 	$table_0/chessboard_standard.set_square_selection(selection)
 
 func state_ready_in_game_check_move(_arg:Dictionary) -> void:

@@ -57,6 +57,12 @@ func unpromote() -> void:
 		promote_instance.queue_free()
 	$piece.visible = true
 
+func ready_to_move() -> void:
+	global_position += Vector3(0, 0.1, 0)
+
+func idle() -> void:
+	global_position -= Vector3(0, 0.1, 0)
+
 func change_model(_piece:int) -> void:
 	$piece.visible = false
 	match _piece:
