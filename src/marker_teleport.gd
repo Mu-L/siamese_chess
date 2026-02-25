@@ -8,6 +8,5 @@ func _init() -> void:
 	selection = "SELECTION_GOTO"
 
 func event() -> void:
-	var from:int = Chess.to_position_int(level.chessboard.get_position_name(position))
-	if level.chessboard.state.get_piece(from) == ord("k"):
+	if level.chessboard.state.get_bit(ord("k")) & bit:
 		Loading.change_scene(to, args)
