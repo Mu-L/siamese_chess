@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var template_list:Dictionary = {
 	"printed": "res://scene/printed_paper.tscn",
-	"photo": "res://scene/printed_paper.tscn",
+	"photo": "res://scene/photo_paper.tscn",
 	"history": "res://scene/history.tscn",
 	"draft": "res://scene/draft.tscn",
 	"piece": "res://scene/model.tscn",

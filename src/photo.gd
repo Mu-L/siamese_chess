@@ -64,11 +64,11 @@ func save_photo() -> void:
 	var texture:ViewportTexture = sub_viewport.get_texture()
 	var image:Image = texture.get_image()
 	var timestamp:String = String.num_int64(Time.get_unix_time_from_system())
-	image.save_png("user://photo/" + timestamp + ".png")
+	var data:PackedByteArray = image.save_png_to_buffer()
 	var file:FileAccess = FileAccess.open("user://archive/photo." + timestamp + ".json", FileAccess.WRITE)
 	var dict:Dictionary = {
 		"lines": [],
-		"path": "user://photo/" + timestamp + ".png"
+		"data": Marshalls.raw_to_base64(data)
 	}
 	file.store_string(JSON.stringify(dict))
 	file.close()

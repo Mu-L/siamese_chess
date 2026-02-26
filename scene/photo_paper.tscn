@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cof8ino84hnkw"]
+
+[ext_resource type="Script" uid="uid://clo5nevnw2rlk" path="res://src/photo_paper.gd" id="1_7fpme"]
+
+[node name="photo_paper" type="Node2D" unique_id=579878372]
+script = ExtResource("1_7fpme")
+metadata/_custom_type_script = "uid://yldiqj24uchh"
+
+[node name="sprite_2d" type="Sprite2D" parent="." unique_id=943027423]
