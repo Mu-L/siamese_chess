@@ -732,7 +732,18 @@ void PastorEngine::search(const godot::Ref<State> &_state, int _group, const god
 
 int PastorEngine::get_search_result()
 {
-	return principal_move;
+	int principal_score = searched_move[principal_move];
+	std::vector<int> acceptable_move;
+	for (std::pair<int, int> iter : searched_move)
+	{
+		if (abs(iter.second - principal_score) <= ALTERNATIVE_THRESHOLD)
+		{
+			acceptable_move.push_back(iter.first);
+		}
+	}
+	acceptable_move.push_back(principal_move);	//提高引擎一选的概率
+	std::mt19937_64 rng(time(nullptr));
+	return acceptable_move[rng() % acceptable_move.size()];
 }
 
 godot::PackedInt32Array PastorEngine::get_principal_variation()
