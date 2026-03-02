@@ -88,6 +88,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="texture_rect" type="TextureRect" parent="texture_rect/h_box_container/margin_container" unique_id=1470011981]
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_uj1is")
 expand_mode = 2
 

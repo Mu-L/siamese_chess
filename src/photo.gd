@@ -12,7 +12,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	button_close.connect("pressed", close)
-	button_shot.connect("pressed", save_photo)
+	button_shot.connect("pressed", capture)
 	sub_viewport_container.connect("gui_input", sub_viewport_container_gui_input)
 	slider.connect("value_changed", zoom_camera)
 
@@ -57,6 +57,13 @@ func zoom_camera(_value:float) -> void:
 	_value = _value * 0.8 + 30
 	_value = clamp(_value, 30, 110)
 	camera.fov = _value
+
+func capture() -> void:
+	var tween:Tween = create_tween()
+	tween.tween_property(sub_viewport_container, "visible", false, 0)
+	tween.tween_callback(save_photo)
+	tween.tween_interval(0.1)
+	tween.tween_property(sub_viewport_container, "visible", true, 0)
 
 func save_photo() -> void:
 	DirAccess.make_dir_absolute("user://photo/")
