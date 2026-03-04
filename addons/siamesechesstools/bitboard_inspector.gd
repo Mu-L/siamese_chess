@@ -18,13 +18,13 @@ func _init() -> void:
 		button_list.push_back(button)
 		container.add_child(button)
 
-func _on_button_toggled(toggled:bool, by_64:int) -> void:
+func _on_button_toggled(toggled:bool, by_c64:int) -> void:
 	if updating:
 		return
 	if toggled:
-		current_bit |= (1 << by_64)
+		current_bit |= (1 << by_c64)
 	else:
-		current_bit &= ~(1 << by_64)
+		current_bit &= ~(1 << by_c64)
 	emit_changed(get_edited_property(), current_bit)
 
 func _update_property() -> void:

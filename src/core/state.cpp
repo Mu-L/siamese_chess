@@ -6,13 +6,13 @@
 void State::PieceIterator::begin()
 {
 	bit = parent->get_bit(target_piece);
-	by = Chess::to_x88(Chess::first_bit(bit));
+	by = Chess::c64_to_x88(Chess::first_bit(bit));
 }
 
 void State::PieceIterator::next()
 {
 	bit = Chess::next_bit(bit);
-	by = Chess::to_x88(Chess::first_bit(bit));
+	by = Chess::c64_to_x88(Chess::first_bit(bit));
 }
 
 int State::PieceIterator::piece()
@@ -97,8 +97,8 @@ int State::has_piece(int _by)
 
 void State::add_piece(int _by, int _piece)
 {
-	int by_64 = Chess::to_64(_by);
-	int64_t by_mask = Chess::mask(by_64);
+	int by_c64 = Chess::x88_to_c64(_by);
+	int64_t by_mask = Chess::mask(by_c64);
 	pieces[_by] = _piece;
 	bit[_piece] ^= by_mask;
 	if (_piece >= 'A' && _piece <= 'Z' || _piece >= 'a' && _piece <= 'z')
@@ -113,10 +113,10 @@ void State::capture_piece(int _by)
 {
 	if (has_piece(_by))
 	{
-		int by_64 = Chess::to_64(_by);
+		int by_c64 = Chess::x88_to_c64(_by);
 		int piece = pieces[_by];
 		DEV_ASSERT(piece != 0);
-		int64_t by_mask = Chess::mask(by_64);
+		int64_t by_mask = Chess::mask(by_c64);
 		bit[ZOBRIST_HASH] ^= ZobristHash::get_singleton()->hash_piece(piece, _by);
 		bit[piece] ^= by_mask;
 		if (piece >= 'A' && piece <= 'Z' || piece >= 'a' && piece <= 'z')
@@ -131,12 +131,12 @@ void State::capture_piece(int _by)
 
 void State::move_piece(int _from, int _to)
 {
-	int from_64 = Chess::to_64(_from);
-	int to_64 = Chess::to_64(_to);
+	int from_c64 = Chess::x88_to_c64(_from);
+	int x88_to_c64 = Chess::x88_to_c64(_to);
 	int piece = get_piece(_from);
 	DEV_ASSERT(piece >= 'A' && piece <= 'Z' || piece >= 'a' && piece <= 'z');
-	int64_t from_mask = Chess::mask(from_64);
-	int64_t to_mask = Chess::mask(to_64);
+	int64_t from_mask = Chess::mask(from_c64);
+	int64_t to_mask = Chess::mask(x88_to_c64);
 	bit[ZOBRIST_HASH] ^= ZobristHash::get_singleton()->hash_piece(piece, _from);
 	bit[ZOBRIST_HASH] ^= ZobristHash::get_singleton()->hash_piece(piece, _to);
 	bit[piece] ^= from_mask;
@@ -254,7 +254,7 @@ godot::String State::print_board()
 	godot::String output;
 	for (int i = 0; i < 64; i++)
 	{
-		int by = Chess::to_x88(i);
+		int by = Chess::c64_to_x88(i);
 		if (has_piece(by))
 		{
 			output += char(get_piece(by));

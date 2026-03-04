@@ -100,5 +100,5 @@ func _ready() -> void:
 		if pattern[i]:
 			var piece:int = pattern[i].unicode_at(randi() % pattern[i].length())
 			if piece != ord(" "):
-				$chessboard.state.add_piece(Chess.to_x88(i), piece)
-				$chessboard.add_piece_instance(actor[piece].duplicate(), Chess.to_x88(i))
+				$chessboard.state.add_piece(Chess.c64_to_x88(i), piece)
+				$chessboard.add_piece_instance(actor[piece].duplicate(), Chess.c64_to_x88(i))

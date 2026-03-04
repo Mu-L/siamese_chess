@@ -104,14 +104,14 @@ func button_input(_button:String, _pressed:bool) -> void:
 		button_input_moved = true
 		if !((button_input_pointer + direction_mapping[_button]) & 0x88):
 			button_input_pointer += direction_mapping[_button]
-			finger_on_position(Chess.to_position_name(button_input_pointer))
+			finger_on_position(Chess.x88_to_name(button_input_pointer))
 	elif _button =="accept":
 		if _pressed:
 			button_input_hold = true
 			button_input_moved = false
-			tap_position(Chess.to_position_name(button_input_pointer), true)
+			tap_position(Chess.x88_to_name(button_input_pointer), true)
 		elif button_input_moved:
-			tap_position(Chess.to_position_name(button_input_pointer), false)
+			tap_position(Chess.x88_to_name(button_input_pointer), false)
 			button_input_moved = false
 			button_input_hold = false
 		else:
@@ -160,8 +160,8 @@ func name_to_vector3(_position_name:String) -> Vector3:
 	return get_node(_position_name).position
 
 func tap_position(position_name:String, down:bool = true) -> void:
-	selected = Chess.to_position_int(position_name)
-	if square_selection != -1 && (Chess.mask(Chess.to_64(selected)) & square_selection):
+	selected = Chess.name_c64_to_x88(position_name)
+	if square_selection != -1 && (Chess.mask(Chess.x88_to_c64(selected)) & square_selection):
 		if down:
 			selection_down.emit.call_deferred()
 		else:
@@ -183,7 +183,7 @@ func finger_on_position(position_name:String) -> void:
 	$canvas.clear_pointer("pointer")
 	if !position_name:
 		return
-	$canvas.draw_pointer("pointer", COLOR_POINTER, Chess.to_position_int(position_name))
+	$canvas.draw_pointer("pointer", COLOR_POINTER, Chess.name_c64_to_x88(position_name))
 
 func finger_up() -> void:
 	$canvas.clear_pointer("pointer")
@@ -193,7 +193,7 @@ func set_square_selection(_square_selection:int) -> void:
 	square_selection = _square_selection
 	var bit:int = square_selection
 	while bit:
-		var by:int = Chess.to_x88(Chess.first_bit(bit))
+		var by:int = Chess.c64_to_x88(Chess.first_bit(bit))
 		$canvas.draw_pointer("move", COLOR_MOVE, by)
 		bit = Chess.next_bit(bit)
 
@@ -308,7 +308,7 @@ func add_piece_instance(instance:Actor, by:int) -> void:	# 注意根据state摆�
 			king_instance[0] = instance
 		if state.get_piece(by) == ord("k"):
 			king_instance[1] = instance
-		instance.introduce(get_node(Chess.to_position_name(by)).global_position)
+		instance.introduce(get_node(Chess.x88_to_name(by)).global_position)
 
 func add_piece_instance_to_steady(instance:Actor, piece:int) -> void:
 	steady_piece.get_or_add(piece, []).push_back(instance)
@@ -327,7 +327,7 @@ func move_piece_instance_from_steady(by:int, piece:int) -> void:
 	var instance:Actor = steady_piece[piece][-1]
 	steady_piece[piece].pop_back()
 	chessboard_piece[by] = instance
-	instance.introduce(get_node(Chess.to_position_name(by)).global_position)
+	instance.introduce(get_node(Chess.x88_to_name(by)).global_position)
 	await instance.animation_finished
 	animation_finished.emit.call_deferred()
 
@@ -347,13 +347,13 @@ func move_piece_instance_to_other(from:int, to:int, other:Chessboard) -> Actor:
 func move_piece_instance_from_backup(by:int, instance:Actor) -> void:
 	chessboard_piece[by] = instance
 	backup_piece.erase(instance)
-	instance.introduce(get_node(Chess.to_position_name(by)).global_position)
+	instance.introduce(get_node(Chess.x88_to_name(by)).global_position)
 	await instance.animation_finished
 	animation_finished.emit.call_deferred()
 
 func move_piece_instance(from:int, to:int) -> void:
 	var instance:Actor = chessboard_piece[from]
-	instance.move(get_node(Chess.to_position_name(to)).global_position)
+	instance.move(get_node(Chess.x88_to_name(to)).global_position)
 	chessboard_piece.erase(from)
 	chessboard_piece[to] = instance
 	await instance.animation_finished
@@ -361,11 +361,11 @@ func move_piece_instance(from:int, to:int) -> void:
 
 func castle_piece_instance(from_1:int, to_1:int, from_2:int, to_2:int) -> void:
 	var instance_1:Actor = chessboard_piece[from_1]
-	instance_1.move(get_node(Chess.to_position_name(to_1)).global_position)
+	instance_1.move(get_node(Chess.x88_to_name(to_1)).global_position)
 	chessboard_piece.erase(from_1)
 	chessboard_piece[to_1] = instance_1
 	var instance_2:Actor = chessboard_piece[from_2]
-	instance_2.move(get_node(Chess.to_position_name(to_2)).global_position)
+	instance_2.move(get_node(Chess.x88_to_name(to_2)).global_position)
 	chessboard_piece.erase(from_2)
 	chessboard_piece[to_2] = instance_2
 	await instance_1.animation_finished
@@ -374,7 +374,7 @@ func castle_piece_instance(from_1:int, to_1:int, from_2:int, to_2:int) -> void:
 func capture_piece_instance(from:int, to:int) -> void:
 	var instance_from:Actor = chessboard_piece[from]
 	var instance_to:Actor = chessboard_piece[to]
-	instance_from.capturing(get_node(Chess.to_position_name(to)).global_position, instance_to)
+	instance_from.capturing(get_node(Chess.x88_to_name(to)).global_position, instance_to)
 	move_piece_instance_to_backup(to)
 	chessboard_piece.erase(from)
 	chessboard_piece[to] = instance_from
@@ -383,7 +383,7 @@ func capture_piece_instance(from:int, to:int) -> void:
 
 func promote_piece_instance(from:int, to:int, piece:int) -> void:
 	var instance:Actor = chessboard_piece[from]
-	instance.promote(get_node(Chess.to_position_name(to)).global_position, piece)
+	instance.promote(get_node(Chess.x88_to_name(to)).global_position, piece)
 	chessboard_piece.erase(from)
 	chessboard_piece[to] = instance
 	animation_finished.emit.call_deferred()
@@ -391,10 +391,10 @@ func promote_piece_instance(from:int, to:int, piece:int) -> void:
 func promote_and_capture_piece_instance(from:int, to:int, piece:int) -> void:
 	var instance_from:Actor = chessboard_piece[from]
 	var instance_to:Actor = chessboard_piece[to]
-	instance_from.capturing(get_node(Chess.to_position_name(to)).global_position, instance_to)
+	instance_from.capturing(get_node(Chess.x88_to_name(to)).global_position, instance_to)
 	move_piece_instance_to_backup(to)
 	await instance_from.animation_finished
-	instance_from.promote(get_node(Chess.to_position_name(to)).global_position, piece)
+	instance_from.promote(get_node(Chess.x88_to_name(to)).global_position, piece)
 	await instance_from.animation_finished
 	chessboard_piece.erase(from)
 	chessboard_piece[to] = instance_from
@@ -402,7 +402,7 @@ func promote_and_capture_piece_instance(from:int, to:int, piece:int) -> void:
 
 func en_passant_piece_instance(from:int, to:int, captured:int) -> void:
 	var instance_from:Actor = chessboard_piece[from]
-	chessboard_piece[from].capturing(get_node(Chess.to_position_name(to)).global_position, chessboard_piece[captured])
+	chessboard_piece[from].capturing(get_node(Chess.x88_to_name(to)).global_position, chessboard_piece[captured])
 	move_piece_instance_to_backup(captured)
 	chessboard_piece.erase(from)
 	chessboard_piece[to] = instance_from
@@ -430,7 +430,7 @@ func king_explore_instance(from:int, path:PackedInt32Array) -> void:
 	chessboard_piece.erase(from)
 	chessboard_piece[path[-1]] = instance
 	for to:int in path:
-		instance.move(get_node(Chess.to_position_name(to)).global_position)
+		instance.move(get_node(Chess.x88_to_name(to)).global_position)
 		await instance.animation_finished
 	animation_finished.emit.call_deferred()
 

@@ -40,12 +40,12 @@ class Chess : public godot::Object
 		static int direction_pawn_capture(int group, bool capture_dir);
 		static bool pawn_on_start(int group, int by);
 		static bool pawn_on_end(int group, int by);
-		static int to_64(int n);
-		static int to_x88(int n);
+		static int x88_to_c64(int n);
+		static int c64_to_x88(int n);
 		static int group(int piece);
 		static bool is_same_group(int piece_1, int piece_2);
-		static int to_position_int(const godot::String &_position_name);
-		static godot::String to_position_name(int _position);
+		static int name_c64_to_x88(const godot::String &_position_name);
+		static godot::String x88_to_name(int _position);
 		static int create(int _from, int _to, int _extra);
 		static int from(int _move);
 		static int to(int _move);

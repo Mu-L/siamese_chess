@@ -13,7 +13,7 @@ func _ready() -> void:
 	Ambient.change_environment_sound(load("res://assets/audio/52645__kstein1__white-noise.wav"))
 	var cheshire_by:int = get_meta("by")
 	var cheshire_instance:Actor = load("res://scene/actor/cheshire.tscn").instantiate()
-	cheshire_instance.position = $chessboard.name_to_vector3(Chess.to_position_name(cheshire_by))
+	cheshire_instance.position = $chessboard.name_to_vector3(Chess.x88_to_name(cheshire_by))
 	$chessboard.state.add_piece(cheshire_by, player_king)
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
 	chessboard.button_input_pointer = cheshire_by
@@ -65,7 +65,7 @@ func interact_pastor(custom_state:bool) -> void:
 		$table_0/chessboard_standard.rotation.y = PI
 		
 
-	var from:int = Chess.to_x88(Chess.first_bit($chessboard.state.get_bit(player_king)))
+	var from:int = Chess.c64_to_x88(Chess.first_bit($chessboard.state.get_bit(player_king)))
 	if from != 0x54:
 		$chessboard.execute_move(Chess.create(from, 0x54, 0))
 		await $chessboard.animation_finished
@@ -89,7 +89,7 @@ func game_premove_init() -> void:
 		var selection:int = 0
 		for iter:int in move_list:
 			if Chess.from(iter) == game_premove_from:
-				selection |= Chess.mask(Chess.to_64(Chess.to(iter)))
+				selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
 		$table_0/chessboard_standard.set_square_selection(selection)
 
 func game_premove_pressed() -> void:
@@ -102,7 +102,7 @@ func game_premove_pressed() -> void:
 		game_premove_from = $table_0/chessboard_standard.selected
 		for iter:int in move_list:
 			if Chess.from(iter) == game_premove_from:
-				selection |= Chess.mask(Chess.to_64(Chess.to(iter)))
+				selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
 		$table_0/chessboard_standard.set_square_selection(selection)
 	else:
 		game_premove_to = $table_0/chessboard_standard.selected
@@ -228,7 +228,7 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 	var actor:Actor = $table_0/chessboard_standard.chessboard_piece[from]
 	for iter:int in move_list:
 		if Chess.from(iter) == from:
-			selection |= Chess.mask(Chess.to_64(Chess.to(iter)))
+			selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
 	state_machine.state_signal_connect($table_0/chessboard_standard.click_selection, func () -> void:
 		state_machine.change_state("in_game_check_move", {"from": from, "to": $table_0/chessboard_standard.selected, "move_list": move_list})
 	)

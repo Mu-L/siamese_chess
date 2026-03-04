@@ -17,7 +17,7 @@ func create_state(pattern_seed:int) -> State:
 		if map[i].length():	#长度为0的不能做除法
 			var piece:int = map[i].unicode_at(randi() % map[i].length())
 			if piece != ord(" "):
-				state.add_piece(Chess.to_x88(i), piece)
+				state.add_piece(Chess.c64_to_x88(i), piece)
 	return state
 
 func create_piece_instance(chessboard:Chessboard) -> void:

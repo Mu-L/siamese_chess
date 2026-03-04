@@ -39,10 +39,10 @@ func select_second() -> void:
 	var selection:int = 0
 	for iter:int in move_list:
 		if Chess.from(iter) == from:
-			selection |= Chess.mask(Chess.to_64(Chess.to(iter)))
+			selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
 	chessboard.set_square_selection(selection)
 	await chessboard.clicked
-	if Chess.mask(Chess.to_64(chessboard.selected)) & selection:
+	if Chess.mask(Chess.x88_to_c64(chessboard.selected)) & selection:
 		check_move.call_deferred(from, chessboard.selected, move_list)
 	else:
 		select_first.call_deferred()
