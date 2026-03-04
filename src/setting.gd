@@ -189,6 +189,16 @@ func set_relax(toggled_on:bool) -> void:
 
 func set_clean_archive() -> void:
 	if DirAccess.dir_exists_absolute("user://archive"):
+		var dir:DirAccess = DirAccess.open("user://archive")
+		var remove_list:PackedStringArray = []
+		dir.list_dir_begin()
+		var file_name:String = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				remove_list.push_back(file_name)
+			file_name = dir.get_next()
+		for iter:String in remove_list:
+			DirAccess.remove_absolute("user://archive/" + iter)
 		DirAccess.remove_absolute("user://archive")
 
 func set_reset_progress() -> void:
