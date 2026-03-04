@@ -21,7 +21,7 @@ func _ready() -> void:
 		for iter:Dictionary in table:
 			var actor:Actor = iter["actor"]
 			var piece_pos:int = iter["pos"]
-			actor.position = $chessboard.name_to_position(Chess.to_position_name(piece_pos))
+			actor.position = $chessboard.name_to_vector3(Chess.to_position_name(piece_pos))
 			$chessboard.state.add_piece(piece_pos, iter["piece"])
 			$chessboard.add_piece_instance(actor, piece_pos)
 	connect("level_state_changed", on_level_state_changed)

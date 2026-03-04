@@ -29,7 +29,7 @@ func _ready() -> void:
 	$player.add_inspectable_item(chessboard)
 	for node:Node in get_children():
 		if node is MarkerActor:
-			var by:int = Chess.to_position_int(chessboard.position_to_name(node.position))
+			var by:int = Chess.to_position_int(chessboard.vector3_to_name(node.position))
 			state.add_piece(by, node.piece)
 		if node is MarkerMultiActor:
 			var bit:int = node.bit
@@ -79,7 +79,7 @@ func _ready() -> void:
 	chessboard.set_state(state)
 	for node:Node in get_children():
 		if node is MarkerActor:
-			var by:int = Chess.to_position_int(chessboard.position_to_name(node.position))
+			var by:int = Chess.to_position_int(chessboard.vector3_to_name(node.position))
 			var instance:Actor = node.instantiate()
 			if is_instance_valid(instance):
 				chessboard.add_piece_instance(instance, by)

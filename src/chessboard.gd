@@ -147,7 +147,7 @@ func set_state(_state:State) -> void:
 	#king_instance[0].set_warning(Chess.is_check(state, 1))
 	#king_instance[1].set_warning(Chess.is_check(state, 0))
 
-func position_to_name(_position:Vector3) -> String:
+func vector3_to_name(_position:Vector3) -> String:
 	var nearest:Area3D = null
 	for i:int in 8:
 		for j:int in 8:
@@ -156,7 +156,7 @@ func position_to_name(_position:Vector3) -> String:
 				nearest = get_node(position_name)
 	return nearest.name
 
-func name_to_position(_position_name:String) -> Vector3:
+func name_to_vector3(_position_name:String) -> Vector3:
 	return get_node(_position_name).position
 
 func tap_position(position_name:String, down:bool = true) -> void:
@@ -183,7 +183,7 @@ func finger_on_position(position_name:String) -> void:
 	$canvas.clear_pointer("pointer")
 	if !position_name:
 		return
-	$canvas.draw_pointer("pointer", COLOR_POINTER, $canvas.name_to_position(position_name))
+	$canvas.draw_pointer("pointer", COLOR_POINTER, Chess.to_position_int(position_name))
 
 func finger_up() -> void:
 	$canvas.clear_pointer("pointer")
@@ -194,7 +194,7 @@ func set_square_selection(_square_selection:int) -> void:
 	var bit:int = square_selection
 	while bit:
 		var by:int = Chess.to_x88(Chess.first_bit(bit))
-		$canvas.draw_pointer("move", COLOR_MOVE, $canvas.name_to_position(Chess.to_position_name(by)))
+		$canvas.draw_pointer("move", COLOR_MOVE, by)
 		bit = Chess.next_bit(bit)
 
 func execute_move(move:int) -> Dictionary:
@@ -203,8 +203,8 @@ func execute_move(move:int) -> Dictionary:
 	Chess.apply_move(state, move)
 	$canvas.clear_pointer("move")
 	$canvas.clear_pointer("last_move")
-	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, $canvas.name_to_position(Chess.to_position_name(Chess.from(move))))
-	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, $canvas.name_to_position(Chess.to_position_name(Chess.to(move))))
+	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.from(move))
+	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.to(move))
 	#king_instance[0].set_warning(Chess.is_check(state, 1))
 	#king_instance[1].set_warning(Chess.is_check(state, 0))
 	selected = -1
@@ -446,7 +446,7 @@ func set_enabled(_enabled:bool) -> void:
 		selected = -1
 
 func draw_pointer(type:String, color:Color, by:int, priority:int = 0) -> void:
-	$canvas.draw_pointer(type, color, $canvas.name_to_position(Chess.to_position_name(by)), priority)
+	$canvas.draw_pointer(type, color, by, priority)
 
 func clear_pointer(type:String) -> void:
 	$canvas.clear_pointer(type)

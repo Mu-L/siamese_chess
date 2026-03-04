@@ -14,11 +14,11 @@ class ChessboardPointer extends Node2D:
 func _ready() -> void:
 	$sub_viewport.size = Vector2(resolution, resolution)
 
-func draw_pointer(type:String, color:Color, drawing_position:Vector2, priority:int = 0) -> void:
+func draw_pointer(type:String, color:Color, by:int, priority:int = 0) -> void:
 	if !pointer.has(type):
 		pointer[type] = []
 	var new_point:ChessboardPointer = ChessboardPointer.new()
-	new_point.position = drawing_position
+	new_point.position = x88_to_vector2(by)
 	new_point.color = color
 	new_point.resolution = resolution
 	new_point.z_index = priority
@@ -32,7 +32,10 @@ func clear_pointer(type:String) -> void:
 		iter.queue_free()
 	pointer.erase(type)
 
-func name_to_position(_name:String) -> Vector2:
+func name_to_vector2(_name:String) -> Vector2:
 	var ascii:PackedByteArray = _name.to_ascii_buffer()
 	var converted:Vector2 = Vector2(ascii[0] - 97, 7 - (ascii[1] - 49))
 	return converted * resolution / 8 + Vector2(resolution / 16, resolution / 16)
+
+func x88_to_vector2(by:int) -> Vector2:
+	return Vector2(by % 16, by / 16) * resolution / 8 + Vector2(resolution / 16, resolution / 16)

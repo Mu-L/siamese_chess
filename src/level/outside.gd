@@ -5,7 +5,7 @@ func _ready() -> void:
 	Ambient.change_environment_sound(load("res://assets/audio/405135__mjeno__autumn-forest-leaves-falling-close-to-pond-iii-loopable.wav"))
 	var cheshire_by:int = get_meta("by")
 	var cheshire_instance:Actor = load("res://scene/actor/cheshire.tscn").instantiate()
-	cheshire_instance.position = $chessboard.name_to_position(Chess.to_position_name(cheshire_by))
+	cheshire_instance.position = $chessboard.name_to_vector3(Chess.to_position_name(cheshire_by))
 	$chessboard.state.add_piece(cheshire_by, player_king)
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
 	chessboard.button_input_pointer = cheshire_by

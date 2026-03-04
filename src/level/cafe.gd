@@ -13,7 +13,7 @@ func _ready() -> void:
 	Ambient.change_environment_sound(load("res://assets/audio/52645__kstein1__white-noise.wav"))
 	var cheshire_by:int = get_meta("by")
 	var cheshire_instance:Actor = load("res://scene/actor/cheshire.tscn").instantiate()
-	cheshire_instance.position = $chessboard.name_to_position(Chess.to_position_name(cheshire_by))
+	cheshire_instance.position = $chessboard.name_to_vector3(Chess.to_position_name(cheshire_by))
 	$chessboard.state.add_piece(cheshire_by, player_king)
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
 	chessboard.button_input_pointer = cheshire_by
@@ -71,7 +71,7 @@ func interact_pastor(custom_state:bool) -> void:
 		await $chessboard.animation_finished
 	$chessboard.set_enabled(false)
 	$table_0/chessboard_standard.set_enabled(true)
-	$chessboard/pieces/cheshire.set_position($chessboard.name_to_position("e2"))
+	$chessboard/pieces/cheshire.set_position($chessboard.name_to_vector3("e2"))
 	$chessboard/pieces/cheshire.set_rotation(Vector3(0, PI / 2, 0))
 	$chessboard/pieces/cheshire.play_animation("thinking")
 	$player.force_set_camera($camera_chessboard)
@@ -286,7 +286,7 @@ func state_ready_game_end(_arg:Dictionary) -> void:
 			await Dialog.on_next
 	$player.force_set_camera($camera)
 	$chessboard/pieces/cheshire.play_animation("battle_idle")
-	$chessboard/pieces/cheshire.set_position($chessboard.name_to_position("e3"))
+	$chessboard/pieces/cheshire.set_position($chessboard.name_to_vector3("e3"))
 	$chessboard.set_enabled(true)
 	$table_0/chessboard_standard.set_enabled(false)
 	state_machine.change_state("versus_player")
