@@ -821,7 +821,7 @@ bool Chess::is_same_group(int piece_1, int piece_2)
 	return (piece_1 >= 'A' && piece_1 <= 'Z') == (piece_2 >= 'A' && piece_2 <= 'Z');
 }
 
-int Chess::name_c64_to_x88(const godot::String &_position_name)
+int Chess::name_to_x88(const godot::String &_position_name)
 {
 	return ((7 - (_position_name[1] - '1')) << 4) + _position_name[0] - 'a';
 }
@@ -927,7 +927,7 @@ godot::Ref<State> Chess::parse(const godot::String &_str)
 	}
 	state->set_turn(fen_splited[1] == "w" ? 0 : 1);
 	state->set_castle((int(fen_splited[2].contains("K")) << 3) + (int(fen_splited[2].contains("Q")) << 2) + (int(fen_splited[2].contains("k")) << 1) + int(fen_splited[2].contains("q")));
-	state->set_en_passant(Chess::name_c64_to_x88(fen_splited[3]));
+	state->set_en_passant(Chess::name_to_x88(fen_splited[3]));
 	if (fen_splited.size() >= 5)
 	{
 		state->set_step_to_draw(fen_splited[4].to_int());
@@ -2162,7 +2162,7 @@ void Chess::_bind_methods()
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("next_bit"), &Chess::next_bit);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("group"), &Chess::group);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("is_same_group"), &Chess::is_same_group);
-	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("name_c64_to_x88"), &Chess::name_c64_to_x88);
+	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("name_to_x88"), &Chess::name_to_x88);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("x88_to_name"), &Chess::x88_to_name);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("create"), &Chess::create);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("from"), &Chess::from);

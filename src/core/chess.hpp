@@ -44,7 +44,7 @@ class Chess : public godot::Object
 		static int c64_to_x88(int n);
 		static int group(int piece);
 		static bool is_same_group(int piece_1, int piece_2);
-		static int name_c64_to_x88(const godot::String &_position_name);
+		static int name_to_x88(const godot::String &_position_name);
 		static godot::String x88_to_name(int _position);
 		static int create(int _from, int _to, int _extra);
 		static int from(int _move);

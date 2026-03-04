@@ -21,7 +21,7 @@ func _ready() -> void:
 		for iter:Dictionary in table:
 			var actor:Actor = iter["actor"]
 			var piece_pos:int = iter["pos"]
-			actor.position = $chessboard.name_to_vector3(Chess.x88_to_name(piece_pos))
+			actor.position = $chessboard.x88_to_vector3(piece_pos)
 			$chessboard.state.add_piece(piece_pos, iter["piece"])
 			$chessboard.add_piece_instance(actor, piece_pos)
 		var storage_state:int = $chessboard.state.get_storage_piece()

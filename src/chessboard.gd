@@ -147,6 +147,13 @@ func set_state(_state:State) -> void:
 	#king_instance[0].set_warning(Chess.is_check(state, 1))
 	#king_instance[1].set_warning(Chess.is_check(state, 0))
 
+func x88_to_vector3(_by:int) -> Vector3:
+	var position_name:String = "%c%d" % [_by % 16 + 97, 7 - _by / 16 + 1]
+	return get_node(position_name).position
+
+func vector3_to_x88(_position:Vector3) -> int:
+	return Chess.name_to_x88(vector3_to_name(_position))
+
 func vector3_to_name(_position:Vector3) -> String:
 	var nearest:Area3D = null
 	for i:int in 8:
@@ -160,7 +167,7 @@ func name_to_vector3(_position_name:String) -> Vector3:
 	return get_node(_position_name).position
 
 func tap_position(position_name:String, down:bool = true) -> void:
-	selected = Chess.name_c64_to_x88(position_name)
+	selected = Chess.name_to_x88(position_name)
 	if square_selection != -1 && (Chess.mask(Chess.x88_to_c64(selected)) & square_selection):
 		if down:
 			selection_down.emit.call_deferred()
@@ -183,7 +190,7 @@ func finger_on_position(position_name:String) -> void:
 	$canvas.clear_pointer("pointer")
 	if !position_name:
 		return
-	$canvas.draw_pointer("pointer", COLOR_POINTER, Chess.name_c64_to_x88(position_name))
+	$canvas.draw_pointer("pointer", COLOR_POINTER, Chess.name_to_x88(position_name))
 
 func finger_up() -> void:
 	$canvas.clear_pointer("pointer")
