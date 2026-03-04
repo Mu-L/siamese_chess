@@ -11,12 +11,13 @@ func _ready() -> void:
 	pass
 
 func _physics_process(_delta:float) -> void:
+	$head/camera.set_rotation(Vector3(deg_to_rad(sin(Time.get_unix_time_from_system())), 0, 0))
 	if Setting.visible || Archive.visible || Photo.visible:
 		return
 	if Dialog.block_input() || using_dialog:
-		if Input.is_action_just_pressed("ui_left"):
+		if Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("tab_left"):
 			Dialog.direction(-1)
-		if Input.is_action_just_pressed("ui_right"):
+		if Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("tab_right"):
 			Dialog.direction(1)		
 		if Input.is_action_just_released("ui_accept"):
 			Dialog.next()
@@ -26,7 +27,6 @@ func _physics_process(_delta:float) -> void:
 			Dialog.cancel_focus()
 		return
 
-	$head/camera.set_rotation(Vector3(deg_to_rad(sin(Time.get_unix_time_from_system())), 0, 0))
 	if !can_move:
 		return
 
@@ -53,7 +53,10 @@ func _physics_process(_delta:float) -> void:
 			item.button_input("accept", true)
 		if Input.is_action_just_released("ui_accept"):
 			item.button_input("accept", false)
-		if Input.is_action_just_pressed("ui_cancel") && Dialog.selection.size():
+		if Input.is_action_just_pressed("tab_left") && Dialog.selection.size():
+			using_dialog = true
+			Dialog.direction(-1)
+		if Input.is_action_just_pressed("tab_right") && Dialog.selection.size():
 			using_dialog = true
 			Dialog.direction(1)
 	

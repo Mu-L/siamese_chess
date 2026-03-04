@@ -89,7 +89,7 @@ func direction(axis:int) -> void:
 	if !selection.size():
 		return
 	if select_focus == -1:
-		select_focus = 0
+		select_focus = 0 if axis == 1 else selection.size() - 1
 	else:
 		select_focus += axis
 		select_focus = (select_focus + selection.size()) % selection.size()

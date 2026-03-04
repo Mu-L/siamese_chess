@@ -23,9 +23,9 @@ func _physics_process(_delta:float) -> void:
 	var yaw:float = head.global_rotation.x - vision_look_at.y / 2000 * Setting.get_value("camera_rotate_sensitive") * Setting.axis[Setting.get_value("camera_rotate_axis")].y
 	yaw = clamp(yaw, -PI / 2, PI * 2 / 6)
 	head.global_rotation.x = yaw
-	if zoom_plus.button_pressed:
+	if zoom_plus.button_pressed || Input.is_action_pressed("tab_right"):
 		zoom_camera(slider.value + _delta * Setting.get_value("camera_move_speed"))
-	if zoom_minus.button_pressed:
+	if zoom_minus.button_pressed || Input.is_action_pressed("tab_left"):
 		zoom_camera(slider.value - _delta * Setting.get_value("camera_move_speed"))
 
 func sub_viewport_container_gui_input(event:InputEvent) -> void:
