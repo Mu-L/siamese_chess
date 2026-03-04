@@ -21,10 +21,10 @@ func _ready() -> void:
 	if has_meta("larger_scale") && get_meta("larger_scale"):
 		set_larger_scale()
 	#if position_name:
-	#	position = chessboard.convert_name_to_position(position_name)
+	#	position = chessboard.name_to_position(position_name)
 	#else:
-	#	position_name = chessboard.get_position_name(position)
-	#	position = chessboard.convert_name_to_position(position_name)
+	#	position_name = chessboard.position_to_name(position)
+	#	position = chessboard.name_to_position(position_name)
 
 func move(_pos:Vector3) -> void:
 	var tween:Tween = create_tween()

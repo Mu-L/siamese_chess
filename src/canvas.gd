@@ -32,7 +32,7 @@ func clear_pointer(type:String) -> void:
 		iter.queue_free()
 	pointer.erase(type)
 
-func convert_name_to_position(_name:String) -> Vector2:
+func name_to_position(_name:String) -> Vector2:
 	var ascii:PackedByteArray = _name.to_ascii_buffer()
 	var converted:Vector2 = Vector2(ascii[0] - 97, 7 - (ascii[1] - 49))
 	return converted * resolution / 8 + Vector2(resolution / 16, resolution / 16)
