@@ -31,6 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://cpgbfn65ff3ca" path="res://assets/model/curtain_support.glb" id="29_7tmgw"]
 [ext_resource type="PackedScene" uid="uid://du7djoab5q014" path="res://scene/menu_board.tscn" id="30_7tmgw"]
 [ext_resource type="Script" uid="uid://dc4n8wl381mqw" path="res://src/marker_document.gd" id="31_2nvbi"]
+[ext_resource type="Script" uid="uid://b5f46bgwa3pux" path="res://src/marker_camera.gd" id="32_m8sl2"]
+[ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="33_m67mf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2nvbi"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -132,7 +134,7 @@ shader_parameter/contrast_mult = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nvbi"]
 
-[node name="teleport_pointer" type="Node3D" unique_id=1397432663]
+[node name="cafe" type="Node3D" unique_id=1397432663]
 script = ExtResource("1_e1edc")
 metadata/by = 53
 
@@ -512,7 +514,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.6798
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.90683, 0, -0.247615)
 
 [node name="camera_pastor" type="Camera3D" parent="." unique_id=1321780903]
-transform = Transform3D(-0.84129, 0.265096, -0.471121, -0.00495441, 0.867686, 0.497088, 0.540561, 0.420529, -0.728662, 1.25572, 2.46423, 3.04269)
+transform = Transform3D(-0.19467205, 0.4867464, -0.8515755, -0.0049543786, 0.8676862, 0.49708766, 0.98085594, 0.10098808, -0.16650273, -2.298256, 2.46423, 3.04269)
 fov = 51.3432
 
 [node name="camera_chessboard" type="Camera3D" parent="." unique_id=489509762]
@@ -672,6 +674,36 @@ material = SubResource("StandardMaterial3D_2nvbi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3064857, 1.51379, 6.3762484)
 size = Vector3(2.24115, 3, 0.43603516)
 material = SubResource("StandardMaterial3D_2nvbi")
+
+[node name="marker_camera" type="Node3D" parent="." unique_id=1459029983 node_paths=PackedStringArray("camera")]
+script = ExtResource("32_m8sl2")
+camera = NodePath("../camera")
+bit = 18098238385029120
+metadata/_custom_type_script = "uid://b5f46bgwa3pux"
+
+[node name="marker_camera_pastor" type="Node3D" parent="." unique_id=1631914391 node_paths=PackedStringArray("camera")]
+script = ExtResource("32_m8sl2")
+camera = NodePath("../camera_pastor")
+bit = 52776558133248
+metadata/_custom_type_script = "uid://b5f46bgwa3pux"
+
+[node name="marker_callback_pastor_play_chess" type="Node3D" parent="." unique_id=2054525426 node_paths=PackedStringArray("node")]
+script = ExtResource("33_m67mf")
+node = NodePath("..")
+method_name = &"interact_pastor"
+arg = [false]
+selection = "YULAN_INTERACT_PLAY_CHESS"
+bit = 52776558133248
+metadata/_custom_type_script = "uid://cpyviir7sli6u"
+
+[node name="marker_callback_pastor_custom_position" type="Node3D" parent="." unique_id=307362683 node_paths=PackedStringArray("node")]
+script = ExtResource("33_m67mf")
+node = NodePath("..")
+method_name = &"interact_pastor"
+arg = [true]
+selection = "YULAN_INTERACT_CUSTOM_POSITION"
+bit = 52776558133248
+metadata/_custom_type_script = "uid://cpyviir7sli6u"
 
 [editable path="chessboard"]
 [editable path="table_0"]

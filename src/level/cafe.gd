@@ -23,9 +23,7 @@ func _ready() -> void:
 	$table_0/chessboard_standard.set_enabled(false)
 	$player.add_inspectable_item($table_0/chessboard_standard)
 	$pastor.play_animation("thinking")
-	interact_list[0x54] = {"YULAN_INTERACT_PLAY_CHESS": interact_pastor.bind(false), "YULAN_INTERACT_CUSTOM_POSITION": interact_pastor.bind(true)}
 	title[0x54] = "CHAR_YULAN"
-	interact_list[0x55] = {"YULAN_INTERACT_PLAY_CHESS": interact_pastor.bind(false), "YULAN_INTERACT_CUSTOM_POSITION": interact_pastor.bind(true)}
 	title[0x55] = "CHAR_YULAN"
 	state_machine.add_state("in_game_start", state_ready_in_game_start)
 	state_machine.add_state("in_game_enemy", state_ready_in_game_enemy)
