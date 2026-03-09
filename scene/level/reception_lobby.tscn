@@ -207,7 +207,7 @@ fov = 58.5874
 [node name="marker_camera_overall" type="Node3D" parent="." unique_id=1779513574 node_paths=PackedStringArray("camera")]
 script = ExtResource("18_fhf0e")
 camera = NodePath("../camera_overall")
-bit = -1736985392701703944
+bit = -1736985392701718336
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="camera_elevator" type="Camera3D" parent="." unique_id=1248793151]
@@ -258,4 +258,14 @@ size = Vector3(16.296642, 3.3640137, 0.4732666)
 material = SubResource("StandardMaterial3D_gimty")
 
 [node name="hotel_hall_stair" parent="." unique_id=957326864 instance=ExtResource("19_ehpdt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="camera_under_stair" type="Camera3D" parent="." unique_id=617284860]
+transform = Transform3D(-0.014642773, -0.31395882, 0.9493237, 2.2079802e-10, 0.9494255, 0.3139925, -0.99989283, 0.0045977207, -0.013902222, 6.717693, 2.7836637, -4.5405917)
+fov = 58.5874
+
+[node name="marker_camera_under_stair" type="Node3D" parent="." unique_id=778137627 node_paths=PackedStringArray("camera")]
+script = ExtResource("18_fhf0e")
+camera = NodePath("../camera_under_stair")
+bit = 14392
+metadata/_custom_type_script = "uid://b5f46bgwa3pux"
