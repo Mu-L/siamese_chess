@@ -1,0 +1,845 @@
+[gd_scene format=3 uid="uid://famkj12ufimp"]
+
+[ext_resource type="Script" uid="uid://d1qn0lbk66o3i" path="res://src/chessboard.gd" id="1_x56hs"]
+[ext_resource type="PackedScene" uid="uid://bmt1hscjfvqcg" path="res://scene/canvas.tscn" id="2_p767r"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vvu1j"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1vpwn"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_rsg0j"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nhqw5"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_6wqt8"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_by824"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vrx4h"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_n7cfa"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_evno5"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gx85j"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_utf8v"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_085vf"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_26jki"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_p8626"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hsrai"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_41xs5"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ggvfu"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_auqpp"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_v04wc"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ucall"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_66k5c"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ehcqm"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_l8lry"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_h6551"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_cqa06"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ftcar"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_e2rdu"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_o2y75"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gmvay"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gmiy0"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uw7tr"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1xdub"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y8nco"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_47ahe"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5c0a5"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_dsgh8"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_6aqy4"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_rwrt6"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_571r3"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ea3rq"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7dxxf"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gukn0"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ujtaf"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_t4f82"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_sl4nd"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_stf3i"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8q1dd"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xccbs"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hly73"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bbv7x"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bwg10"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yfi31"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1jcw4"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4je5s"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qhyg6"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_71wpb"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tc7wi"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fg55g"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jaxdt"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ddx42"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mrccp"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2ifxf"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_awtar"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gwfju"]
+data = PackedVector3Array(1, 0.17659591, -1, -1, 0.17659591, 1, -1, 0.17659591, -1, 1, 0.17659591, -1, 1, 0.17659591, 1, -1, 0.17659591, 1)
+
+[node name="chessboard_blank" type="Node3D" unique_id=1825934021]
+script = ExtResource("1_x56hs")
+metadata/_custom_type_script = "uid://d1qn0lbk66o3i"
+
+[node name="canvas" parent="." unique_id=1376579142 instance=ExtResource("2_p767r")]
+transform = Transform3D(-16, 0, -2.41593e-06, 0, 16, 0, 2.41593e-06, 0, -16, 0, 0.0786357, 0)
+
+[node name="pieces" type="Node3D" parent="." unique_id=559474361]
+
+[node name="a1" type="Area3D" parent="." unique_id=1231436506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a1" unique_id=1687228897]
+shape = SubResource("ConcavePolygonShape3D_vvu1j")
+
+[node name="a2" type="Area3D" parent="." unique_id=932190359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a2" unique_id=1316695024]
+shape = SubResource("ConcavePolygonShape3D_1vpwn")
+
+[node name="a3" type="Area3D" parent="." unique_id=583095598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a3" unique_id=2035268292]
+shape = SubResource("ConcavePolygonShape3D_rsg0j")
+
+[node name="a4" type="Area3D" parent="." unique_id=1143036443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a4" unique_id=1215494943]
+shape = SubResource("ConcavePolygonShape3D_nhqw5")
+
+[node name="a5" type="Area3D" parent="." unique_id=219179153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a5" unique_id=1592797069]
+shape = SubResource("ConcavePolygonShape3D_6wqt8")
+
+[node name="a6" type="Area3D" parent="." unique_id=180321714]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a6" unique_id=1201008668]
+shape = SubResource("ConcavePolygonShape3D_by824")
+
+[node name="a7" type="Area3D" parent="." unique_id=960274943]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a7" unique_id=663112177]
+shape = SubResource("ConcavePolygonShape3D_vrx4h")
+
+[node name="a8" type="Area3D" parent="." unique_id=2003679212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="a8" unique_id=352998118]
+shape = SubResource("ConcavePolygonShape3D_n7cfa")
+
+[node name="b1" type="Area3D" parent="." unique_id=2138471993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b1" unique_id=29831659]
+shape = SubResource("ConcavePolygonShape3D_evno5")
+
+[node name="b2" type="Area3D" parent="." unique_id=1231813231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b2" unique_id=291060619]
+shape = SubResource("ConcavePolygonShape3D_gx85j")
+
+[node name="b3" type="Area3D" parent="." unique_id=199028997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b3" unique_id=1729595402]
+shape = SubResource("ConcavePolygonShape3D_utf8v")
+
+[node name="b4" type="Area3D" parent="." unique_id=636396634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b4" unique_id=2138679242]
+shape = SubResource("ConcavePolygonShape3D_085vf")
+
+[node name="b5" type="Area3D" parent="." unique_id=1740640154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b5" unique_id=1995867303]
+shape = SubResource("ConcavePolygonShape3D_26jki")
+
+[node name="b6" type="Area3D" parent="." unique_id=34925108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b6" unique_id=875340651]
+shape = SubResource("ConcavePolygonShape3D_p8626")
+
+[node name="b7" type="Area3D" parent="." unique_id=586459426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b7" unique_id=552974656]
+shape = SubResource("ConcavePolygonShape3D_hsrai")
+
+[node name="b8" type="Area3D" parent="." unique_id=1413416958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="b8" unique_id=653148709]
+shape = SubResource("ConcavePolygonShape3D_41xs5")
+
+[node name="c1" type="Area3D" parent="." unique_id=1288695493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c1" unique_id=892172988]
+shape = SubResource("ConcavePolygonShape3D_ggvfu")
+
+[node name="c2" type="Area3D" parent="." unique_id=1178075470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c2" unique_id=1260474142]
+shape = SubResource("ConcavePolygonShape3D_auqpp")
+
+[node name="c3" type="Area3D" parent="." unique_id=1300716554]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c3" unique_id=1175290442]
+shape = SubResource("ConcavePolygonShape3D_v04wc")
+
+[node name="c4" type="Area3D" parent="." unique_id=1458729905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c4" unique_id=1755938830]
+shape = SubResource("ConcavePolygonShape3D_ucall")
+
+[node name="c5" type="Area3D" parent="." unique_id=1301563294]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c5" unique_id=303599953]
+shape = SubResource("ConcavePolygonShape3D_66k5c")
+
+[node name="c6" type="Area3D" parent="." unique_id=263653156]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c6" unique_id=1953227055]
+shape = SubResource("ConcavePolygonShape3D_ehcqm")
+
+[node name="c7" type="Area3D" parent="." unique_id=247975152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c7" unique_id=305199249]
+shape = SubResource("ConcavePolygonShape3D_l8lry")
+
+[node name="c8" type="Area3D" parent="." unique_id=1186921810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="c8" unique_id=144448684]
+shape = SubResource("ConcavePolygonShape3D_h6551")
+
+[node name="d1" type="Area3D" parent="." unique_id=934154080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d1" unique_id=961900399]
+shape = SubResource("ConcavePolygonShape3D_cqa06")
+
+[node name="d2" type="Area3D" parent="." unique_id=162907903]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d2" unique_id=1276233609]
+shape = SubResource("ConcavePolygonShape3D_ftcar")
+
+[node name="d3" type="Area3D" parent="." unique_id=1662972240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d3" unique_id=472967931]
+shape = SubResource("ConcavePolygonShape3D_e2rdu")
+
+[node name="d4" type="Area3D" parent="." unique_id=316240055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d4" unique_id=993109186]
+shape = SubResource("ConcavePolygonShape3D_o2y75")
+
+[node name="d5" type="Area3D" parent="." unique_id=691581057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d5" unique_id=615348512]
+shape = SubResource("ConcavePolygonShape3D_gmvay")
+
+[node name="d6" type="Area3D" parent="." unique_id=302664372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d6" unique_id=951052046]
+shape = SubResource("ConcavePolygonShape3D_gmiy0")
+
+[node name="d7" type="Area3D" parent="." unique_id=734133658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d7" unique_id=281793775]
+shape = SubResource("ConcavePolygonShape3D_uw7tr")
+
+[node name="d8" type="Area3D" parent="." unique_id=1760064986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="d8" unique_id=605124762]
+shape = SubResource("ConcavePolygonShape3D_1xdub")
+
+[node name="e1" type="Area3D" parent="." unique_id=802463716]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e1" unique_id=1246272448]
+shape = SubResource("ConcavePolygonShape3D_y8nco")
+
+[node name="e2" type="Area3D" parent="." unique_id=1754812977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e2" unique_id=1707666623]
+shape = SubResource("ConcavePolygonShape3D_47ahe")
+
+[node name="e3" type="Area3D" parent="." unique_id=581892913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e3" unique_id=460213587]
+shape = SubResource("ConcavePolygonShape3D_5c0a5")
+
+[node name="e4" type="Area3D" parent="." unique_id=438953279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e4" unique_id=226477083]
+shape = SubResource("ConcavePolygonShape3D_dsgh8")
+
+[node name="e5" type="Area3D" parent="." unique_id=1281752450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e5" unique_id=1359195143]
+shape = SubResource("ConcavePolygonShape3D_6aqy4")
+
+[node name="e6" type="Area3D" parent="." unique_id=833808180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e6" unique_id=1130704895]
+shape = SubResource("ConcavePolygonShape3D_rwrt6")
+
+[node name="e7" type="Area3D" parent="." unique_id=1583928672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e7" unique_id=1828152758]
+shape = SubResource("ConcavePolygonShape3D_571r3")
+
+[node name="e8" type="Area3D" parent="." unique_id=275827091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="e8" unique_id=712264052]
+shape = SubResource("ConcavePolygonShape3D_ea3rq")
+
+[node name="f1" type="Area3D" parent="." unique_id=1580767791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f1" unique_id=1459744896]
+shape = SubResource("ConcavePolygonShape3D_7dxxf")
+
+[node name="f2" type="Area3D" parent="." unique_id=2144577503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f2" unique_id=1447032896]
+shape = SubResource("ConcavePolygonShape3D_gukn0")
+
+[node name="f3" type="Area3D" parent="." unique_id=406766406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f3" unique_id=1500415602]
+shape = SubResource("ConcavePolygonShape3D_ujtaf")
+
+[node name="f4" type="Area3D" parent="." unique_id=2060964969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f4" unique_id=926909163]
+shape = SubResource("ConcavePolygonShape3D_t4f82")
+
+[node name="f5" type="Area3D" parent="." unique_id=1372023794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f5" unique_id=1852735745]
+shape = SubResource("ConcavePolygonShape3D_sl4nd")
+
+[node name="f6" type="Area3D" parent="." unique_id=1876947506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f6" unique_id=1679801021]
+shape = SubResource("ConcavePolygonShape3D_stf3i")
+
+[node name="f7" type="Area3D" parent="." unique_id=1881980001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f7" unique_id=1427707204]
+shape = SubResource("ConcavePolygonShape3D_8q1dd")
+
+[node name="f8" type="Area3D" parent="." unique_id=274088521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="f8" unique_id=108034912]
+shape = SubResource("ConcavePolygonShape3D_xccbs")
+
+[node name="g1" type="Area3D" parent="." unique_id=1643455582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g1" unique_id=1905703341]
+shape = SubResource("ConcavePolygonShape3D_hly73")
+
+[node name="g2" type="Area3D" parent="." unique_id=102164502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g2" unique_id=2093957975]
+shape = SubResource("ConcavePolygonShape3D_bbv7x")
+
+[node name="g3" type="Area3D" parent="." unique_id=75404159]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g3" unique_id=1392846272]
+shape = SubResource("ConcavePolygonShape3D_bwg10")
+
+[node name="g4" type="Area3D" parent="." unique_id=893416934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g4" unique_id=539359234]
+shape = SubResource("ConcavePolygonShape3D_yfi31")
+
+[node name="g5" type="Area3D" parent="." unique_id=407531706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g5" unique_id=635616586]
+shape = SubResource("ConcavePolygonShape3D_1jcw4")
+
+[node name="g6" type="Area3D" parent="." unique_id=252366129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g6" unique_id=1579710284]
+shape = SubResource("ConcavePolygonShape3D_4je5s")
+
+[node name="g7" type="Area3D" parent="." unique_id=1157422552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g7" unique_id=1772589828]
+shape = SubResource("ConcavePolygonShape3D_qhyg6")
+
+[node name="g8" type="Area3D" parent="." unique_id=195619729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="g8" unique_id=955130060]
+shape = SubResource("ConcavePolygonShape3D_71wpb")
+
+[node name="h1" type="Area3D" parent="." unique_id=1476074463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, 7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h1" unique_id=39076900]
+shape = SubResource("ConcavePolygonShape3D_tc7wi")
+
+[node name="h2" type="Area3D" parent="." unique_id=952087291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, 5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h2" unique_id=860172340]
+shape = SubResource("ConcavePolygonShape3D_fg55g")
+
+[node name="h3" type="Area3D" parent="." unique_id=1564893916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, 3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h3" unique_id=1618771413]
+shape = SubResource("ConcavePolygonShape3D_jaxdt")
+
+[node name="h4" type="Area3D" parent="." unique_id=363568240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h4" unique_id=1120933097]
+shape = SubResource("ConcavePolygonShape3D_ddx42")
+
+[node name="h5" type="Area3D" parent="." unique_id=1745289301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, -1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h5" unique_id=1963939644]
+shape = SubResource("ConcavePolygonShape3D_mrccp")
+
+[node name="h6" type="Area3D" parent="." unique_id=316357723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, -3)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h6" unique_id=1057838857]
+shape = SubResource("ConcavePolygonShape3D_2ifxf")
+
+[node name="h7" type="Area3D" parent="." unique_id=1389117201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, -5)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h7" unique_id=1515666964]
+shape = SubResource("ConcavePolygonShape3D_awtar")
+
+[node name="h8" type="Area3D" parent="." unique_id=1554406796]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.0052582845, -7)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="h8" unique_id=2057003799]
+shape = SubResource("ConcavePolygonShape3D_gwfju")
