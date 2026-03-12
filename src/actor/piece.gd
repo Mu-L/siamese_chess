@@ -86,6 +86,6 @@ func change_model(_piece:int) -> void:
 	promote_instance.top_level = false
 
 func set_larger_scale() -> Actor:
-	scale = Vector3(8, 8, 8)
+	$piece.scale = Vector3(8, 8, 8)
 	larger_scale = true
 	return self
