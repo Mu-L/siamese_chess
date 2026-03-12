@@ -11,8 +11,21 @@ class ChessboardPointer extends Node2D:
 		#draw_rect(Rect2(-resolution / 16, -resolution / 16, resolution / 8, resolution / 8), color.lightened(0.1))
 		draw_rect(Rect2(-resolution / 16, -resolution / 16, resolution / 8, resolution / 8), color, false, 10)
 
+class ChessboardGrid extends Node2D:
+	var resolution:float = 512
+	var color:Color = Color(0.46, 0.46, 0.46, 0.722)
+	func _draw() -> void:
+		for i:int in 8:
+			for j:int in 8:
+				var pos:Vector2 = Vector2(i, j) * resolution / 8
+				draw_rect(Rect2(pos.x, pos.y, resolution / 8, resolution / 8), color, false, 1)
+
 func _ready() -> void:
 	$sub_viewport.size = Vector2(resolution, resolution)
+	var grid:ChessboardGrid = ChessboardGrid.new()
+	grid.resolution = resolution
+	grid.z_index = -1
+	$sub_viewport.add_child(grid)
 
 func draw_pointer(type:String, color:Color, by:int, priority:int = 0) -> void:
 	if !pointer.has(type):
