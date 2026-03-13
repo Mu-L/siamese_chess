@@ -1,7 +1,7 @@
 extends Node3D
 class_name Level
 
-var player_group:int = 0
+var player_group:int = 1
 var player_all:int = 0
 var player_king:int = 0
 var enemy_all:int = 0
