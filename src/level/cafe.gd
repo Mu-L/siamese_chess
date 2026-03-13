@@ -126,8 +126,8 @@ func state_ready_in_game_start(_arg:Dictionary) -> void:
 	standard_history_state.clear()
 	standard_history_zobrist.clear()
 	standard_history_event.clear()
-	history_document.set_state($table_0/chessboard_standard.state)
-	history_document.set_filename("history." + String.num_int64(Time.get_unix_time_from_system()) + ".json")
+	standard_history_document.set_state($table_0/chessboard_standard.state)
+	standard_history_document.set_filename("history." + String.num_int64(Time.get_unix_time_from_system()) + ".json")
 	if $table_0/chessboard_standard.state.get_turn() != standard_player_group:
 		standard_state_machine.change_state("opponent")
 	else:
@@ -162,8 +162,8 @@ func state_ready_in_game_waiting() -> void:
 func state_ready_in_game_move(_arg:Dictionary) -> void:
 	standard_state_machine.state_signal_connect($table_0/chessboard_standard.click_selection, game_premove_pressed)
 	standard_state_machine.state_signal_connect($table_0/chessboard_standard.click_empty, game_premove_cancel)
-	history_document.push_move(_arg["move"])
-	history_document.save_file()
+	standard_history_document.push_move(_arg["move"])
+	standard_history_document.save_file()
 	standard_history_state.push_back($table_0/chessboard_standard.state.duplicate())
 	standard_history_zobrist.push_back($table_0/chessboard_standard.state.get_zobrist())
 	var rollback_event:Dictionary = $table_0/chessboard_standard.execute_move(_arg["move"])
@@ -201,7 +201,7 @@ func state_ready_in_game_player(_arg:Dictionary) -> void:
 			standard_history_zobrist.resize(standard_history_zobrist.size() - 2)
 			standard_history_state.resize(standard_history_state.size() - 2)
 			standard_history_event.resize(standard_history_event.size() - 2)
-			history_document.rollback($table_0/chessboard_standard.state, 2)
+			standard_history_document.rollback($table_0/chessboard_standard.state, 2)
 			await $table_0/chessboard_standard.animation_finished
 			if standard_history_event.size() <= 1:
 				Dialog.push_selection(["SELECTION_LEAVE_GAME"], "HINT_TAKE_BACKED", false, false)
@@ -269,7 +269,7 @@ func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
 	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, true)
 
 func state_ready_game_end(_arg:Dictionary) -> void:
-	history_document.save_file()
+	standard_history_document.save_file()
 	match Chess.get_end_type($table_0/chessboard_standard.state):
 		"checkmate_black":
 			Dialog.push_dialog("HINT_BLACK_CHECKMATE", "", true, true)
