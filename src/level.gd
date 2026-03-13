@@ -206,15 +206,15 @@ func state_ready_versus_move(_arg:Dictionary) -> void:
 			state_machine.change_state("draw")
 		#elif end_type == "not_enough_piece":
 		#	state_machine.change_state("draw")
-		elif chessboard.state.get_turn() != player_group && chessboard.state.get_bit(enemy_all):
+		elif _arg["move"] != -1 && (chessboard.state.get_bit(ord("Z")) & Chess.mask(Chess.x88_to_c64(Chess.to(_arg["move"])))):
+			state_machine.change_state("interact", {"callback": interact_list[Chess.to(_arg["move"])][""]})
+		elif chessboard.state.get_turn() != player_group:
 			state_machine.change_state("versus_enemy")
 		elif premove_from != -1 && premove_to != -1:
 			chessboard.clear_pointer("premove")
 			state_machine.change_state("versus_check_move", {"from": premove_from, "to": premove_to, "move_list": Chess.generate_valid_move(chessboard.state, player_group) if chessboard.state.get_bit(enemy_all) else Chess.generate_explore_move(chessboard.state, player_group)})
 			premove_from = -1
 			premove_to = -1
-		elif chessboard.state.get_bit(ord("Z")) & Chess.mask(Chess.x88_to_c64(Chess.to(_arg["move"]))):
-			state_machine.change_state("interact", {"callback": interact_list[Chess.to(_arg["move"])][""]})
 		elif premove_from != -1 && (chessboard.mouse_hold || chessboard.button_input_hold):
 			state_machine.change_state("versus_ready_to_move", {"from": premove_from})
 			premove_from = -1
@@ -461,4 +461,7 @@ func state_ready_dialog(_arg:Dictionary) -> void:
 
 func state_ready_interact(_arg:Dictionary) -> void:
 	await _arg["callback"].call()
-	state_machine.change_state("versus_player")
+	if chessboard.state.get_turn() != player_group:
+		state_machine.change_state("versus_enemy")
+	else:
+		state_machine.change_state("versus_player")
