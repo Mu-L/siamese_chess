@@ -307,6 +307,7 @@ func state_ready_versus_ready_to_move(_arg:Dictionary) -> void:
 				Photo.open()
 				state_machine.change_state("versus_player")
 			"SELECTION_THIRD_EYE":
+				ThirdEye3D.set_chessboard_scale(chessboard.scale.x)
 				ThirdEye3D.set_pov($player.get_camera())
 				ThirdEye3D.set_state(chessboard.state)
 				ThirdEye3D.open()

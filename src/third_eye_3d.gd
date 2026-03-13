@@ -24,6 +24,9 @@ func set_pov(_camera:Camera3D) -> void:
 	camera.global_transform = _camera.global_transform
 	camera.fov = _camera.fov
 
+func set_chessboard_scale(_scale:float) -> void:
+	chessboard.scale = Vector3(16, 16, 16) * _scale
+
 func open() -> void:
 	set_physics_process(true)
 	visible = true
