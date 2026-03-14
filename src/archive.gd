@@ -1,12 +1,12 @@
 extends CanvasLayer
 
 var template_list:Dictionary = {
-	"printed": "res://scene/printed_paper.tscn",
-	"photo": "res://scene/photo_paper.tscn",
-	"history": "res://scene/history.tscn",
-	"draft": "res://scene/draft.tscn",
-	"piece": "res://scene/model.tscn",
-	"inspectable": "res://scene/model.tscn"
+	"printed": "res://scene/doc/printed_paper.tscn",
+	"photo": "res://scene/doc/photo_paper.tscn",
+	"history": "res://scene/doc/history.tscn",
+	"draft": "res://scene/doc/draft.tscn",
+	"piece": "res://scene/doc/model.tscn",
+	"inspectable": "res://scene/doc/model.tscn"
 }
 
 var document:Document = null

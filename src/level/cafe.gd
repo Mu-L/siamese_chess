@@ -3,7 +3,7 @@ extends Level
 var standard_history_zobrist:PackedInt64Array = []
 var standard_history_state:Array[State] = []
 var standard_history_event:Array[Dictionary] = []
-@onready var standard_history_document:Document = load("res://scene/history.tscn").instantiate()
+@onready var standard_history_document:Document = load("res://scene/doc/history.tscn").instantiate()
 var standard_engine:ChessEngine = PastorEngine.new()
 var standard_state_machine:StateMachine = StateMachine.new()
 var chessboard_state:String = ""
