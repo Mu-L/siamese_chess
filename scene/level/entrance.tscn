@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dwvyc2qlcdag0" path="res://scene/chessboard_large.tscn" id="3_as14m"]
 [ext_resource type="PackedScene" uid="uid://cpdfjiqb4d2q6" path="res://assets/model/pool.glb" id="4_vie8g"]
 [ext_resource type="PackedScene" uid="uid://d13fcqueggvup" path="res://assets/model/fence.glb" id="5_of156"]
-[ext_resource type="PackedScene" uid="uid://8kbw64nuq0ai" path="res://assets/model/fence_turn.glb" id="6_78g2j"]
 [ext_resource type="PackedScene" uid="uid://bwss6iu3vs38d" path="res://assets/model/hotel_gate.glb" id="7_h0t85"]
 [ext_resource type="PackedScene" uid="uid://cddqnr41xmo4x" path="res://assets/model/lotus_leaf.glb" id="8_h0t85"]
 [ext_resource type="Script" uid="uid://c07j5dqfy7nsx" path="res://src/marker_multi_actor.gd" id="10_5hf7g"]
@@ -36,122 +35,68 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 metadata/_edit_lock_ = true
 
-[node name="f6_001" parent="chessboard" index="20"]
+[node name="f6_001" parent="chessboard" index="20" unique_id=530827156]
 visible = false
 
-[node name="f5_001" parent="chessboard" index="21"]
+[node name="f5_001" parent="chessboard" index="21" unique_id=1961780791]
 visible = false
 
-[node name="f4_001" parent="chessboard" index="22"]
+[node name="f4_001" parent="chessboard" index="22" unique_id=678813257]
 visible = false
 
-[node name="f3_001" parent="chessboard" index="23"]
+[node name="f3_001" parent="chessboard" index="23" unique_id=925230766]
 visible = false
 
-[node name="e6_001" parent="chessboard" index="28"]
+[node name="e6_001" parent="chessboard" index="28" unique_id=545412094]
 visible = false
 
-[node name="e5_001" parent="chessboard" index="29"]
+[node name="e5_001" parent="chessboard" index="29" unique_id=833988260]
 visible = false
 
-[node name="e4_001" parent="chessboard" index="30"]
+[node name="e4_001" parent="chessboard" index="30" unique_id=2078926685]
 visible = false
 
-[node name="e3_001" parent="chessboard" index="31"]
+[node name="e3_001" parent="chessboard" index="31" unique_id=158473746]
 visible = false
 
-[node name="d6_001" parent="chessboard" index="36"]
+[node name="d6_001" parent="chessboard" index="36" unique_id=1457561340]
 visible = false
 
-[node name="d5_001" parent="chessboard" index="37"]
+[node name="d5_001" parent="chessboard" index="37" unique_id=1495947544]
 visible = false
 
-[node name="d4_001" parent="chessboard" index="38"]
+[node name="d4_001" parent="chessboard" index="38" unique_id=1903758524]
 visible = false
 
-[node name="d3_001" parent="chessboard" index="39"]
+[node name="d3_001" parent="chessboard" index="39" unique_id=1080431377]
 visible = false
 
-[node name="c6_001" parent="chessboard" index="44"]
+[node name="c6_001" parent="chessboard" index="44" unique_id=803008408]
 visible = false
 
-[node name="c5_001" parent="chessboard" index="45"]
+[node name="c5_001" parent="chessboard" index="45" unique_id=337913602]
 visible = false
 
-[node name="c4_001" parent="chessboard" index="46"]
+[node name="c4_001" parent="chessboard" index="46" unique_id=1760944915]
 visible = false
 
-[node name="c3_001" parent="chessboard" index="47"]
+[node name="c3_001" parent="chessboard" index="47" unique_id=166157551]
 visible = false
 
 [node name="pool" parent="." unique_id=1988405554 instance=ExtResource("4_vie8g")]
 metadata/_edit_lock_ = true
 
-[node name="fence_0" parent="." unique_id=2124921380 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, 7)
-
-[node name="fence_1" parent="." unique_id=1272533496 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, 5)
-
-[node name="fence_2" parent="." unique_id=876255162 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, 3)
-
-[node name="fence_3" parent="." unique_id=2131204867 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, 1)
-
-[node name="fence_4" parent="." unique_id=463043683 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, -1)
-
-[node name="fence_5" parent="." unique_id=897193159 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, -3)
-
-[node name="fence_6" parent="." unique_id=1460081716 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, -5)
-
-[node name="fence_7" parent="." unique_id=350836766 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, -7)
-
-[node name="fence_8" parent="." unique_id=1869721923 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 7)
-
-[node name="fence_9" parent="." unique_id=1705650715 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 5)
-
-[node name="fence_10" parent="." unique_id=1782908374 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 3)
-
-[node name="fence_11" parent="." unique_id=95436828 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 1)
-
-[node name="fence_12" parent="." unique_id=405025735 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -1)
-
-[node name="fence_13" parent="." unique_id=1581992096 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -3)
-
-[node name="fence_14" parent="." unique_id=1841393338 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -5)
-
-[node name="fence_15" parent="." unique_id=496543501 instance=ExtResource("5_of156")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -7)
-
 [node name="fence_16" parent="." unique_id=1197430867 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 6, 0, -9)
-
-[node name="fence_turn_3" parent="." unique_id=1810053703 instance=ExtResource("6_78g2j")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.000002, 0, -9)
-
-[node name="fence_turn_4" parent="." unique_id=1573613468 instance=ExtResource("6_78g2j")]
-transform = Transform3D(-1, 0, -8.742279e-08, 0, 1, 0, 8.742279e-08, 0, -1, -7.999998, 0, -9)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5, 0, -9)
 
 [node name="fence_17" parent="." unique_id=1268836823 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6, 0, -9)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5, 0, -9)
 
 [node name="fence_18" parent="." unique_id=735794917 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, -9)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3, 0, -9)
 
 [node name="fence_19" parent="." unique_id=2000807470 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4, 0, -9)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 0, -9)
 
 [node name="hotel_gate" parent="." unique_id=1133506456 instance=ExtResource("7_h0t85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
@@ -225,25 +170,17 @@ args = {
 }
 bit = 1729382256910270464
 
-[node name="teleport_pointer_3" parent="." unique_id=191826830 instance=ExtResource("13_as14m")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -8)
-to = "res://scene/level/outside_0.tscn"
-args = {
-"by": 4
-}
-bit = 24
-
 [node name="csg_box_3d" type="CSGBox3D" parent="." unique_id=580704055]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10000038, -0.2512207, -8.760193)
-size = Vector3(16, 0.4975586, 1.4796143)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10000038, -0.2512207, -10.520386)
+size = Vector3(16, 0.4975586, 5)
 
 [node name="csg_box_3d_2" type="CSGBox3D" parent="." unique_id=1822287596]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.507315, -0.2512207, 1.037384)
-size = Vector3(1.238739, 0.4975586, 21.074768)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.304991, -0.2512207, -0.7252321)
+size = Vector3(6.834091, 0.4975586, 24.6)
 
 [node name="csg_box_3d_3" type="CSGBox3D" parent="." unique_id=555249835]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.578018, -0.2512207, 1.037384)
-size = Vector3(1.238739, 0.4975586, 21.074768)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.206078, -0.2512207, -0.7252321)
+size = Vector3(6.494858, 0.4975586, 24.6)
 
 [node name="csg_box_3d_4" type="CSGBox3D" parent="." unique_id=1837926434]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054027557, -0.2512207, 9.793869)
@@ -253,5 +190,11 @@ size = Vector3(16.021355, 0.4975586, 3.561798)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94150615, 0)
 box_projection = true
 interior = true
+
+[node name="fence_20" parent="." unique_id=1874964424 instance=ExtResource("5_of156")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7, 0, -9)
+
+[node name="fence_21" parent="." unique_id=11555501 instance=ExtResource("5_of156")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 0, -9)
 
 [editable path="chessboard"]
