@@ -3,13 +3,12 @@ extends Document
 var path:String = ""
 
 func parse(_data:String) -> void:
+	super.parse(_data)
 	var data_dict:Dictionary = JSON.parse_string(_data)
-	draw_lines(data_dict["lines"])
 	path = data_dict["path"]
 	$sprite.texture = load(path)
 
 func stringify() -> String:
-	var data_dict:Dictionary = {}
+	var data_dict:Dictionary = JSON.parse_string(super.stringify())
 	data_dict["path"] = path
-	data_dict["lines"] = get_lines()
 	return JSON.stringify(data_dict)

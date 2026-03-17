@@ -1,22 +1,21 @@
-extends Document
+extends Notable
 
 var state:State = null
 var history:PackedStringArray = []
 
 func parse(data:String) -> void:
+	super.parse(data)
 	var data_dict:Dictionary = JSON.parse_string(data)
 	var fen:String = data_dict["state"]
 	state = Chess.parse(fen)
 	history = data_dict["history"]
-	draw_lines(data_dict["lines"])
 	update_table()
 
 func stringify() -> String:
-	var data_dict:Dictionary = {}
+	var data_dict:Dictionary = JSON.parse_string(super.stringify())
 	var fen:String = Chess.stringify(state)
 	data_dict["state"] = fen
 	data_dict["history"] = history
-	data_dict["lines"] = get_lines()
 	return JSON.stringify(data_dict)
 
 func get_rect() -> Rect2:

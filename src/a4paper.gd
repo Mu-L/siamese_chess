@@ -43,16 +43,16 @@ func input(_from:Node3D, _to:Area3D, _event:InputEvent, _event_position:Vector3,
 	if _event is InputEventMouseButton:
 		if !use_eraser:
 			if _event.pressed && _event.button_index == MOUSE_BUTTON_LEFT:
-				document.start_drawing(actual_position)
+				document.start_dragging(actual_position)
 			else:
-				document.end_drawing()
+				document.end_dragging()
 	elif _event is InputEventMouseMotion:
 		if _event.button_mask & MOUSE_BUTTON_MASK_LEFT:
 			if use_eraser || _event.pen_inverted:
-				document.cancel_drawing()
-				document.erase_line(actual_position)
+				document.cancel_dragging()
+				document.erase(actual_position)
 			else:
-				document.drawing_curve(actual_position)
+				document.dragging(actual_position)
 		elif _event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
-			document.cancel_drawing()
-			document.erase_line(actual_position)
+			document.cancel_dragging()
+			document.erase(actual_position)
