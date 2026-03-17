@@ -12,9 +12,9 @@ var use_eraser:bool = false
 var zoom_mapped:float = 1
 
 func _ready() -> void:
-	pass
+	set_process_input(false)
 
-func _unhandled_input(event:InputEvent) -> void:
+func _input(event:InputEvent) -> void:
 	if !document || !visible:
 		return
 	if event is InputEventMultiScreenDrag && get_global_rect().has_point(event.position):
@@ -46,6 +46,13 @@ func _unhandled_input(event:InputEvent) -> void:
 			document.erase_line(actual_position)
 		get_viewport().set_input_as_handled()
 
+func open() -> void:
+	visible = true
+	set_process_input(true)
+
+func close() -> void:
+	visible = false
+	set_process_input(false)
 
 func set_document(_document) -> void:
 	if is_instance_valid(document):

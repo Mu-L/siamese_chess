@@ -42,7 +42,7 @@ func update_list() -> void:
 	button_list.clear()
 	document_list.clear()
 	if !is_instance_valid(document):
-		$texture_rect/document_browser.visible = false
+		$texture_rect/document_browser.close()
 	var dir:DirAccess = DirAccess.open("user://archive/")
 	if !dir:
 		DirAccess.make_dir_absolute("user://archive/")
@@ -97,10 +97,10 @@ func open_document(filename:String) -> void:
 	document.set_filename(filename)
 	document.load_file()
 	$texture_rect/document_browser.set_document(document)
-	$texture_rect/document_browser.visible = true
+	$texture_rect/document_browser.open()
 
 func close() -> void:
-	$texture_rect/document_browser.visible = false
+	$texture_rect/document_browser.close()
 	visible = false
 	set_process(false)
 
