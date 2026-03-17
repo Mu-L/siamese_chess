@@ -15,9 +15,12 @@ ground_horizon_color = Color(2.1665, 2.1665, 2.1665, 1)
 sky_material = SubResource("ProceduralSkyMaterial_36njv")
 
 [sub_resource type="Environment" id="Environment_mi8yu"]
-background_mode = 2
+background_mode = 1
 sky = SubResource("Sky_x0vwd")
-tonemap_mode = 2
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
 
 [node name="model" type="Node2D" unique_id=1712911378]
 script = ExtResource("1_36njv")
@@ -39,5 +42,5 @@ transform = Transform3D(0.936434, -0.303841, 0.175422, 0, 0.5, 0.866025, -0.3508
 shadow_enabled = true
 
 [node name="camera_3d" type="Camera3D" parent="sub_viewport" unique_id=325277294]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.105904, 0.437064)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052541316, 0.437)
 current = true
