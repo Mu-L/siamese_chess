@@ -465,7 +465,19 @@ func state_ready_dialog(_arg:Dictionary) -> void:
 
 func state_ready_interact(_arg:Dictionary) -> void:
 	await _arg["callback"].call()
+	
 	if chessboard.state.get_turn() != player_group:
 		state_machine.change_state("enemy")
+	elif premove_from != -1 && premove_to != -1:
+		chessboard.clear_pointer("premove")
+		state_machine.change_state("check_move", {"from": premove_from, "to": premove_to, "move_list": Chess.generate_valid_move(chessboard.state, player_group) if chessboard.state.get_bit(enemy_all) else Chess.generate_explore_move(chessboard.state, player_group)})
+		premove_from = -1
+		premove_to = -1
+	elif premove_from != -1 && (chessboard.mouse_hold || chessboard.button_input_hold):
+		state_machine.change_state("ready_to_move", {"from": premove_from})
+		premove_from = -1
+		premove_to = -1
 	else:
 		state_machine.change_state("player")
+		premove_from = -1
+		premove_to = -1
