@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://d4fh7xfnsf31v"]
+
+[ext_resource type="Script" uid="uid://bt4vtnpxu5i4x" path="res://src/actor.gd" id="1_xmaqm"]
+[ext_resource type="PackedScene" uid="uid://dd5y2wcjnmlqy" path="res://assets/model/archive_shelf.glb" id="2_hm58d"]
+[ext_resource type="PackedScene" uid="uid://blfa7tg8uh5xo" path="res://assets/model/book_stack_0.glb" id="3_d0rod"]
+[ext_resource type="PackedScene" uid="uid://bwbf0fpqspq8l" path="res://assets/model/book_tied.glb" id="4_qk4tl"]
+[ext_resource type="PackedScene" uid="uid://dtrbfbjh5ccs0" path="res://assets/model/rose.glb" id="5_d0rod"]
+[ext_resource type="PackedScene" uid="uid://324uto1yslin" path="res://assets/model/painting_frame_rect.glb" id="6_qk4tl"]
+[ext_resource type="PackedScene" uid="uid://b6l1w8csg7tim" path="res://assets/model/piece_rook.glb" id="7_bk1pv"]
+[ext_resource type="PackedScene" uid="uid://fql23rvu2hyk" path="res://assets/model/pen.glb" id="8_7cvlf"]
+[ext_resource type="PackedScene" uid="uid://bw127d1iawnv3" path="res://assets/model/radermachera_sinica.glb" id="8_tl6eo"]
+[ext_resource type="PackedScene" uid="uid://h3wcv7lnqe8x" path="res://assets/model/painting_frame_square.glb" id="10_7cvlf"]
+
+[node name="basement_shelf" type="CharacterBody3D" unique_id=481885860]
+script = ExtResource("1_xmaqm")
+metadata/_custom_type_script = "uid://bt4vtnpxu5i4x"
+
+[node name="0" type="Node3D" parent="." unique_id=1875453357]
+
+[node name="archive_shelf2" parent="0" unique_id=824526039 instance=ExtResource("2_hm58d")]
+transform = Transform3D(0, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, 0, 0, 0, 0)
+
+[node name="book_stack_0" parent="0" unique_id=1573690435 instance=ExtResource("3_d0rod")]
+transform = Transform3D(0.085069075, 0.9963751, 0, -0.9963751, 0.085069075, 0, 0, 0, 1, -1.1427634, 0.27707672, 0.11804247)
+
+[node name="book_tied" parent="0" unique_id=582726185 instance=ExtResource("4_qk4tl")]
+transform = Transform3D(0.99993974, 0, -0.010978001, 0, 1, 0, 0.010978001, 0, 0.99993974, 0.911664, 0.07421672, 0.11024046)
+
+[node name="book_tied_2" parent="0" unique_id=500743669 instance=ExtResource("4_qk4tl")]
+transform = Transform3D(0.99993974, 0, -0.010978001, 0, 1, 0, 0.010978001, 0, 0.99993974, 0.43605185, 0.07421672, 0.11024046)
+
+[node name="book_stack_1" parent="0" unique_id=814819521 instance=ExtResource("3_d0rod")]
+transform = Transform3D(0.085069075, 0.9963751, 0, -0.9963751, 0.085069075, 0, 0, 0, 1, -0.9330761, 0.27707672, 0.11804247)
+
+[node name="rose2" parent="0" unique_id=484935092 instance=ExtResource("5_d0rod")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0630456, 1.497189, 0.14359117)
+
+[node name="painting_frame_rect" parent="0" unique_id=1770360571 instance=ExtResource("6_qk4tl")]
+transform = Transform3D(1, 0, 0, 0, 0.98671716, 0.16244774, 0, -0.16244774, 0.98671716, -0.47918105, 0.2945795, 0.35950255)
+
+[node name="radermachera_sinica2" parent="0" unique_id=1055194541 instance=ExtResource("8_tl6eo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50208616, 0, 0.6134925)
+
+[node name="pen2" parent="0" unique_id=129176882 instance=ExtResource("8_7cvlf")]
+transform = Transform3D(1.2785116, -0.2353684, 0.0031254794, -1.5090316e-09, -0.01726131, -1.2998854, 0.23538916, 1.2783989, -0.01697599, -0.7878221, 0.5530271, 0.11299825)
+
+[node name="pen2_2" parent="0" unique_id=78908413 instance=ExtResource("8_7cvlf")]
+transform = Transform3D(1.2990075, 0.050783984, -0.00067458826, 1.5095328e-09, -0.017267045, -1.2998853, -0.050788462, 1.2988929, -0.01725386, -0.72932816, 0.5530271, 0.11299825)
+
+[node name="piece_rook" parent="0" unique_id=653429839 instance=ExtResource("7_bk1pv")]
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -0.91760373, 1.477443, 0.17678988)
+
+[node name="painting_frame_rect_2" parent="0" unique_id=763012627 instance=ExtResource("6_qk4tl")]
+transform = Transform3D(1, 0, 0, 0, 0.95610553, 0.29302257, 0, -0.29302257, 0.95610553, -0.4042209, 0.2945795, 0.43269098)
+
+[node name="painting_frame_square" parent="0" unique_id=1258126342 instance=ExtResource("10_7cvlf")]
+transform = Transform3D(1, 0, 0, 0, 0.021378633, 0.9997715, 0, -0.9997715, 0.021378633, -0.28251237, 0.5389304, 0.10547352)
+
+[node name="painting_frame_square_2" parent="0" unique_id=667089390 instance=ExtResource("10_7cvlf")]
+transform = Transform3D(1, 0, 0, 0, 0.021378633, 0.9997715, 0, -0.9997715, 0.021378633, -0.2614643, 0.56472576, 0.10547352)
+
+[node name="painting_frame_square_3" parent="0" unique_id=2045839416 instance=ExtResource("10_7cvlf")]
+transform = Transform3D(0.9904398, 0.13791434, -0.0029490942, 0, 0.021378633, 0.9997715, 0.13794588, -0.99021345, 0.021174248, -0.26898724, 0.5870089, 0.09314132)
+
+[node name="painting_frame_square_4" parent="0" unique_id=823948234 instance=ExtResource("10_7cvlf")]
+transform = Transform3D(1, 0, 0, 0, 0.021378633, 0.9997715, 0, -0.9997715, 0.021378633, -0.28251237, 0.6134354, 0.10547352)
+
+[node name="painting_frame_square_5" parent="0" unique_id=1026526968 instance=ExtResource("10_7cvlf")]
+transform = Transform3D(1, 0, 0, 0, 0.021378633, 0.9997715, 0, -0.9997715, 0.021378633, -0.2614643, 0.6392307, 0.10547352)
+
+[node name="painting_frame_square_6" parent="0" unique_id=555967417 instance=ExtResource("10_7cvlf")]
+transform = Transform3D(0.9904398, 0.13791434, -0.0029490942, 0, 0.021378633, 0.9997715, 0.13794588, -0.99021345, 0.021174248, -0.26898724, 0.66151386, 0.09314132)
+
+[node name="book_tied_3" parent="0" unique_id=905811713 instance=ExtResource("4_qk4tl")]
+transform = Transform3D(0.0153933205, 0, 0.9998815, 0, 1, 0, -0.9998815, 0, 0.0153933205, -0.9949108, 0.60312974, 0.16904312)

@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://dg5pnyks1me7"]
+
+[ext_resource type="Script" uid="uid://esfde7td2hli" path="res://src/level/basement.gd" id="1_mtw5c"]
+[ext_resource type="PackedScene" uid="uid://dwvyc2qlcdag0" path="res://scene/chessboard_large.tscn" id="2_3cgcv"]
+[ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="3_ywqhp"]
+[ext_resource type="PackedScene" uid="uid://btdxda3dhe5ji" path="res://scene/actor/box_stack.tscn" id="4_d5w51"]
+[ext_resource type="PackedScene" uid="uid://d4fh7xfnsf31v" path="res://scene/actor/basement_shelf.tscn" id="5_80gqw"]
+[ext_resource type="PackedScene" uid="uid://cc47gv2sinn3k" path="res://scene/actor/library_handcart.tscn" id="6_vjidp"]
+[ext_resource type="PackedScene" uid="uid://chkp5305aorwt" path="res://scene/actor/basement_safe.tscn" id="7_h64pl"]
+[ext_resource type="PackedScene" uid="uid://c6uqbb5c7lq8l" path="res://assets/model/hang_light_0.glb" id="8_7262k"]
+[ext_resource type="PackedScene" uid="uid://cwjgphuayqvy3" path="res://assets/model/hotel_door_large.glb" id="9_7pf3j"]
+[ext_resource type="PackedScene" uid="uid://b3ml34bssywkr" path="res://scene/player.tscn" id="10_mtw5c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3cgcv"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_gimty"]
+sky_material = SubResource("ProceduralSkyMaterial_3cgcv")
+
+[sub_resource type="Environment" id="Environment_ywqhp"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_gimty")
+sdfgi_read_sky_light = false
+glow_enabled = true
+fog_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7pf3j"]
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.7
+
+[node name="basement" type="Node3D" unique_id=587138851]
+script = ExtResource("1_mtw5c")
+metadata/_custom_type_script = "uid://rhdq34na2j5m"
+metadata/by = 16
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=907141662]
+transform = Transform3D(-0.8660237, -0.43301567, 0.2500005, 0, 0.49999815, 0.8660265, -0.5000028, 0.7499995, -0.4330103, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1875977362]
+environment = SubResource("Environment_ywqhp")
+
+[node name="chessboard" parent="." unique_id=1662556525 instance=ExtResource("2_3cgcv")]
+
+[node name="csg_box_3d" type="CSGBox3D" parent="." unique_id=1657154682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10000038, -0.5024414, -11.020386)
+size = Vector3(16, 17, 6)
+material = SubResource("StandardMaterial3D_7pf3j")
+
+[node name="csg_box_3d_2" type="CSGBox3D" parent="." unique_id=1802066478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.887945, -0.5024414, 0)
+size = Vector3(6, 17, 28)
+material = SubResource("StandardMaterial3D_7pf3j")
+
+[node name="csg_box_3d_3" type="CSGBox3D" parent="." unique_id=826242116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.958649, -0.5024414, 0)
+size = Vector3(6, 17, 28)
+material = SubResource("StandardMaterial3D_7pf3j")
+
+[node name="csg_box_3d_4" type="CSGBox3D" parent="." unique_id=1001958745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054027557, -0.5024414, 11.01297)
+size = Vector3(16.021355, 17, 6)
+material = SubResource("StandardMaterial3D_7pf3j")
+
+[node name="reflection_probe" type="ReflectionProbe" parent="." unique_id=184629974]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7871284, 0)
+blend_distance = 0.1
+size = Vector3(18, 8.744995, 18)
+box_projection = true
+
+[node name="marker_actor_box" type="Marker3D" parent="." unique_id=873452953]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, 3)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("4_d5w51")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_box_2" type="Marker3D" parent="." unique_id=1411084736]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 3, 0, -7)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("4_d5w51")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_shelf_2" type="Marker3D" parent="." unique_id=5559064]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 1, 0, -1)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("5_80gqw")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_shelf" type="Marker3D" parent="." unique_id=294195218]
+transform = Transform3D(-0.9999999, 0, -8.742276e-08, 0, 1, 0, 8.742276e-08, 0, -0.9999999, -3, 0, 7)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("5_80gqw")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_box_3" type="Marker3D" parent="." unique_id=1805708270]
+transform = Transform3D(0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881907, -3, 0, -1)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("4_d5w51")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_box_4" type="Marker3D" parent="." unique_id=408133148]
+transform = Transform3D(-5.9604645e-08, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -5.9604645e-08, -1, 0, -1)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("4_d5w51")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_handcart" type="Marker3D" parent="." unique_id=1018678253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -1)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("6_vjidp")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_safe" type="Marker3D" parent="." unique_id=689316368]
+transform = Transform3D(-0.9999999, 0, -8.742276e-08, 0, 1, 0, 8.742276e-08, 0, -0.9999999, -3, 0, 3)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("7_h64pl")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_handcart_2" type="Marker3D" parent="." unique_id=1878005695]
+transform = Transform3D(-4.371138e-08, 0, 0.9999999, 0, 1, 0, -0.9999999, 0, -4.371138e-08, -7, 0, 1)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("6_vjidp")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_box_5" type="Marker3D" parent="." unique_id=14995965]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -7, 0, 5)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("4_d5w51")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_shelf_3" type="Marker3D" parent="." unique_id=1600310085]
+transform = Transform3D(0.9999999, 0, 7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 0.9999999, -3, 0, -7)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("5_80gqw")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_shelf_4" type="Marker3D" parent="." unique_id=791161120]
+transform = Transform3D(-0.9999999, 0, -8.742276e-08, 0, 1, 0, 8.742276e-08, 0, -0.9999999, 1, 0, 3)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("5_80gqw")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_safe_2" type="Marker3D" parent="." unique_id=70197644]
+transform = Transform3D(1.3113414e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 1.3113414e-07, 7, 0, 5)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("7_h64pl")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_safe_3" type="Marker3D" parent="." unique_id=1625701990]
+transform = Transform3D(1.3113414e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 1.3113414e-07, 7, 0, 7)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("7_h64pl")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_box_6" type="Marker3D" parent="." unique_id=950805274]
+transform = Transform3D(-0.9659258, 0, -0.25881898, 0, 1, 0, 0.25881898, 0, -0.9659258, 5, 0, -7)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("4_d5w51")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_shelf_5" type="Marker3D" parent="." unique_id=131524880]
+transform = Transform3D(0.9999999, 0, 7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 0.9999999, -1, 0, -7)
+script = ExtResource("3_ywqhp")
+piece = 35
+actor = ExtResource("5_80gqw")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="hang_light_02" parent="." unique_id=1369491943 instance=ExtResource("8_7262k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 3)
+
+[node name="hang_light_03" parent="." unique_id=1075693000 instance=ExtResource("8_7262k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 3)
+
+[node name="hang_light_04" parent="." unique_id=1880830678 instance=ExtResource("8_7262k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, 3)
+
+[node name="hang_light_05" parent="." unique_id=1796143951 instance=ExtResource("8_7262k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, -3)
+
+[node name="hang_light_06" parent="." unique_id=1617089856 instance=ExtResource("8_7262k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -3)
+
+[node name="hang_light_07" parent="." unique_id=85200325 instance=ExtResource("8_7262k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -3)
+
+[node name="hotel_door_large" parent="." unique_id=1943249449 instance=ExtResource("9_7pf3j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, -5)
+
+[node name="camera_3d" type="Camera3D" parent="." unique_id=1334859970]
+transform = Transform3D(-0.80175364, 0.42219585, -0.4230152, 0.007905273, 0.7152216, 0.6988531, 0.5976025, 0.5569639, -0.57676905, -6.0017877, 3.0934687, -5.577407)
+fov = 102.04714
+
+[node name="player" parent="." unique_id=1111666 instance=ExtResource("10_mtw5c")]

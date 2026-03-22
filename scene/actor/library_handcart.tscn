@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cc47gv2sinn3k"]
+
+[ext_resource type="Script" uid="uid://r84cy7gvn2eo" path="res://src/actor/barrier.gd" id="1_drtyw"]
+[ext_resource type="PackedScene" uid="uid://onunc0vaq3og" path="res://assets/model/library_handcart.glb" id="2_8vrsk"]
+[ext_resource type="PackedScene" uid="uid://bwbf0fpqspq8l" path="res://assets/model/book_tied.glb" id="3_1s0sc"]
+
+[node name="library_handcart" type="CharacterBody3D" unique_id=225623082]
+script = ExtResource("1_drtyw")
+metadata/_custom_type_script = "uid://r84cy7gvn2eo"
+
+[node name="0" type="Node3D" parent="." unique_id=850488057]
+
+[node name="library_handcart" parent="0" unique_id=1884302657 instance=ExtResource("2_8vrsk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41577595, 0, -0.33877146)
+
+[node name="book_tied" parent="0/library_handcart" unique_id=582726185 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16036159, 0.14061272, -0.34267622)
+
+[node name="book_tied_2" parent="0/library_handcart" unique_id=1659551327 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17094296, 0.33799893, -0.34267622)
+
+[node name="book_tied_3" parent="0/library_handcart" unique_id=796732752 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20718035, 0.14061272, -0.22344854)
+
+[node name="book_tied_4" parent="0/library_handcart" unique_id=814250136 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20724204, 0.33799893, -0.23402974)
+
+[node name="book_tied_5" parent="0/library_handcart" unique_id=340883241 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, -0.07376772)
+
+[node name="book_tied_6" parent="0/library_handcart" unique_id=846562000 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.16682848, 0.33799893, -0.07361406)
+
+[node name="book_tied_7" parent="0/library_handcart" unique_id=1218745313 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20718035, 0.14061272, 0.25182393)
+
+[node name="book_tied_8" parent="0/library_handcart" unique_id=1286570217 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20724204, 0.33799893, 0.24124274)
+
+[node name="book_tied_9" parent="0/library_handcart" unique_id=461860115 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, -0.13419133, 0.5281667, -0.029156208)
+
+[node name="book_tied_10" parent="0/library_handcart" unique_id=398139015 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.16385669, 0.5281667, -0.029156208)
+
+[node name="book_tied_11" parent="0/library_handcart" unique_id=487446107 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, 0.2150966)
+
+[node name="book_tied_12" parent="0/library_handcart" unique_id=542168376 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.16682848, 0.33799893, 0.21525025)
+
+[node name="library_handcart_2" parent="0" unique_id=141143851 instance=ExtResource("2_8vrsk")]
+transform = Transform3D(-0.03032915, 0, -0.99954, 0, 1, 0, 0.99954, 0, -0.03032915, -0.37536258, 0, 0.55452347)
+
+[node name="book_tied" parent="0/library_handcart_2" unique_id=1431350657 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16036159, 0.14061272, -0.34267622)
+
+[node name="book_tied_2" parent="0/library_handcart_2" unique_id=1127936315 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17094296, 0.33799893, -0.34267622)
+
+[node name="book_tied_3" parent="0/library_handcart_2" unique_id=1240217863 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20718035, 0.14061272, -0.22344854)
+
+[node name="book_tied_4" parent="0/library_handcart_2" unique_id=2038928152 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20724204, 0.33799893, -0.23402974)
+
+[node name="book_tied_5" parent="0/library_handcart_2" unique_id=1988447144 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, -0.07376772)
+
+[node name="book_tied_6" parent="0/library_handcart_2" unique_id=1266461287 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.16682848, 0.33799893, -0.07361406)
+
+[node name="book_tied_7" parent="0/library_handcart_2" unique_id=971339125 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20718035, 0.14061272, 0.25182393)
+
+[node name="book_tied_8" parent="0/library_handcart_2" unique_id=1371846093 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20724204, 0.33799893, 0.24124274)
+
+[node name="book_tied_11" parent="0/library_handcart_2" unique_id=1174255537 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, 0.2150966)
+
+[node name="book_tied_12" parent="0/library_handcart_2" unique_id=198133583 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.16682848, 0.33799893, 0.21525025)
+
+[node name="book_tied_13" parent="0/library_handcart_2" unique_id=237478171 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.016876508, 0, -0.99985754, 0, 1, 0, 0.99985754, 0, -0.016876508, -0.6605173, 0.33799893, -0.67168283)
+
+[node name="book_tied_9" parent="0/library_handcart_2" unique_id=418013333 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.5573829, 0, -0.83025575, 0, 1, 0, 0.83025575, 0, -0.5573829, -0.07705, 0.5281667, -0.030889988)
+
+[node name="library_handcart_3" parent="0" unique_id=1938217351 instance=ExtResource("2_8vrsk")]
+transform = Transform3D(0.9994657, 0, -0.032684147, 0, 1, 0, 0.032684147, 0, 0.9994657, 0.4898188, 0, -0.29500097)
+
+[node name="book_tied" parent="0/library_handcart_3" unique_id=1956119399 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16036159, 0.14061272, -0.34267622)
+
+[node name="book_tied_2" parent="0/library_handcart_3" unique_id=2110941769 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17094296, 0.33799893, -0.34267622)
+
+[node name="book_tied_3" parent="0/library_handcart_3" unique_id=534411282 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20718035, 0.14061272, -0.22344854)
+
+[node name="book_tied_4" parent="0/library_handcart_3" unique_id=1613675089 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20724204, 0.33799893, -0.23402974)
+
+[node name="book_tied_5" parent="0/library_handcart_3" unique_id=1410668863 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, -0.07376772)
+
+[node name="book_tied_6" parent="0/library_handcart_3" unique_id=253140237 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.16682848, 0.33799893, -0.07361406)
+
+[node name="book_tied_7" parent="0/library_handcart_3" unique_id=572002024 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20718035, 0.14061272, 0.25182393)
+
+[node name="book_tied_8" parent="0/library_handcart_3" unique_id=508045416 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005829345, 0.20724204, 0.33799893, 0.24124274)
+
+[node name="book_tied_11" parent="0/library_handcart_3" unique_id=23764466 instance=ExtResource("3_1s0sc")]
+transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, 0.2150966)

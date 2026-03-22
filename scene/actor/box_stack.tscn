@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://btdxda3dhe5ji"]
+
+[ext_resource type="Script" uid="uid://r84cy7gvn2eo" path="res://src/actor/barrier.gd" id="1_aadbc"]
+[ext_resource type="PackedScene" uid="uid://bsduy8f8cs7ov" path="res://assets/model/paper_box.glb" id="2_irt3h"]
+
+[node name="box_stack" type="CharacterBody3D" unique_id=724446345]
+script = ExtResource("1_aadbc")
+metadata/_custom_type_script = "uid://r84cy7gvn2eo"
+
+[node name="0" type="Node3D" parent="." unique_id=214543635]
+
+[node name="paper_box" parent="0" unique_id=444161914 instance=ExtResource("2_irt3h")]
+transform = Transform3D(0.026089763, 0, 0.9996596, 0, 1, 0, -0.9996596, 0, 0.026089763, 0.3548485, 0, -0.31094664)
+
+[node name="paper_box_2" parent="0" unique_id=78163548 instance=ExtResource("2_irt3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56643915, 0, 0.020866513)
+
+[node name="paper_box_3" parent="0" unique_id=264983159 instance=ExtResource("2_irt3h")]
+transform = Transform3D(0.017853817, 0, 0.9998406, 0, 1, 0, -0.9998406, 0, 0.017853817, 0.3546542, 0, 0.39981604)
+
+[node name="paper_box_4" parent="0" unique_id=1121676237 instance=ExtResource("2_irt3h")]
+transform = Transform3D(0.438481, 0, 0.8987405, 0, 1, 0, -0.8987405, 0, 0.438481, -0.031235456, 0.7120706, 0.1391635)

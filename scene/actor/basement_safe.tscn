@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://chkp5305aorwt"]
+
+[ext_resource type="Script" uid="uid://bt4vtnpxu5i4x" path="res://src/actor.gd" id="1_iv082"]
+[ext_resource type="PackedScene" uid="uid://5oaqxvj8u6sk" path="res://assets/model/archive_safe.glb" id="2_hqly4"]
+
+[node name="basement_safe" type="CharacterBody3D" unique_id=1759131978]
+script = ExtResource("1_iv082")
+metadata/_custom_type_script = "uid://bt4vtnpxu5i4x"
+
+[node name="0" type="Node3D" parent="." unique_id=1977187023]
+
+[node name="archive_safe" parent="0" unique_id=865149152 instance=ExtResource("2_hqly4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5880285, 0, 0)
+
+[node name="archive_safe_2" parent="0" unique_id=1000592731 instance=ExtResource("2_hqly4")]
+
+[node name="archive_safe_3" parent="0" unique_id=1075949543 instance=ExtResource("2_hqly4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6084218, 0, 0)
