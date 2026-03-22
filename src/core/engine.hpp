@@ -1,11 +1,10 @@
 #ifndef _ENGINE_H_
 #define _ENGINE_H_
 
-#include "./state.hpp"
-#include "./transposition_table.hpp"
+#include <godot_cpp/godot.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
-#include <godot_cpp/core/gdvirtual.gen.inc>
-#include <godot_cpp/variant/dictionary.hpp>
+#include "state.hpp"
+#include "transposition_table.hpp"
 #include <thread>
 
 class ChessEngine : public godot::RefCounted
@@ -25,4 +24,5 @@ class ChessEngine : public godot::RefCounted
 		bool interrupted = false;
 		bool searching = false;
 };
+
 #endif
