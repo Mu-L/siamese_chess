@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dtu3l0xkrwcvx" path="res://assets/model/bookshelf.glb" id="19_lw61d"]
 [ext_resource type="PackedScene" uid="uid://dgvq7kuhcahlb" path="res://scene/teleport_pointer.tscn" id="19_m8sl2"]
 [ext_resource type="PackedScene" uid="uid://ylr82inm0vxe" path="res://assets/model/counter.glb" id="20_uwrpd"]
-[ext_resource type="PackedScene" uid="uid://brwklx5c0sjbo" path="res://assets/model/kitchen_table.glb" id="21_u42d1"]
+[ext_resource type="PackedScene" uid="uid://brwklx5c0sjbo" path="res://assets/model/cafe_washbasin.glb" id="21_u42d1"]
 [ext_resource type="PackedScene" uid="uid://ba012g1wjar5t" path="res://assets/model/coffee_machine.glb" id="22_uyp13"]
 [ext_resource type="PackedScene" uid="uid://cqom50qugj77u" path="res://scene/radio.tscn" id="23_qbjw3"]
 [ext_resource type="PackedScene" uid="uid://cuu3yjt7ru2ah" path="res://assets/model/hang_shelf.glb" id="25_0ldt7"]
@@ -542,7 +542,7 @@ bit = 536870912
 [node name="counter" parent="." unique_id=1239334850 instance=ExtResource("20_uwrpd")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.9781, 0, 2.29696)
 
-[node name="kitchen_table" parent="." unique_id=2022232144 instance=ExtResource("21_u42d1")]
+[node name="kitchen_table" parent="." unique_id=805518138 instance=ExtResource("21_u42d1")]
 transform = Transform3D(-4.3711378e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711378e-08, -6.38197, 0, 2)
 
 [node name="coffee_machine" parent="." unique_id=1504435139 instance=ExtResource("22_uyp13")]

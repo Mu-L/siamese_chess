@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b4sp8vdkwakx0"
-path="res://.godot/imported/kitchen_table.glb-693a5aa059d24ebbacbe987d327f274a.scn"
+uid="uid://brwklx5c0sjbo"
+path="res://.godot/imported/cafe_washbasin.glb-66048b37b76fca317fa444b55c325f96.scn"
 
 [deps]
 
-source_file="res://assets/model/kitchen_table.glb"
-dest_files=["res://.godot/imported/kitchen_table.glb-693a5aa059d24ebbacbe987d327f274a.scn"]
+source_file="res://assets/model/cafe_washbasin.glb"
+dest_files=["res://.godot/imported/cafe_washbasin.glb-66048b37b76fca317fa444b55c325f96.scn"]
 
 [params]
 
@@ -38,5 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-gltf/naming_version=2
+gltf/naming_version=1
 gltf/embedded_image_handling=1
