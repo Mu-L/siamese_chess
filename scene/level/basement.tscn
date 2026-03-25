@@ -172,7 +172,7 @@ metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="teleport_pointer_basement" parent="." unique_id=82850098 instance=ExtResource("14_nwskg")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5, 0, -7)
-to = "res://scene/level/hallway_minus_1.tscn"
+to = "res://scene/level/hallway_minus_1f.tscn"
 args = {
 "by": 1
 }
