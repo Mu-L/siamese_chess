@@ -114,7 +114,7 @@ to = "res://scene/level/hotel_room.tscn"
 args = {
 "by": 49
 }
-bit = 134217728
+bit = 67108864
 
 [node name="multi_actor_barrier" type="Node3D" parent="." unique_id=792722285]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
