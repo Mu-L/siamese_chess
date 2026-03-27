@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c07j5dqfy7nsx" path="res://src/marker_multi_actor.gd" id="10_5hf7g"]
 [ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="10_as14m"]
 [ext_resource type="PackedScene" uid="uid://cwjgphuayqvy3" path="res://assets/model/hotel_door_large.glb" id="10_lvxho"]
+[ext_resource type="PackedScene" uid="uid://c4wyvxxvc66cl" path="res://scene/actor/shrub.tscn" id="13_5hf7g"]
 [ext_resource type="PackedScene" uid="uid://dgvq7kuhcahlb" path="res://scene/teleport_pointer.tscn" id="13_as14m"]
 
 [node name="entrance" type="Node3D" unique_id=437690800]
@@ -21,7 +22,7 @@ metadata/by = 116
 [node name="player" parent="." unique_id=1123846377 instance=ExtResource("2_x41v6")]
 
 [node name="camera" type="Camera3D" parent="." unique_id=1745089291]
-transform = Transform3D(-0.9911276, 0.09025611, -0.09757031, 1.93588e-08, 0.73408616, 0.6790564, 0.13291399, 0.6730315, -0.72757304, -2.8076081, 12.81213, -15.432731)
+transform = Transform3D(-1, -5.9398648e-08, 6.41447e-08, 0, 0.73372984, 0.67944133, -8.742278e-08, 0.67944133, -0.73372984, 0.20078707, 8.345562, -12.496995)
 fov = 58.5874
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2012792099]
@@ -85,18 +86,6 @@ visible = false
 
 [node name="pool" parent="." unique_id=1988405554 instance=ExtResource("4_vie8g")]
 metadata/_edit_lock_ = true
-
-[node name="fence_16" parent="." unique_id=1197430867 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5, 0, -9)
-
-[node name="fence_17" parent="." unique_id=1268836823 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5, 0, -9)
-
-[node name="fence_18" parent="." unique_id=735794917 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3, 0, -9)
-
-[node name="fence_19" parent="." unique_id=2000807470 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 0, -9)
 
 [node name="hotel_gate" parent="." unique_id=1133506456 instance=ExtResource("7_h0t85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
@@ -186,15 +175,85 @@ size = Vector3(6.494858, 0.4975586, 24.6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.054027557, -0.2512207, 9.793869)
 size = Vector3(16.021355, 0.4975586, 3.561798)
 
+[node name="csg_box_3d_5" type="CSGBox3D" parent="." unique_id=11510450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2352953, 13.001099, 13.219864)
+size = Vector3(29.4, 27.002197, 3.4078522)
+
 [node name="reflection_probe" type="ReflectionProbe" parent="." unique_id=1549429842]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94150615, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.22902, 0)
+blend_distance = 0.1
+size = Vector3(20, 8.832809, 20)
 box_projection = true
 interior = true
 
-[node name="fence_20" parent="." unique_id=1874964424 instance=ExtResource("5_of156")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7, 0, -9)
-
-[node name="fence_21" parent="." unique_id=11555501 instance=ExtResource("5_of156")]
+[node name="fences" type="Node3D" parent="." unique_id=79229224]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 0, -9)
+
+[node name="fence_16" parent="fences" unique_id=1197430867 instance=ExtResource("5_of156")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.9073486e-06)
+
+[node name="fence_17" parent="fences" unique_id=1268836823 instance=ExtResource("5_of156")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 9.536743e-07)
+
+[node name="fence_18" parent="fences" unique_id=735794917 instance=ExtResource("5_of156")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1.9073486e-06)
+
+[node name="fence_19" parent="fences" unique_id=2000807470 instance=ExtResource("5_of156")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 9.536743e-07)
+
+[node name="fence_20" parent="fences" unique_id=1874964424 instance=ExtResource("5_of156")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 1.9073486e-06)
+
+[node name="fence_21" parent="fences" unique_id=11555501 instance=ExtResource("5_of156")]
+
+[node name="shrubs" type="Node3D" parent="." unique_id=1366806492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -7)
+
+[node name="shrub" parent="shrubs" unique_id=2044898220 instance=ExtResource("13_5hf7g")]
+
+[node name="shrub_2" parent="shrubs" unique_id=1206777500 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="shrub_3" parent="shrubs" unique_id=931538761 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="shrub_4" parent="shrubs" unique_id=592207758 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="shrub_5" parent="shrubs" unique_id=1888683790 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="shrub_6" parent="shrubs" unique_id=242769515 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="shrub_7" parent="shrubs" unique_id=626558334 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="shrub_8" parent="shrubs" unique_id=219788859 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
+
+[node name="shrub_9" parent="shrubs" unique_id=1374430799 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 0)
+
+[node name="shrub_10" parent="shrubs" unique_id=1025877043 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 2)
+
+[node name="shrub_11" parent="shrubs" unique_id=204086578 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 4)
+
+[node name="shrub_12" parent="shrubs" unique_id=2002219697 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 6)
+
+[node name="shrub_13" parent="shrubs" unique_id=601346481 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 8)
+
+[node name="shrub_14" parent="shrubs" unique_id=2041827439 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 10)
+
+[node name="shrub_15" parent="shrubs" unique_id=756872487 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 12)
+
+[node name="shrub_16" parent="shrubs" unique_id=622702036 instance=ExtResource("13_5hf7g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 14)
 
 [editable path="chessboard"]
