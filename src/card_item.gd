@@ -12,6 +12,8 @@ func _ready() -> void:
 	visible = !taken
 
 func event() -> void:
+	if !(level.chessboard.state.get_bit(level.player_king) & bit):
+		return
 	if taken:
 		return
 	taken = true

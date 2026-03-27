@@ -6,6 +6,8 @@ class_name MarkerDocument
 @export var comment:String = ""
 
 func event() -> void:
+	if !(level.chessboard.state.get_bit(level.player_king) & bit):
+		return
 	if !FileAccess.file_exists(file_path):
 		var dir:DirAccess = DirAccess.open("user://archive/")
 		if !dir:

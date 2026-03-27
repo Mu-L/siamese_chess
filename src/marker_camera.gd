@@ -4,5 +4,5 @@ class_name MarkerCamera
 @export var camera:Camera3D = null
 
 func event() -> void:
-	if camera:
+	if camera && (level.chessboard.state.get_bit(level.player_king) & bit):
 		level.get_node("player").force_set_camera(camera)
