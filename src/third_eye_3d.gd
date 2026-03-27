@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var chessboard:Chessboard = $texture_rect/sub_viewport_container/sub_viewport/chessboard
 @onready var camera:Camera3D = $texture_rect/sub_viewport_container/sub_viewport/camera
-@onready var button_close:Button = $texture_rect/margin_container_close/button_close
+@onready var button_close:Button = $texture_rect_top/margin_container_close/button_close
 var tween:Tween
 var target_camera:Camera3D = null
 

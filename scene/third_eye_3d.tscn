@@ -18,6 +18,13 @@ fog_mode = 1
 fog_light_color = Color(1, 1, 1, 1)
 fog_density = 1.0
 
+[sub_resource type="Gradient" id="Gradient_gckm1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jni17"]
+gradient = SubResource("Gradient_gckm1")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8fiwy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jni17"]
@@ -29,6 +36,13 @@ action = &"ui_cancel"
 
 [sub_resource type="Shortcut" id="Shortcut_3hc4g"]
 events = [SubResource("InputEventAction_uj1is")]
+
+[sub_resource type="Gradient" id="Gradient_6c1pi"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8fiwy"]
+gradient = SubResource("Gradient_6c1pi")
 
 [node name="third_eye_3d" type="CanvasLayer" unique_id=1143011719]
 layer = 5
@@ -81,16 +95,27 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 directional_shadow_max_distance = 1.0
 
-[node name="margin_container_close" type="MarginContainer" parent="texture_rect" unique_id=309889439]
+[node name="texture_rect_top" type="TextureRect" parent="." unique_id=1238060131]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.105
+offset_bottom = -0.040000916
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_jni17")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="margin_container_close" type="MarginContainer" parent="texture_rect_top" unique_id=309889439]
 layout_mode = 0
 offset_right = 90.0
 offset_bottom = 91.0
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="button_close" type="Button" parent="texture_rect/margin_container_close" unique_id=1586918767]
+[node name="button_close" type="Button" parent="texture_rect_top/margin_container_close" unique_id=1586918767]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -103,3 +128,15 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_jni17")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_tugep")
 shortcut = SubResource("Shortcut_3hc4g")
 text = ""
+
+[node name="texture_rect_bottom" type="TextureRect" parent="." unique_id=1559215430]
+anchors_preset = -1
+anchor_top = 0.895
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.039978
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_8fiwy")
+expand_mode = 1
+stretch_mode = 1
