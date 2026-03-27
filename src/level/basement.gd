@@ -4,7 +4,6 @@ var light_switch:bool = false
 
 func _ready() -> void:
 	super._ready()
-	$player.force_set_camera($camera_3d)
 	var cheshire_by:int = get_meta("by")
 	var cheshire_instance:Actor = load("res://scene/actor/cheshire.tscn").instantiate()
 	cheshire_instance.position = $chessboard.x88_to_vector3(cheshire_by)

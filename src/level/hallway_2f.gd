@@ -10,7 +10,6 @@ func _ready() -> void:
 	$chessboard.state.add_piece(cheshire_by, player_king)
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
 	chessboard.button_input_pointer = cheshire_by
-	$player.force_set_camera($camera)
 
 func elevator_minus_1f() -> void:
 	Loading.change_scene("res://scene/level/hallway_minus_1f.tscn", {"by": 0x10})
