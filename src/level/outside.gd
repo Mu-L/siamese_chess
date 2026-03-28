@@ -10,3 +10,7 @@ func _ready() -> void:
 	$chessboard.add_piece_instance(cheshire_instance, cheshire_by)
 	chessboard.button_input_pointer = cheshire_by
 	$player.force_set_camera($camera)
+
+func inspect_door() -> void:
+	var toast:Toast = Toast.create_instance("HINT_CANT_LEAVE")
+	add_child(toast)
