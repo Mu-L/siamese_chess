@@ -200,6 +200,8 @@ func set_clean_archive() -> void:
 		for iter:String in remove_list:
 			DirAccess.remove_absolute("user://archive/" + iter)
 		DirAccess.remove_absolute("user://archive")
+	var toast:Toast = Toast.create_instance("SETTINGS_RESET_DOCUMENTS_SUCCESS")
+	add_child(toast)
 
 func set_reset_progress() -> void:
 	Progress.clear()
