@@ -8,10 +8,9 @@ var page_list:Array[HistoryPage] = []
 var current_page:int = 0
 var current_page_instance:HistoryPage = null
 
-func parse(data:String) -> void:
+func parse(data:Dictionary) -> void:
 	super.parse(data)
-	var data_dict:Dictionary = JSON.parse_string(data)
-	var data_arr:Array = data_dict["history"]
+	var data_arr:Array = data["history"]
 	for iter:Dictionary in data_arr:
 		var page:HistoryPage = HistoryPage.new()
 		var fen:String = iter["state"]
@@ -22,8 +21,8 @@ func parse(data:String) -> void:
 	current_page_instance = page_list[current_page]
 	update_table()
 
-func stringify() -> String:
-	var data_dict:Dictionary = JSON.parse_string(super.stringify())
+func dict() -> Dictionary:
+	var data:Dictionary = super.dict()
 	var data_arr:Array = []
 	for page:HistoryPage in page_list:
 		var iter:Dictionary = {}
@@ -31,8 +30,8 @@ func stringify() -> String:
 		iter["state"] = fen
 		iter["history"] = page.history
 		data_arr.push_back(iter)
-	data_dict["history"] = data_arr
-	return JSON.stringify(data_dict)
+	data["history"] = data_arr
+	return data
 
 func get_rect() -> Rect2:
 	return $history.get_rect() * $history.transform

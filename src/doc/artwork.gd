@@ -2,13 +2,12 @@ extends Document
 # 插画作品，只保存路径，而非其图像数据
 var path:String = ""
 
-func parse(_data:String) -> void:
-	super.parse(_data)
-	var data_dict:Dictionary = JSON.parse_string(_data)
-	path = data_dict["path"]
+func parse(data:Dictionary) -> void:
+	super.parse(data)
+	path = data["path"]
 	$sprite.texture = load(path)
 
-func stringify() -> String:
-	var data_dict:Dictionary = JSON.parse_string(super.stringify())
-	data_dict["path"] = path
-	return JSON.stringify(data_dict)
+func dict() -> Dictionary:
+	var data:Dictionary = super.dict()
+	data["path"] = path
+	return data

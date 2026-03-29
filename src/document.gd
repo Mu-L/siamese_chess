@@ -9,14 +9,14 @@ var template:String = ""	# 模板路径
 func _ready() -> void:
 	pass
 
-func parse(_data:String) -> void:
+func parse(_data:Dictionary) -> void:
 	pass
 
-func stringify() -> String:
-	return ""
+func dict() -> Dictionary:
+	return {}
 
 func save_file() -> void:
-	var data:String = stringify()
+	var data:String = JSON.stringify(dict())
 	var path:String = "user://archive/" + filename
 	DirAccess.make_dir_absolute("user://archive/")
 	var file:FileAccess = FileAccess.open(path, FileAccess.WRITE)
@@ -26,7 +26,7 @@ func save_file() -> void:
 func load_file() -> void:
 	if FileAccess.file_exists("user://archive/" + filename):
 		var data:String = FileAccess.get_file_as_string("user://archive/" + filename)
-		parse(data)
+		parse(JSON.parse_string(data))
 
 func clear_file() -> void:
 	DirAccess.remove_absolute("user://archive/" + filename)

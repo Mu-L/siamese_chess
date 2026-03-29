@@ -6,14 +6,13 @@ var model_instance:Node3D = null
 
 var last_position:Vector2 = Vector2(0, 0)
 
-func parse(_data:String) -> void:
-	var data_dict:Dictionary = JSON.parse_string(_data)
-	set_model(data_dict["path"])
+func parse(data:Dictionary) -> void:
+	set_model(data["path"])
 
-func stringify() -> String:
-	var data_dict:Dictionary = {}
-	data_dict["path"] = model_path
-	return JSON.stringify(data_dict)
+func dict() -> Dictionary:
+	var data:Dictionary = {}
+	data["path"] = model_path
+	return data
 
 func set_model(_model_path:String) -> void:
 	if is_instance_valid(model_instance):

@@ -11,25 +11,24 @@ class NotablePage extends RefCounted:
 
 var notable_page_list:Array[NotablePage] = []
 
-func parse(_data:String) -> void:
-	var data_dict:Dictionary = JSON.parse_string(_data)
-	var data_arr:Array = data_dict["notable"]
+func parse(data:Dictionary) -> void:
+	var data_arr:Array = data["notable"]
 	for iter:Dictionary in data_arr:
 		var page:NotablePage = NotablePage.new()
 		page.lines = iter["lines"]
 		notable_page_list.push_back(page)
 	draw_lines(notable_page_list[page_index()].lines)
 
-func stringify() -> String:
+func dict() -> Dictionary:
 	notable_page_list[page_index()].lines = get_lines()
-	var data_dict:Dictionary = {}
+	var data:Dictionary = {}
 	var data_arr:Array = []
 	for page:NotablePage in notable_page_list:
 		var iter:Dictionary = {}
 		iter["lines"] = page.lines
 		data_arr.push_back(iter)
-	data_dict["notable"] = data_arr
-	return JSON.stringify(data_dict)
+	data["notable"] = data_arr
+	return data
 
 func get_rect() -> Rect2:
 	return Rect2(-552 / 2, -780 / 2, 552, 780)
