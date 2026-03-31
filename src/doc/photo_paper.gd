@@ -1,16 +1,47 @@
 extends  Notable
 
-var image:Image = Image.new()
+class PhotoPage extends RefCounted:
+	var image:Image = Image.new()
+
+var page_list:Array[PhotoPage] = []
+var current_page:int = 0
+var current_page_instance:PhotoPage = null
 
 func parse(data:Dictionary) -> void:
 	super.parse(data)
-	image.load_png_from_buffer(Marshalls.base64_to_raw(data["data"]))
-	$sprite_2d.texture = ImageTexture.create_from_image(image)
+	var data_arr:Array = data["photo"]
+	for iter:Dictionary in data_arr:
+		var page:PhotoPage = PhotoPage.new()
+		page.image.load_png_from_buffer(Marshalls.base64_to_raw(iter["data"]))
+		page_list.push_back(page)
 
 func dict() -> Dictionary:
 	var data:Dictionary = super.dict()
-	data["data"] = Marshalls.raw_to_base64(image.save_png_to_buffer())
+	var data_arr:Array = []
+	for iter:PhotoPage in page_list:
+		data_arr.push_back({"data": Marshalls.raw_to_base64(iter.image.save_png_to_buffer())})
+	data["photo"] = data_arr
 	return data
 
 func get_rect() -> Rect2:
 	return $sprite_2d.get_rect() * $sprite_2d.transform
+
+func new_page() -> void:
+	super.new_page()
+	var page:PhotoPage = PhotoPage.new()
+	page_list.push_back(page)
+	current_page = page_list.size() - 1
+	current_page_instance = page
+	$sprite_2d.texture = ImageTexture.create_from_image(page_list[page_index()].image)
+
+func turn_page(_page:int) -> void:
+	super.turn_page(_page)
+	current_page = _page
+	current_page_instance = page_list[current_page]
+	$sprite_2d.texture = ImageTexture.create_from_image(page_list[page_index()].image)
+
+func page_count() -> int:
+	return page_list.size()
+
+func page_index() -> int:
+	return current_page
