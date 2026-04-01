@@ -33,6 +33,7 @@ func _process(_delta:float) -> void:
 func open() -> void:
 	set_process(true)
 	$texture_rect/button_close.grab_focus()
+	document = null
 	visible = true
 	update_list()
 

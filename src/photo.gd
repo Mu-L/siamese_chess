@@ -10,6 +10,8 @@ extends CanvasLayer
 @onready var sub_viewport_container:SubViewportContainer = $texture_rect/h_box_container/margin_container/sub_viewport_container
 @onready var sub_viewport:SubViewport = $texture_rect/h_box_container/margin_container/sub_viewport_container/sub_viewport
 
+@onready var photo_document:Document = load("res://scene/doc/photo_paper.tscn").instantiate()
+
 func _ready() -> void:
 	visible = false
 	button_close.connect("pressed", close)
@@ -40,6 +42,8 @@ func sub_viewport_container_gui_input(event:InputEvent) -> void:
 		zoom_camera(slider.value + event.relative / 1000 * Setting.get_value("camera_move_speed"))
 
 func open() -> void:
+	photo_document.set_filename("photo.camera.json")
+	photo_document.load_file()
 	zoom_camera(0)
 	set_physics_process(true)
 	visible = true
@@ -67,16 +71,8 @@ func capture() -> void:
 	tween.tween_property(sub_viewport_container, "visible", true, 0)
 
 func save_photo() -> void:
-	DirAccess.make_dir_absolute("user://photo/")
-	DirAccess.make_dir_absolute("user://archive/")
 	var texture:ViewportTexture = sub_viewport.get_texture()
 	var image:Image = texture.get_image()
-	var timestamp:String = String.num_int64(Time.get_unix_time_from_system())
-	var data:PackedByteArray = image.save_png_to_buffer()
-	var file:FileAccess = FileAccess.open("user://archive/photo." + timestamp + ".json", FileAccess.WRITE)
-	var dict:Dictionary = {
-		"lines": [],
-		"data": Marshalls.raw_to_base64(data)
-	}
-	file.store_string(JSON.stringify(dict))
-	file.close()
+	photo_document.new_page()
+	photo_document.set_image(image)
+	photo_document.save_file()
