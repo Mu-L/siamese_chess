@@ -69,6 +69,7 @@ func set_document(_document:Document) -> void:
 	zoom_mapped = min($sub_viewport_container/sub_viewport.size.x / rect.size.x, $sub_viewport_container/sub_viewport.size.y / rect.size.y)
 	zoom = sqrt((zoom_mapped - 0.1) / 0.95) * 2
 	zoom_local = 1
+	page = 0
 	offset = $sub_viewport_container/sub_viewport.size / 2
 	$margin_container_zoom/h_box_container/label.text = "%d%%" % (zoom_local * 100)
 	$margin_container_page/h_box_container/label.text = "%d/%d" % [page + 1, document.page_count()]
