@@ -9,4 +9,4 @@ func _init() -> void:
 
 func event() -> void:
 	if level.chessboard.state.get_bit(level.player_king) & bit:
-		Loading.change_scene(to, args)
+		await Loading.change_scene(to, args)

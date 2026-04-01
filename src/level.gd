@@ -450,9 +450,11 @@ func state_ready_dialog(_arg:Dictionary) -> void:
 
 func state_ready_interact(_arg:Dictionary) -> void:
 	await _arg["callback"].call()
-	back_to_game()
+	back_to_game.call_deferred()
 
 func back_to_game() -> void:
+	if is_queued_for_deletion():
+		return
 	if chessboard.state.get_turn() != player_group:
 		state_machine.change_state("enemy")
 	elif premove_from != -1 && premove_to != -1:
