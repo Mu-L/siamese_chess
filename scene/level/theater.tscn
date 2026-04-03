@@ -62,12 +62,14 @@ size = Vector3(20, 14, 2)
 
 [node name="spot_light_3d" type="SpotLight3D" parent="." unique_id=724658543]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 6.845164, -2.6354008)
+visible = false
 light_color = Color(1, 0.923, 0.78, 1)
 shadow_enabled = true
 spot_range = 9.011914
 
 [node name="omni_light_3d" type="OmniLight3D" parent="spot_light_3d" unique_id=448312076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6766858)
+visible = false
 light_color = Color(1, 0.95016664, 0.87, 1)
 light_energy = 0.262
 omni_range = 18.93521
