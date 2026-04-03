@@ -12,12 +12,8 @@ sky_material = SubResource("ProceduralSkyMaterial_w25ob")
 [resource]
 background_mode = 2
 sky = SubResource("Sky_cdevh")
-ambient_light_color = Color(0.7490196, 0.2, 0.1882353, 1)
+ambient_light_source = 1
+reflected_light_source = 1
 sdfgi_read_sky_light = false
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.88074917, 0.26800972, 0.25980935, 1)
-fog_density = 1.0
 volumetric_fog_albedo = Color(0.88, 0.79816, 0.6072, 1)
 volumetric_fog_emission = Color(1, 1, 1, 1)
-adjustment_enabled = true
