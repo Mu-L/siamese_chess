@@ -2,13 +2,29 @@
 
 [ext_resource type="Script" uid="uid://cjddqgsgfo4hw" path="res://src/level/outside.gd" id="1_02fpy"]
 [ext_resource type="PackedScene" uid="uid://b3ml34bssywkr" path="res://scene/player.tscn" id="2_02fpy"]
-[ext_resource type="Environment" uid="uid://dpl334n3lt1ig" path="res://assets/environment_outside.tres" id="3_6tgvo"]
 [ext_resource type="PackedScene" uid="uid://famkj12ufimp" path="res://scene/chessboard_blank.tscn" id="4_vvkta"]
 [ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="5_6tgvo"]
 [ext_resource type="PackedScene" uid="uid://d1orpuo40iup6" path="res://scene/actor/carnation.tscn" id="6_vvkta"]
 [ext_resource type="PackedScene" uid="uid://dtghnm0mnjeda" path="res://assets/model/garden_chair.glb" id="8_85gfo"]
 [ext_resource type="PackedScene" uid="uid://bfycu28umn8ud" path="res://assets/model/shrub_1.glb" id="9_bedx7"]
 [ext_resource type="PackedScene" uid="uid://jeaolg2mf178" path="res://assets/model/tree_1.glb" id="9_fvl7i"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w25ob"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+sky_curve = 0.5795615
+ground_bottom_color = Color(0.22258106, 0.28460556, 0.31847093, 1)
+
+[sub_resource type="Sky" id="Sky_cdevh"]
+sky_material = SubResource("ProceduralSkyMaterial_w25ob")
+
+[sub_resource type="Environment" id="Environment_85gfo"]
+background_mode = 2
+sky = SubResource("Sky_cdevh")
+ambient_light_source = 1
+reflected_light_source = 1
+sdfgi_read_sky_light = false
+volumetric_fog_density = 0.1487
 
 [node name="garden" type="Node3D" unique_id=833531337]
 script = ExtResource("1_02fpy")
@@ -22,7 +38,7 @@ transform = Transform3D(-1, -5.9398648e-08, 6.41447e-08, 0, 0.73372984, 0.679441
 fov = 58.5874
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2064269927]
-environment = ExtResource("3_6tgvo")
+environment = SubResource("Environment_85gfo")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=687146826]
 transform = Transform3D(-0.48413697, 0.73398685, -0.47631383, 0.24234493, 0.63554907, 0.73303914, 0.8407617, 0.23945893, -0.48557106, 4.61496, 2.82427, 0)
