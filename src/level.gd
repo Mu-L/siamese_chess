@@ -124,15 +124,24 @@ class PremoveBranch extends RefCounted:
 	var future_state:State = null
 
 var premove_branch:PremoveBranch = null
+var premove_from:int = -1
+var premove_to:int = -1
 
 func state_premove_start_ready(_arg:Dictionary) -> void:
 	if !premove_branch:
 		premove_branch = PremoveBranch.new()
 	if !premove_branch.move_order.size():
 		premove_branch.future_state = chessboard.state.duplicate()
-	premove_state_machine.change_state.call_deferred("from")
+	if premove_from != -1 && premove_to != -1:
+		premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(premove_from, premove_to, 0)})
+	elif premove_from != -1:
+		premove_state_machine.change_state.call_deferred("to", {"from": premove_from})
+	else:
+		premove_state_machine.change_state.call_deferred("from")
 
 func state_premove_from_ready(_arg:Dictionary) -> void:
+	premove_from = -1
+	premove_to = -1
 	var start_from:int = 0
 	var can_introduce:bool = false
 	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1) if premove_branch.future_state.get_bit(enemy_all) else Chess.generate_explore_move(premove_branch.future_state, player_group)
@@ -145,6 +154,7 @@ func state_premove_from_ready(_arg:Dictionary) -> void:
 			start_from |= Chess.mask(Chess.x88_to_c64(Chess.from(iter)))
 
 	premove_state_machine.state_signal_connect(chessboard.click_selection, func () -> void:
+		premove_from = chessboard.selected
 		premove_state_machine.change_state.call_deferred("to", {"from": chessboard.selected})
 	)
 	premove_state_machine.state_signal_connect(Dialog.on_next, func() -> void:
@@ -170,7 +180,11 @@ func state_premove_to_ready(_arg:Dictionary) -> void:
 			if Chess.extra(iter):
 				has_extra |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
 	premove_state_machine.state_signal_connect(chessboard.click_selection, func() -> void:
+		premove_to = chessboard.selected
 		premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(_arg["from"], chessboard.selected, 0)})
+	)
+	premove_state_machine.state_signal_connect(chessboard.click_empty, func() -> void:
+		premove_state_machine.change_state.call_deferred("from")
 	)
 	chessboard.set_square_selection(selection)
 
@@ -199,6 +213,8 @@ func state_premove_select_piece_ready(_arg:Dictionary) -> void:
 	pass
 
 func state_premove_confirm_ready(_arg:Dictionary) -> void:
+	premove_from = -1
+	premove_to = -1
 	premove_branch.move_order.push_back(_arg["move"])
 	Chess.apply_move(premove_branch.future_state, _arg["move"])
 	chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), Chess.from(_arg["move"]), 1)
