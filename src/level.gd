@@ -144,7 +144,7 @@ func state_premove_from_ready(_arg:Dictionary) -> void:
 	premove_to = -1
 	var start_from:int = 0
 	var can_introduce:bool = false
-	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1) if premove_branch.future_state.get_bit(enemy_all) else Chess.generate_explore_move(premove_branch.future_state, player_group)
+	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1)
 	if premove_branch.move_order.size():
 		Dialog.push_selection(["SELECTION_CANCEL"], "", false, false)
 	for iter:int in move_list:
@@ -171,7 +171,7 @@ func state_premove_from_exit() -> void:
 	Dialog.clear()
 
 func state_premove_to_ready(_arg:Dictionary) -> void:
-	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1) if premove_branch.future_state.get_bit(enemy_all) else Chess.generate_explore_move(premove_branch.future_state, player_group)
+	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1)
 	var selection:int = 0
 	var has_extra:int = 0
 	for iter:int in move_list:
@@ -315,7 +315,7 @@ func state_exit_player() -> void:
 	Dialog.clear()
 
 func state_ready_ready_to_move(_arg:Dictionary) -> void:
-	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group) if chessboard.state.get_bit(enemy_all) else Chess.generate_explore_move(chessboard.state, player_group)
+	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
 	var selection:int = 0
 	var dialog_selection:PackedStringArray = []
 	var introduce_selection:int = 0
@@ -385,7 +385,7 @@ func state_exit_ready_to_move() -> void:
 func state_ready_check_move(_arg:Dictionary) -> void:
 	var from:int = _arg["from"]
 	var to:int = _arg["to"]
-	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group) if chessboard.state.get_bit(enemy_all) else Chess.generate_explore_move(chessboard.state, player_group)
+	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
 	if _arg.has("from"):
 		move_list = Array(move_list).filter(func (move:int) -> bool: return _arg["from"] == Chess.from(move))
 	if _arg.has("to"):

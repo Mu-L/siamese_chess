@@ -71,8 +71,7 @@ class Chess : public godot::Object
 		static void _internal_generate_move(godot::PackedInt32Array &output, const godot::Ref<State> &_state, int _group);
 		static godot::PackedInt32Array generate_valid_move(const godot::Ref<State> &_state, int _group);
 		static void _internal_generate_valid_move(godot::PackedInt32Array &output, const godot::Ref<State> &_state, int _group);
-		static godot::PackedInt32Array generate_explore_move(const godot::Ref<State> &_state, int _group);
-		static godot::PackedInt32Array generate_king_path(const godot::Ref<State> &_state, int _from, int _to);
+		static godot::PackedInt32Array generate_path(const godot::Ref<State> &_state, int _from, int _to);
 		static godot::String get_move_name(const godot::Ref<State> &_state, int move);
 		static int name_to_move(const godot::Ref<State> &_state, const godot::String &name);
 		static void apply_move(const godot::Ref<State> &_state, int _move);
@@ -127,7 +126,7 @@ class Chess : public godot::Object
 		const static int directions_straight[4];
 		const static int directions_eight_way[8];
 		const static int directions_horse[8];
-		const static int direction_pawn[2][2];
+		const static int directions_pawn[2][3];
 		static int64_t pawn_start[2];
 		static int64_t pawn_end[2];
 };

@@ -188,7 +188,7 @@ const int Chess::directions_diagonal[4] = {-17, -15, 15, 17};
 const int Chess::directions_straight[4] = {-16, -1, 1, 16};
 const int Chess::directions_eight_way[8] = {-17, -16, -15, -1, 1, 15, 16, 17};
 const int Chess::directions_horse[8] = {33, 31, 18, 14, -33, -31, -18, -14};
-const int Chess::direction_pawn[2][2] = {{-17, -15}, {17, 15}};
+const int Chess::directions_pawn[2][3] = {{-17, -15, -16}, {17, 15, 16}};
 int64_t Chess::pawn_start[2] = {0x00FF000000000000, 0x000000000000FF00};
 int64_t Chess::pawn_end[2] = {0x0000000000FF00, 0x00FF000000000000};
 
@@ -645,6 +645,9 @@ int Chess::direction_count(int piece)
 		case 'b':
 			return 4;
 		break;
+		case 'P':
+		case 'p':
+			return 2;
 	}
 	return 0;
 }
@@ -672,10 +675,10 @@ int Chess::direction(int piece, int index)
 			return directions_diagonal[index];
 		break;
 		case 'P':
-			return -16;
+			return directions_pawn['P'][index];
 		break;
 		case 'p':
-			return 16;
+			return directions_pawn['p'][index];
 		break;
 	}
 	return 0;
@@ -683,8 +686,7 @@ int Chess::direction(int piece, int index)
 
 int Chess::direction_pawn_capture(int group, bool capture_dir)
 {
-	return direction_pawn[group][capture_dir];
-
+	return directions_pawn[group][capture_dir];
 }
 
 bool Chess::pawn_on_start(int group, int by)
@@ -1609,58 +1611,10 @@ void Chess::_internal_generate_valid_move(godot::PackedInt32Array &output, const
 	}
 }
 
-godot::PackedInt32Array Chess::generate_explore_move(const godot::Ref<State> &_state, int _group)
+godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, int _from, int _to)
 {
-	godot::PackedInt32Array move_list = generate_valid_move(_state, _group);
-	if (_state->get_bit(_group == 0 ? 'K' : 'k'))
-	{
-		uint64_t from_bit = _state->get_bit(_group == 0 ? 'K' : 'k');
-		int from = 0;
-		while (from_bit != 1 && from_bit != 0)
-		{
-			from_bit >>= 1;
-			from += 1;
-		}
-		from = from % 8 + from / 8 * 16;
-		godot::PackedInt32Array king_move;
-
-		std::queue<int> q;
-		std::unordered_set<int> closed;
-		closed.insert(from);
-		q.push(from);
-		while (!q.empty())
-		{
-			int cur = q.front();
-			q.pop();
-			for (int i = 0; i < direction_count('k'); i++)
-			{
-				int next = cur + direction('k', i);
-				int move = Chess::create(from, next, 0);
-				int move_with_extra = Chess::create(from, next, 'E');
-				if (!closed.count(next) && !is_blocked(_state, cur, next) && !is_enemy(_state, cur, next))
-				{
-					godot::Ref<State> test_state = _state->duplicate();
-					apply_move(test_state, move);
-					if (!is_check(test_state, 1 - _group))
-					{
-						if (!move_list.has(move))
-						{
-							king_move.push_back(move_with_extra);
-						}
-						q.push(next);
-					}
-					closed.insert(next);
-				}
-			}
-		}
-		move_list.append_array(king_move);
-	}
-	return move_list;
-}
-
-godot::PackedInt32Array Chess::generate_king_path(const godot::Ref<State> &_state, int _from, int _to)
-{
-	std::vector<std::pair<int, godot::PackedInt32Array>> dp(64, std::make_pair(0x7FFFFFFF, godot::PackedInt32Array()));
+	int from_piece = _state->get_piece(_from);
+	std::vector<std::pair<int, int>> dp(64, std::make_pair(0x7FFFFFFF, 0));
 	std::vector<bool> shortest(64, false);
 	dp[Chess::x88_to_c64(_from)].first = 0;
 	for (int i = 0; i < 64; i++)
@@ -1676,18 +1630,18 @@ godot::PackedInt32Array Chess::generate_king_path(const godot::Ref<State> &_stat
 			}
 		}
 		shortest[min_node] = true;
-		for (int j = 0; j < direction_count('k'); j++)
+		for (int j = 0; j < direction_count(from_piece); j++)
 		{
-			bool is_diagonal = abs(direction('k', j)) != 1 && abs(direction('k', j)) != 16;
-			int step = is_diagonal ? 11 : 10;
-			int next_x88 = Chess::c64_to_x88(min_node) + direction('k', j);
+			bool is_diagonal = abs(direction(from_piece, j)) != 1 && abs(direction(from_piece, j)) != 16;
+			int step = is_diagonal ? 14 : 10;
+			int next_x88 = Chess::c64_to_x88(min_node) + direction(from_piece, j);
 
 			if ((next_x88 & 0x88) || is_blocked(_state, Chess::c64_to_x88(min_node), next_x88) || is_enemy(_state, Chess::c64_to_x88(min_node), next_x88))
 			{
 				continue;
 			}
 			godot::Ref<State> test_state = _state->duplicate();
-			apply_move(test_state, Chess::create(_from, next_x88, 0));
+			apply_move(test_state, Chess::create(_from, next_x88, 0));	//只记录上一步，剩下的交给GDScript部分处理路线
 			if (is_check(test_state, 1 - Chess::group(_state->get_piece(_from))))
 			{
 				continue;
@@ -1698,13 +1652,20 @@ godot::PackedInt32Array Chess::generate_king_path(const godot::Ref<State> &_stat
 				if (min_step + step < dp[next].first)
 				{
 					dp[next].first = min_step + step;
-					dp[next].second = dp[min_node].second.duplicate();
-					dp[next].second.push_back(Chess::c64_to_x88(next));
+					dp[next].second = Chess::create(Chess::c64_to_x88(min_node), next_x88, 0);
 				}
 			}
 		}
 	}
-	return dp[Chess::x88_to_c64(_to)].second;
+	godot::PackedInt32Array output;
+	for (int i = 0; i < 64; i++)
+	{
+		if (dp[i].second != 0)
+		{
+			output.push_back(dp[i].second);
+		}
+	}
+	return output;
 }
 
 godot::String Chess::get_move_name(const godot::Ref<State> &_state, int move)
@@ -2069,13 +2030,6 @@ godot::Dictionary Chess::apply_move_custom(const godot::Ref<State> &_state, int 
 	{
 		if (extra)
 		{
-			if (extra == 'E')
-			{
-				output["type"] = "king_explore";
-				output["from"] = from;
-				output["path"] = generate_king_path(_state, from, to);
-				return output;
-			}
 			if (to == Chess::g1())
 			{
 				output["type"] = "castle";
@@ -2182,8 +2136,7 @@ void Chess::_bind_methods()
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_premove"), &Chess::generate_premove);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_move"), &Chess::generate_move);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_valid_move"), &Chess::generate_valid_move);
-	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_explore_move"), &Chess::generate_explore_move);
-	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_king_path"), &Chess::generate_king_path);
+	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_path"), &Chess::generate_path);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("get_move_name"), &Chess::get_move_name);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("name_to_move"), &Chess::name_to_move);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("apply_move"), &Chess::apply_move); 
