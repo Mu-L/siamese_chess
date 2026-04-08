@@ -1569,6 +1569,8 @@ void Chess::_internal_generate_move(godot::PackedInt32Array &output, const godot
 	//每种棋子存放最多8颗，意味着每种棋子占4位，那就需要4 * 5 * 2 = 40位
 	//棋子的顺序：QRBNPqrbnp
 	int storage_piece_order[10] = {'Q', 'R', 'B', 'N', 'P', 'q', 'r', 'b', 'n', 'p'};
+	int storage_piece_value[10] = {9, 5, 3, 3, 1, 9, 5, 3, 3, 1};
+	int value = _group == 0 ? (storage_piece & 0xFFFFFFFF) : (storage_piece >> 32);
 	while (empty_bit)
 	{
 		int by_c64 = Chess::first_bit(empty_bit);
@@ -1580,7 +1582,7 @@ void Chess::_internal_generate_move(godot::PackedInt32Array &output, const godot
 			{
 				continue;
 			}
-			if ((storage_piece >> (4 * shift)) & 0xF)
+			if (storage_piece_value[shift] > value)
 			{
 				output.push_back(Chess::create(by, by, storage_piece_order[shift]));
 			}
@@ -1811,16 +1813,16 @@ void Chess::apply_move(const godot::Ref<State> &_state, int _move)
 			int64_t storage_piece = _state->get_storage_piece();
 			switch (extra)
 			{
-				case 'Q': storage_piece -= 1ll; break;
-				case 'R': storage_piece -= 1ll << 4; break;
-				case 'B': storage_piece -= 1ll << 8; break;
-				case 'N': storage_piece -= 1ll << 12; break;
-				case 'P': storage_piece -= 1ll << 16; break;
-				case 'q': storage_piece -= 1ll << 20; break;
-				case 'r': storage_piece -= 1ll << 24; break;
-				case 'b': storage_piece -= 1ll << 28; break;
-				case 'n': storage_piece -= 1ll << 32; break;
-				case 'p': storage_piece -= 1ll << 36; break;
+				case 'Q': storage_piece -= 9ll; break;
+				case 'R': storage_piece -= 5ll; break;
+				case 'B': storage_piece -= 3ll; break;
+				case 'N': storage_piece -= 3ll; break;
+				case 'P': storage_piece -= 1ll; break;
+				case 'q': storage_piece -= 9ll << 32; break;
+				case 'r': storage_piece -= 5ll << 32; break;
+				case 'b': storage_piece -= 3ll << 32; break;
+				case 'n': storage_piece -= 3ll << 32; break;
+				case 'p': storage_piece -= 1ll << 32; break;
 			}
 			_state->set_storage_piece(storage_piece);
 		}

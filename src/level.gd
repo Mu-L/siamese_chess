@@ -65,22 +65,8 @@ func _ready() -> void:
 				title[by] = ""
 				bit = Chess.next_bit(bit)
 	var storage_piece:int = 0
-	storage_piece += int(Progress.get_value("storage_queen", 0)) << (5 * 4)
-	storage_piece += int(Progress.get_value("storage_rook", 0)) << (6 * 4)
-	storage_piece += int(Progress.get_value("storage_bishop", 0)) << (7 * 4)
-	storage_piece += int(Progress.get_value("storage_knight", 0)) << (8 * 4)
-	storage_piece += int(Progress.get_value("storage_pawn", 0)) << (9 * 4)
+	storage_piece += int(Progress.get_value("storage", 0) << (player_group * 32))
 	state.set_bit(ord("6"), storage_piece)
-	for i:int in Progress.get_value("storage_queen", 0):
-		chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_queen_black.tscn").instantiate().set_larger_scale(), ord("q"))
-	for i:int in Progress.get_value("storage_rook", 0):
-		chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_rook_black.tscn").instantiate().set_larger_scale(), ord("r"))
-	for i:int in Progress.get_value("storage_bishop", 0):
-		chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_bishop_black.tscn").instantiate().set_larger_scale(), ord("b"))
-	for i:int in Progress.get_value("storage_knight", 0):
-		chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_knight_black.tscn").instantiate().set_larger_scale(), ord("n"))
-	for i:int in Progress.get_value("storage_pawn", 0):
-		chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_pawn_black.tscn").instantiate().set_larger_scale(), ord("p"))
 
 	chessboard.set_state(state)
 	for node:Node in get_children():
@@ -463,15 +449,15 @@ func state_ready_select_piece(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("player")
 		return
 	var selection:Array = []
-	if (storage_piece >> (5 * 4)) & 0xF:
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 9:
 		selection.push_back("PIECE_QUEEN")
-	if (storage_piece >> (6 * 4)) & 0xF:
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 5:
 		selection.push_back("PIECE_ROOK")
-	if (storage_piece >> (7 * 4)) & 0xF:
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 3:
 		selection.push_back("PIECE_BISHOP")
-	if (storage_piece >> (8 * 4)) & 0xF:
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 3:
 		selection.push_back("PIECE_KNIGHT")
-	if ((storage_piece >> (9 * 4)) & 0xF) && pawn_available:
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 1 && pawn_available:
 		selection.push_back("PIECE_PAWN")
 	selection.push_back("SELECTION_CANCEL")
 	state_machine.state_signal_connect(Dialog.on_next, func () -> void:
@@ -479,14 +465,19 @@ func state_ready_select_piece(_arg:Dictionary) -> void:
 			"SELECTION_CANCEL":
 				state_machine.change_state.call_deferred("player")
 			"PIECE_QUEEN":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_queen_black.tscn").instantiate().set_larger_scale(), ord("Q" if player_group == 0 else "q"))
 				state_machine.change_state.call_deferred("move", {"move": Chess.create(by, by, ord("q"))})
 			"PIECE_ROOK":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_rook_black.tscn").instantiate().set_larger_scale(), ord("R" if player_group == 0 else "r"))
 				state_machine.change_state.call_deferred("move", {"move": Chess.create(by, by, ord("r"))})
 			"PIECE_BISHOP":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_bishop_black.tscn").instantiate().set_larger_scale(), ord("B" if player_group == 0 else "b"))
 				state_machine.change_state.call_deferred("move", {"move": Chess.create(by, by, ord("b"))})
 			"PIECE_KNIGHT":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_knight_black.tscn").instantiate().set_larger_scale(), ord("N" if player_group == 0 else "n"))
 				state_machine.change_state.call_deferred("move", {"move": Chess.create(by, by, ord("n"))})
 			"PIECE_PAWN":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_pawn_black.tscn").instantiate().set_larger_scale(), ord("P" if player_group == 0 else "p"))
 				state_machine.change_state.call_deferred("move", {"move": Chess.create(by, by, ord("p"))})
 	)
 	state_machine.state_signal_connect(chessboard.empty_double_click, func () -> void:
