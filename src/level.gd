@@ -334,8 +334,27 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("check_move", {"from": from, "to": chessboard.selected})
 	)
 	state_machine.state_signal_connect(chessboard.click_empty, func () -> void:
-		actor.idle()
-		state_machine.change_state.call_deferred("player")
+		#actor.idle()
+		#state_machine.change_state.call_deferred("player", {"from_last": from})
+		var to:int = chessboard.selected
+		var path:PackedInt32Array = Chess.generate_path(chessboard.state, from)
+		var iter:int = to
+		var path_to:PackedInt32Array = []
+		while (iter != from):
+			path_to.push_back(Chess.create(path[Chess.x88_to_c64(iter)], iter, 0))
+			iter = path[Chess.x88_to_c64(iter)]
+			if iter == -1:
+				state_machine.change_state.call_deferred("player")
+				return
+		var first_move:int = path_to[-1]
+		path_to.resize(path_to.size() - 1)
+		path_to.reverse()
+		premove_branch.move_order = path_to
+		premove_branch.future_state = chessboard.state.duplicate()
+		Chess.apply_move(premove_branch.future_state, first_move)
+		for move:int in path_to:
+			Chess.apply_move(premove_branch.future_state, move)
+		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(first_move), "to": Chess.to(first_move)})
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	state_machine.state_signal_connect(Dialog.on_next, func() -> void:

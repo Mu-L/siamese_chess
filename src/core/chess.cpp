@@ -1611,10 +1611,10 @@ void Chess::_internal_generate_valid_move(godot::PackedInt32Array &output, const
 	}
 }
 
-godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, int _from, int _to)
+godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, int _from)
 {
 	int from_piece = _state->get_piece(_from);
-	std::vector<std::pair<int, int>> dp(64, std::make_pair(0x7FFFFFFF, 0));
+	std::vector<std::pair<int, int>> dp(64, std::make_pair(0x7FFFFFFF, -1));
 	std::vector<bool> shortest(64, false);
 	dp[Chess::x88_to_c64(_from)].first = 0;
 	for (int i = 0; i < 64; i++)
@@ -1652,7 +1652,7 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 				if (min_step + step < dp[next].first)
 				{
 					dp[next].first = min_step + step;
-					dp[next].second = Chess::create(Chess::c64_to_x88(min_node), next_x88, 0);
+					dp[next].second = Chess::c64_to_x88(min_node);
 				}
 			}
 		}
@@ -1660,10 +1660,7 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 	godot::PackedInt32Array output;
 	for (int i = 0; i < 64; i++)
 	{
-		if (dp[i].second != 0)
-		{
-			output.push_back(dp[i].second);
-		}
+		output.push_back(dp[i].second);
 	}
 	return output;
 }

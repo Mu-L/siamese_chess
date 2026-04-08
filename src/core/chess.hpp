@@ -71,7 +71,7 @@ class Chess : public godot::Object
 		static void _internal_generate_move(godot::PackedInt32Array &output, const godot::Ref<State> &_state, int _group);
 		static godot::PackedInt32Array generate_valid_move(const godot::Ref<State> &_state, int _group);
 		static void _internal_generate_valid_move(godot::PackedInt32Array &output, const godot::Ref<State> &_state, int _group);
-		static godot::PackedInt32Array generate_path(const godot::Ref<State> &_state, int _from, int _to);
+		static godot::PackedInt32Array generate_path(const godot::Ref<State> &_state, int _from);
 		static godot::String get_move_name(const godot::Ref<State> &_state, int move);
 		static int name_to_move(const godot::Ref<State> &_state, const godot::String &name);
 		static void apply_move(const godot::Ref<State> &_state, int _move);
