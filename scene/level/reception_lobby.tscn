@@ -25,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://du20bw8426w4" path="res://assets/model/hotel_hall_stair.glb" id="19_ehpdt"]
 [ext_resource type="Script" uid="uid://c07j5dqfy7nsx" path="res://src/marker_multi_actor.gd" id="20_h5tcc"]
 [ext_resource type="PackedScene" uid="uid://bq8nyp56cwxfl" path="res://assets/model/fence_metal.glb" id="25_mv43g"]
+[ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="26_lu7he"]
+[ext_resource type="PackedScene" uid="uid://bg76sf8la38xa" path="res://scene/actor/piece_knight_white.tscn" id="27_de6hv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j5fnc"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -49,6 +51,7 @@ fog_light_color = Color(1, 1, 1, 1)
 
 [node name="reception_lobby" type="Node3D" unique_id=2123137394]
 script = ExtResource("1_s7rcd")
+engine_standard_think_depth = 4
 metadata/_custom_type_script = "uid://rhdq34na2j5m"
 metadata/by = 80
 
@@ -420,3 +423,23 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.3
 
 [node name="radermachera_sinica_7" parent="." unique_id=1759935642 instance=ExtResource("13_uoe5a")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.2040844, -0.021915242, 3.4827905)
+
+[node name="marker_actor" type="Marker3D" parent="." unique_id=709991795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 7)
+script = ExtResource("26_lu7he")
+piece = 78
+actor = ExtResource("27_de6hv")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_2" type="Marker3D" parent="." unique_id=349787881]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 7)
+script = ExtResource("26_lu7he")
+piece = 78
+actor = ExtResource("27_de6hv")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
