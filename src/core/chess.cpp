@@ -188,7 +188,7 @@ const int Chess::directions_diagonal[4] = {-17, -15, 15, 17};
 const int Chess::directions_straight[4] = {-16, -1, 1, 16};
 const int Chess::directions_eight_way[8] = {-17, -16, -15, -1, 1, 15, 16, 17};
 const int Chess::directions_horse[8] = {33, 31, 18, 14, -33, -31, -18, -14};
-const int Chess::directions_pawn[2][3] = {{-17, -15, -16}, {17, 15, 16}};
+const int Chess::directions_pawn[2][3] = {{-16, -17, -15}, {16, 17, 15}};
 int64_t Chess::pawn_start[2] = {0x00FF000000000000, 0x000000000000FF00};
 int64_t Chess::pawn_end[2] = {0x0000000000FF00, 0x00FF000000000000};
 
@@ -647,7 +647,7 @@ int Chess::direction_count(int piece)
 		break;
 		case 'P':
 		case 'p':
-			return 2;
+			return 3;
 	}
 	return 0;
 }
@@ -675,10 +675,10 @@ int Chess::direction(int piece, int index)
 			return directions_diagonal[index];
 		break;
 		case 'P':
-			return directions_pawn['P'][index];
+			return directions_pawn[0][index];
 		break;
 		case 'p':
-			return directions_pawn['p'][index];
+			return directions_pawn[1][index];
 		break;
 	}
 	return 0;
@@ -686,7 +686,7 @@ int Chess::direction(int piece, int index)
 
 int Chess::direction_pawn_capture(int group, bool capture_dir)
 {
-	return directions_pawn[group][capture_dir];
+	return directions_pawn[group][1 + capture_dir];
 }
 
 bool Chess::pawn_on_start(int group, int by)
