@@ -328,6 +328,9 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 		actor.idle()
 		state_machine.change_state.call_deferred("player", {"from_last": from})
 	)
+	state_machine.state_signal_connect(chessboard.selection_hold, func () -> void:
+		state_machine.change_state.call_deferred("travel", {"from": from})
+	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	state_machine.state_signal_connect(Dialog.on_next, func() -> void:
 		match Dialog.selected:
@@ -378,7 +381,7 @@ func state_ready_travel(_arg:Dictionary) -> void:
 	var bit:int = 0
 	for i:int in path.size():
 		if path[i] != -1:
-			bit |= Chess.mask(Chess.x88_to_c64(i))
+			bit |= Chess.mask(i)
 	state_machine.state_signal_connect(chessboard.click_empty, state_machine.change_state.bind("player"))
 	state_machine.state_signal_connect(chessboard.click_selection, func () -> void:
 		var to:int = chessboard.selected

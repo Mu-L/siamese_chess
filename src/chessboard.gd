@@ -9,6 +9,7 @@ signal empty_down()
 signal selection_up()
 signal empty_up()
 signal empty_double_click()
+signal selection_hold()
 signal animation_finished()
 
 @export var COLOR_LAST_MOVE:Color = Color(0.569, 0.569, 0.569, 1.0)
@@ -172,6 +173,10 @@ func tap_position(position_name:String, down:bool = true) -> void:
 	if square_selection != -1 && (Chess.mask(Chess.x88_to_c64(selected)) & square_selection):
 		if down:
 			selection_down.emit.call_deferred()
+			get_tree().create_timer(0.3).timeout.connect(func () -> void:
+				if mouse_hold && !mouse_moved:
+					selection_hold.emit.call_deferred()
+			)
 		else:
 			selection_up.emit.call_deferred()
 		click_selection.emit.call_deferred()
