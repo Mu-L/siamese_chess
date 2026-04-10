@@ -83,6 +83,8 @@ func change_model(_piece:int) -> void:
 		110:
 			promote_instance = load("res://scene/actor/piece_knight_black.tscn").instantiate()
 	add_child(promote_instance)
+	if larger_scale:
+		promote_instance.scale = Vector3(8, 8, 8)
 	promote_instance.top_level = false
 
 func set_larger_scale() -> Actor:
