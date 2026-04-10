@@ -1615,10 +1615,12 @@ void Chess::_internal_generate_valid_move(godot::PackedInt32Array &output, const
 
 godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, int _from)
 {
+	int from_64 = Chess::x88_to_c64(_from);
 	int from_piece = _state->get_piece(_from);
+	bool is_slider = (from_piece & 95) == 'Q' || (from_piece & 95) == 'R' || (from_piece & 95) == 'B';
 	std::vector<std::pair<int, int>> dp(64, std::make_pair(0x7FFFFFFF, -1));
 	std::vector<bool> shortest(64, false);
-	dp[Chess::x88_to_c64(_from)].first = 0;
+	dp[from_64].first = 0;
 	for (int i = 0; i < 64; i++)
 	{
 		int min_node = 0;
@@ -1636,18 +1638,32 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 		{
 			bool is_diagonal = abs(direction(from_piece, j)) != 1 && abs(direction(from_piece, j)) != 16;
 			int step = is_diagonal ? 14 : 10;
-			int next_x88 = Chess::c64_to_x88(min_node) + direction(from_piece, j);
-			if ((next_x88 & 0x88) || is_blocked(_state, Chess::c64_to_x88(min_node), next_x88))
+			int to = Chess::c64_to_x88(min_node);
+			int to_64;
+			while (true)
 			{
-				continue;
-			}
-			int next = Chess::x88_to_c64(next_x88);
-			if (!shortest[next])
-			{
-				if (min_step + step < dp[next].first)
+				to += direction(from_piece, j);
+				to_64 = Chess::x88_to_c64(to);
+				if (to & 0x88)
 				{
-					dp[next].first = min_step + step;
-					dp[next].second = Chess::c64_to_x88(min_node);
+					break;
+				}
+				if (is_blocked(_state, Chess::c64_to_x88(min_node), to))
+				{
+					break;
+				}
+				//算一步
+				if (!shortest[to_64])
+				{
+					if (min_step + step < dp[to_64].first)
+					{
+						dp[to_64].first = min_step + step;
+						dp[to_64].second = Chess::c64_to_x88(min_node);
+					}
+				}
+				if ((from_piece & 95) == 'K' || (from_piece & 95) == 'N' || (from_piece & 95) == 'P')
+				{
+					break;
 				}
 			}
 		}
