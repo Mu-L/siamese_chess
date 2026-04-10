@@ -1637,14 +1637,7 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 			bool is_diagonal = abs(direction(from_piece, j)) != 1 && abs(direction(from_piece, j)) != 16;
 			int step = is_diagonal ? 14 : 10;
 			int next_x88 = Chess::c64_to_x88(min_node) + direction(from_piece, j);
-
-			if ((next_x88 & 0x88) || is_blocked(_state, Chess::c64_to_x88(min_node), next_x88) || is_enemy(_state, Chess::c64_to_x88(min_node), next_x88))
-			{
-				continue;
-			}
-			godot::Ref<State> test_state = _state->duplicate();
-			apply_move(test_state, Chess::create(_from, next_x88, 0));	//只记录上一步，剩下的交给GDScript部分处理路线
-			if (is_check(test_state, 1 - Chess::group(_state->get_piece(_from))))
+			if ((next_x88 & 0x88) || is_blocked(_state, Chess::c64_to_x88(min_node), next_x88))
 			{
 				continue;
 			}
