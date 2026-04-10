@@ -390,8 +390,10 @@ func state_ready_travel(_arg:Dictionary) -> void:
 		while (iter != from):
 			path_to.push_back(Chess.create(path[Chess.x88_to_c64(iter)], iter, 0))
 			iter = path[Chess.x88_to_c64(iter)]
+			chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), iter, 1)
 			if iter == -1:
 				state_machine.change_state.call_deferred("player")
+				chessboard.clear_pointer("premove")
 				return
 		var first_move:int = path_to[-1]
 		path_to.resize(path_to.size() - 1)
