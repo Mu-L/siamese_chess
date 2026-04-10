@@ -114,7 +114,7 @@ class PremoveBranch extends RefCounted:
 	var move_order:PackedInt32Array = []
 	var future_state:State = null
 
-var premove_branch:PremoveBranch = null
+var premove_branch:PremoveBranch = PremoveBranch.new()
 var premove_from:int = -1
 var premove_to:int = -1
 
@@ -152,10 +152,10 @@ func state_premove_from_ready(_arg:Dictionary) -> void:
 		premove_branch.future_state = chessboard.state.duplicate()
 		premove_branch.move_order = []
 	)
-	#if can_introduce:
-	#	premove_state_machine.state_signal_connect(chessboard.empty_double_click, func () -> void:
-	#		premove_state_machine.change_state.call_deferred("select_piece", {"by": chessboard.selected})
-	#	)
+	if can_introduce:
+		premove_state_machine.state_signal_connect(chessboard.empty_double_click, func () -> void:
+			premove_state_machine.change_state.call_deferred("select_piece", {"by": chessboard.selected})
+		)
 	chessboard.set_square_selection(start_from)
 
 func state_premove_from_exit() -> void:
@@ -164,15 +164,19 @@ func state_premove_from_exit() -> void:
 func state_premove_to_ready(_arg:Dictionary) -> void:
 	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1)
 	var selection:int = 0
-	var has_extra:int = 0
 	for iter:int in move_list:
 		if Chess.from(iter) == _arg["from"]:
 			selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
-			if Chess.extra(iter):
-				has_extra |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
 	premove_state_machine.state_signal_connect(chessboard.click_selection, func() -> void:
 		premove_to = chessboard.selected
-		premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(_arg["from"], chessboard.selected, 0)})
+		var cnt:int = 0
+		for iter:int in move_list:
+			if Chess.from(iter) == _arg["from"] && Chess.to(iter) == chessboard.selected:
+				cnt += 1
+		if cnt == 1:
+			premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(_arg["from"], chessboard.selected, 0)})
+		elif cnt > 1:
+			premove_state_machine.change_state.call_deferred("extra", {"from": _arg["from"], "to": chessboard.selected})
 	)
 	premove_state_machine.state_signal_connect(chessboard.click_empty, func() -> void:
 		premove_state_machine.change_state.call_deferred("from")
@@ -195,13 +199,68 @@ func state_premove_extra_ready(_arg:Dictionary) -> void:
 			premove_state_machine.change_state.call_deferred("confirm", {"move": decision_to_move[Dialog.selected]})
 	)
 	premove_state_machine.state_signal_connect(Clock.timeout, premove_state_machine.change_state.call_deferred.bind("enemy_win"))
-	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, true)
+	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, false)
 
 func state_premove_extra_exit() -> void:
 	Dialog.clear()
 
 func state_premove_select_piece_ready(_arg:Dictionary) -> void:
-	pass
+	var storage_piece:int = premove_branch.future_state.get_storage_piece()
+	var by:int = _arg["by"]
+	var start_from:int = premove_branch.future_state.get_bit(player_all)
+
+	var move_valid:bool = false
+	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, player_group)
+	var pawn_available:bool = false 
+	for iter:int in move_list:
+		if Chess.from(iter) == Chess.to(iter) && Chess.from(iter) == by:
+			move_valid = true
+			if Chess.extra(iter) & 95 == ord("P"):
+				pawn_available = true
+	if !move_valid:
+		premove_state_machine.change_state.call_deferred("from")
+		return
+	var selection:Array = []
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 9:
+		selection.push_back("PIECE_QUEEN")
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 5:
+		selection.push_back("PIECE_ROOK")
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 3:
+		selection.push_back("PIECE_BISHOP")
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 3:
+		selection.push_back("PIECE_KNIGHT")
+	if ((storage_piece >> (32 * player_group)) & 0xFFFFFFFF) >= 1 && pawn_available:
+		selection.push_back("PIECE_PAWN")
+	selection.push_back("SELECTION_CANCEL")
+	premove_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
+		match Dialog.selected:
+			"SELECTION_CANCEL":
+				premove_state_machine.change_state.call_deferred("from")
+			"PIECE_QUEEN":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_queen_black.tscn").instantiate().set_larger_scale(), ord("Q" if player_group == 0 else "q"))
+				premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("q"))})
+			"PIECE_ROOK":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_rook_black.tscn").instantiate().set_larger_scale(), ord("R" if player_group == 0 else "r"))
+				premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("r"))})
+			"PIECE_BISHOP":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_bishop_black.tscn").instantiate().set_larger_scale(), ord("B" if player_group == 0 else "b"))
+				premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("b"))})
+			"PIECE_KNIGHT":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_knight_black.tscn").instantiate().set_larger_scale(), ord("N" if player_group == 0 else "n"))
+				premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("n"))})
+			"PIECE_PAWN":
+				chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_pawn_black.tscn").instantiate().set_larger_scale(), ord("P" if player_group == 0 else "p"))
+				premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("p"))})
+	)
+	premove_state_machine.state_signal_connect(chessboard.empty_double_click, func () -> void:
+		premove_state_machine.change_state.call_deferred("select_piece", {"by": chessboard.selected})
+	)
+	premove_state_machine.state_signal_connect(chessboard.click_empty, premove_state_machine.change_state.call_deferred.bind("idle"))
+	premove_state_machine.state_signal_connect(chessboard.click_selection, func () -> void:
+		premove_state_machine.change_state.call_deferred("ready_to_move", {"from": chessboard.selected})
+	)
+	Dialog.push_selection(selection, "HINT_ADD_PIECE", false, false)
+	chessboard.set_square_selection(start_from)
 
 func state_premove_confirm_ready(_arg:Dictionary) -> void:
 	premove_from = -1
@@ -451,7 +510,7 @@ func state_ready_extra_move(_arg:Dictionary) -> void:
 			state_machine.change_state.call_deferred("move", {"move": decision_to_move[Dialog.selected]})
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
-	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, true)
+	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, false)
 
 func state_ready_select_empty_square(_arg:Dictionary) -> void:
 	state_machine.state_signal_connect(Dialog.on_next, state_machine.change_state.call_deferred.bind("player"))
@@ -563,16 +622,16 @@ func state_ready_interact(_arg:Dictionary) -> void:
 func back_to_game() -> void:
 	if is_queued_for_deletion():
 		return
-	premove_state_machine.change_state.call_deferred("stop")
 	if chessboard.state.get_turn() != player_group:
 		state_machine.change_state.call_deferred("enemy")
-	elif premove_branch.move_order.size():
+	elif premove_branch && premove_branch.move_order.size():
 		var next_premove:int = premove_branch.move_order[0]
 		premove_branch.move_order.remove_at(0)
 		if premove_branch.move_order.size() == 0:
 			chessboard.clear_pointer("premove")
-		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(next_premove), "to": Chess.to(next_premove)})
+		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(next_premove), "to": Chess.to(next_premove), "extra": Chess.extra(next_premove)})
 #	elif Chess.from(premove_confirm) != -1 && (chessboard.mouse_hold || chessboard.button_input_hold):
 #		state_machine.change_state.call_deferred("ready_to_move", {"from": Chess.from(premove_confirm)})
 	else:
+		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("player")
