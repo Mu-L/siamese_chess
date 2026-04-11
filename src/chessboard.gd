@@ -230,7 +230,6 @@ func execute_move(move:int) -> Dictionary:
 	var event:Dictionary = Chess.apply_move_custom(state, move)
 	var rollback_event:Dictionary = receive_event(event)
 	Chess.apply_move(state, move)
-	$canvas.clear_pointer("move")
 	$canvas.clear_pointer("last_move")
 	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.from(move))
 	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.to(move))
