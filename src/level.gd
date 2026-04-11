@@ -135,7 +135,7 @@ func state_premove_from_ready(_arg:Dictionary) -> void:
 	premove_to = -1
 	var start_from:int = 0
 	var can_introduce:bool = false
-	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1)
+	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, player_group)
 	if premove_branch.move_order.size():
 		Dialog.push_selection(["SELECTION_CANCEL"], "", false, false)
 	for iter:int in move_list:
@@ -162,7 +162,7 @@ func state_premove_from_exit() -> void:
 	Dialog.clear()
 
 func state_premove_to_ready(_arg:Dictionary) -> void:
-	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, 1)
+	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, player_group)
 	var selection:int = 0
 	for iter:int in move_list:
 		if Chess.from(iter) == _arg["from"]:
@@ -184,7 +184,7 @@ func state_premove_to_ready(_arg:Dictionary) -> void:
 	chessboard.set_square_selection(selection)
 
 func state_premove_extra_ready(_arg:Dictionary) -> void:
-	var move_list:PackedInt32Array = Chess.generate_premove(chessboard.state, player_group)
+	var move_list:PackedInt32Array = Chess.generate_premove(premove_branch.future_state, player_group)
 	var decision_list:PackedStringArray = []
 	var decision_to_move:Dictionary = {}
 	for iter:int in move_list:
@@ -629,7 +629,7 @@ func back_to_game() -> void:
 		if premove_branch.move_order.size() == 0:
 			chessboard.clear_pointer("premove")
 		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(next_premove), "to": Chess.to(next_premove), "extra": Chess.extra(next_premove)})
-	elif Chess.from(premove_from) != -1:
+	elif premove_from != -1:
 		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("ready_to_move", {"from": premove_from})
 	else:
