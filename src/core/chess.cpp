@@ -1623,7 +1623,7 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 	dp[from_64].first = 0;
 	for (int i = 0; i < 64; i++)
 	{
-		int min_node = 0;
+		int min_node = -1;
 		int min_step = 0x7FFFFFFF;
 		for (int j = 0; j < 64; j++)
 		{
@@ -1632,6 +1632,10 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 				min_node = j;
 				min_step = dp[j].first;
 			}
+		}
+		if (min_node == -1)
+		{
+			break;
 		}
 		shortest[min_node] = true;
 		for (int j = 0; j < direction_count(from_piece); j++)
