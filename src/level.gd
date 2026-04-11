@@ -322,7 +322,6 @@ func state_ready_move(_arg:Dictionary) -> void:
 	if premove_state_machine.current_state == "stop":
 		premove_state_machine.change_state.call_deferred("start")
 	state_machine.state_signal_connect(chessboard.animation_finished, func() -> void:
-		var end_type:String = Chess.get_end_type(chessboard.state)
 		if _arg["move"] != -1 && (chessboard.state.get_bit(ord("Z")) & Chess.mask(Chess.x88_to_c64(Chess.to(_arg["move"])))):
 			state_machine.change_state.call_deferred("interact", {"callback": interact_list[Chess.to(_arg["move"])][""]})
 		else:
@@ -630,8 +629,9 @@ func back_to_game() -> void:
 		if premove_branch.move_order.size() == 0:
 			chessboard.clear_pointer("premove")
 		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(next_premove), "to": Chess.to(next_premove), "extra": Chess.extra(next_premove)})
-#	elif Chess.from(premove_confirm) != -1 && (chessboard.mouse_hold || chessboard.button_input_hold):
-#		state_machine.change_state.call_deferred("ready_to_move", {"from": Chess.from(premove_confirm)})
+	elif Chess.from(premove_from) != -1:
+		premove_state_machine.change_state.call_deferred("stop")
+		state_machine.change_state.call_deferred("ready_to_move", {"from": premove_from})
 	else:
 		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("player")
