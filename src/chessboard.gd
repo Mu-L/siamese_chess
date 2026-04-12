@@ -12,9 +12,9 @@ signal empty_double_click()
 signal selection_hold()
 signal animation_finished()
 
-@export var COLOR_LAST_MOVE:Color = Color(0.569, 0.569, 0.569, 1.0)
-@export var COLOR_MOVE:Color = Color(0.56, 0.157, 0.164, 1.0)
-@export var COLOR_POINTER:Color = Color(0.176, 0.176, 0.176, 1.0)
+@export var COLOR_LAST_MOVE:Color = Color(0.347, 0.417, 0.63, 1.0)
+@export var COLOR_MOVE:Color = Color(0.85, 0.297, 0.297, 1.0)
+@export var COLOR_POINTER:Color = Color(0.78, 0.619, 0.32, 1.0)
 @export var actor_scale_factor:float = 1
 
 var backup_piece:Array = []	# 被吃的子统一放这里管理
@@ -231,8 +231,9 @@ func execute_move(move:int) -> Dictionary:
 	var rollback_event:Dictionary = receive_event(event)
 	Chess.apply_move(state, move)
 	$canvas.clear_pointer("last_move")
-	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.from(move))
-	$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.to(move))
+	if move != -1:
+		$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.from(move))
+		$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.to(move))
 	#king_instance[0].set_warning(Chess.is_check(state, 1))
 	#king_instance[1].set_warning(Chess.is_check(state, 0))
 	selected = -1
