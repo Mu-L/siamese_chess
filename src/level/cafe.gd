@@ -102,12 +102,7 @@ func state_game_premove_start_ready(_arg:Dictionary) -> void:
 		game_premove_branch = PremoveBranch.new()
 	if !game_premove_branch.move_order.size():
 		game_premove_branch.future_state = standard_chessboard.state.duplicate()
-	if game_premove_from != -1 && game_premove_to != -1:
-		standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(game_premove_from, game_premove_to, 0)})
-	elif game_premove_from != -1:
-		standard_premove_state_machine.change_state.call_deferred("to", {"from": game_premove_from})
-	else:
-		standard_premove_state_machine.change_state.call_deferred("from")
+	standard_premove_state_machine.change_state.call_deferred("from")
 
 func state_game_premove_from_ready(_arg:Dictionary) -> void:
 	game_premove_from = -1
