@@ -1433,19 +1433,19 @@ godot::PackedInt32Array Chess::generate_premove(const godot::Ref<State> &_state,
 			}
 		}
 	}
-	if (_group == 0 && (_state->get_castle() & 8))
+	if (_group == 0 && (_state->get_castle() & 8) && (_state->get_bit('K') & Chess::mask(60)) && (_state->get_bit('R') & Chess::mask(63)))
 	{
 		output.push_back(Chess::create(Chess::e1(), Chess::g1(), 'K'));
 	}
-	if (_group == 0 && (_state->get_castle() & 4) && !_state->has_piece(Chess::c1()) && !_state->has_piece(Chess::d1()))
+	if (_group == 0 && (_state->get_castle() & 4) && (_state->get_bit('K') & Chess::mask(60)) && (_state->get_bit('R') & Chess::mask(56)))
 	{
 		output.push_back(Chess::create(Chess::e1(), Chess::c1(), 'Q'));
 	}
-	if (_group == 1 && (_state->get_castle() & 2))
+	if (_group == 1 && (_state->get_castle() & 2) && (_state->get_bit('k') & Chess::mask(4)) && (_state->get_bit('r') & Chess::mask(7)))
 	{
 		output.push_back(Chess::create(Chess::e8(), Chess::g8(), 'k'));
 	}
-	if (_group == 1 && (_state->get_castle() & 1))
+	if (_group == 1 && (_state->get_castle() & 1) && (_state->get_bit('k') & Chess::mask(4)) && (_state->get_bit('r') & Chess::mask(0)))
 	{
 		output.push_back(Chess::create(Chess::e8(), Chess::c8(), 'q'));
 	}
