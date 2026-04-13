@@ -21,6 +21,7 @@ class ChessboardPointer extends Node3D:
 		for iter:CollisionShape3D in chessboard.get_node(Chess.x88_to_name(by)).get_children():
 			var mesh_instance:MeshInstance3D = MeshInstance3D.new()
 			mesh_instance.mesh = iter.shape.get_debug_mesh()
+			mesh_instance.mesh.surface_remove(0)
 			mesh_instance.material_override = material
 			add_child(mesh_instance)
 			mesh_instance.transform = iter.transform
