@@ -20,8 +20,12 @@ class ChessboardPointer extends Node3D:
 		global_transform = chessboard.get_node(Chess.x88_to_name(by)).global_transform
 		for iter:CollisionShape3D in chessboard.get_node(Chess.x88_to_name(by)).get_children():
 			var mesh_instance:MeshInstance3D = MeshInstance3D.new()
-			mesh_instance.mesh = iter.shape.get_debug_mesh()
-			mesh_instance.mesh.surface_remove(0)
+			mesh_instance.mesh = ArrayMesh.new()
+			var old_mesh:ArrayMesh = iter.shape.get_debug_mesh()
+			for i:int in old_mesh.get_surface_count():
+				if old_mesh.surface_get_primitive_type(i) == ArrayMesh.PRIMITIVE_TRIANGLES:
+					var old_mesh_data:Array = old_mesh.surface_get_arrays(i)
+					mesh_instance.mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, old_mesh_data)
 			mesh_instance.material_override = material
 			add_child(mesh_instance)
 			mesh_instance.transform = iter.transform
