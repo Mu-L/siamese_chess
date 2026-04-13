@@ -241,8 +241,8 @@ func state_game_premove_confirm_ready(_arg:Dictionary) -> void:
 	game_premove_to = -1
 	game_premove_branch.move_order.push_back(_arg["move"])
 	Chess.apply_move(game_premove_branch.future_state, _arg["move"])
-	standard_chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), Chess.from(_arg["move"]), 1)
-	standard_chessboard.draw_pointer("premove", Color(0.639, 0.051, 0.196, 1.0), Chess.to(_arg["move"]), 1)
+	standard_chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), Chess.from(_arg["move"]))
+	standard_chessboard.draw_pointer("premove", Color(0.639, 0.051, 0.196, 1.0), Chess.to(_arg["move"]))
 	standard_premove_state_machine.change_state.call_deferred("from")
 
 func state_game_premove_stop_ready(_arg:Dictionary) -> void:

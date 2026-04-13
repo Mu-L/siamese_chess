@@ -197,7 +197,7 @@ func state_premove_travel_ready(_arg:Dictionary) -> void:
 		while (iter != from):
 			path_to.push_back(Chess.create(path[Chess.x88_to_c64(iter)], iter, 0))
 			iter = path[Chess.x88_to_c64(iter)]
-			chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), iter, 1)
+			chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), iter)
 			if iter == -1:
 				premove_state_machine.change_state.call_deferred("from")
 				chessboard.clear_pointer("premove")
@@ -298,8 +298,8 @@ func state_premove_confirm_ready(_arg:Dictionary) -> void:
 	premove_to = -1
 	premove_branch.move_order.push_back(_arg["move"])
 	Chess.apply_move(premove_branch.future_state, _arg["move"])
-	chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), Chess.from(_arg["move"]), 1)
-	chessboard.draw_pointer("premove", Color(0.639, 0.051, 0.196, 1.0), Chess.to(_arg["move"]), 1)
+	chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), Chess.from(_arg["move"]))
+	chessboard.draw_pointer("premove", Color(0.639, 0.051, 0.196, 1.0), Chess.to(_arg["move"]))
 	premove_state_machine.change_state.call_deferred("from")
 
 func state_premove_stop_ready(_arg:Dictionary) -> void:
@@ -479,7 +479,7 @@ func state_ready_travel(_arg:Dictionary) -> void:
 		while (iter != from):
 			path_to.push_back(Chess.create(path[Chess.x88_to_c64(iter)], iter, 0))
 			iter = path[Chess.x88_to_c64(iter)]
-			chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), iter, 1)
+			chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), iter)
 			if iter == -1:
 				state_machine.change_state.call_deferred("player")
 				chessboard.clear_pointer("premove")

@@ -480,8 +480,8 @@ func set_enabled(_enabled:bool) -> void:
 		$canvas.clear_pointer("pointer")
 		selected = -1
 
-func draw_pointer(type:String, color:Color, by:int, priority:int = 0) -> void:
-	$canvas.draw_pointer(type, color, by, priority)
+func draw_pointer(type:String, color:Color, by:int) -> void:
+	$canvas.draw_pointer(type, color, by)
 
 func clear_pointer(type:String) -> void:
 	$canvas.clear_pointer(type)
