@@ -12,10 +12,10 @@ func _ready() -> void:
 	chessboard.button_input_pointer = cheshire_by
 
 func elevator_1f() -> void:
-	Loading.change_scene("res://scene/level/reception_lobby.tscn", {"by": 0x10})
+	await Loading.change_scene("res://scene/level/reception_lobby.tscn", {"by": 0x10})
 
 func elevator_2f() -> void:
-	Loading.change_scene("res://scene/level/hallway_2f.tscn", {"by": 0x10})
+	await Loading.change_scene("res://scene/level/hallway_2f.tscn", {"by": 0x10})
 
 func elevator_3f() -> void:
-	Loading.change_scene("res://scene/level/hallway_3f.tscn", {"by": 0x10})
+	await Loading.change_scene("res://scene/level/hallway_3f.tscn", {"by": 0x10})
