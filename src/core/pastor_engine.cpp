@@ -560,7 +560,7 @@ void PastorEngine::all_move(const godot::Ref<State> &_state, int _depth, int _gr
 		int next_score = 0;
 		next_score = -alphabeta(test_state, -WIN, WIN, _depth - 1, 1 - _group, 1, _can_null, false, nullptr, nullptr, _debug_output);
 		searched_move[move_list[i]] = next_score;
-		if (!principal_move || searched_move[principal_move] < next_score)
+		if (principal_move == -1 || searched_move[principal_move] < next_score)
 		{
 			principal_move = move_list[i];
 		}
@@ -712,7 +712,7 @@ void PastorEngine::search(const godot::Ref<State> &_state, int _group, const god
 			return;
 		}
 	}
-	principal_move = 0;
+	principal_move = -1;
 	searched_move.clear();
 	map_history_state.clear();
 	history_table.fill(0);
@@ -732,6 +732,10 @@ void PastorEngine::search(const godot::Ref<State> &_state, int _group, const god
 
 int PastorEngine::get_search_result()
 {
+	if (principal_move == -1)
+	{
+		return -1;
+	}
 	int principal_score = searched_move[principal_move];
 	std::vector<int> acceptable_move;
 	for (std::pair<int, int> iter : searched_move)
