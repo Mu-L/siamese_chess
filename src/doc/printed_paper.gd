@@ -36,7 +36,7 @@ func dict() -> Dictionary:
 	return data
 
 func get_rect() -> Rect2:
-	return instance.get_rect()
+	return super.get_rect()
 
 func new_page() -> void:
 	super.new_page()

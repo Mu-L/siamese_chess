@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://jduksop4p3bt"]
+
+[ext_resource type="Script" uid="uid://yldiqj24uchh" path="res://src/document.gd" id="1_2pj5q"]
+[ext_resource type="FontFile" uid="uid://cmbwnmrpuigxx" path="res://assets/fonts/FangZhengShuSongJianTi-1.ttf" id="2_akbmg"]
+
+[sub_resource type="Gradient" id="Gradient_w5kv4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bw0j0"]
+gradient = SubResource("Gradient_w5kv4")
+
+[node name="welcome" type="Node2D" unique_id=1484973461]
+script = ExtResource("1_2pj5q")
+metadata/_custom_type_script = "uid://yldiqj24uchh"
+
+[node name="texture_rect" type="TextureRect" parent="." unique_id=1636202968]
+offset_left = -252.0
+offset_top = -366.0
+offset_right = 252.0
+offset_bottom = 307.0
+texture = SubResource("GradientTexture1D_bw0j0")
+
+[node name="rich_text_label" type="RichTextLabel" parent="texture_rect" unique_id=1545919967]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 58.0
+offset_right = 475.0
+offset_bottom = 642.0
+theme_override_fonts/normal_font = ExtResource("2_akbmg")
+bbcode_enabled = true
+text = "[center][font_size=30]关于此程序[/font_size][/center]
+[center][font_size=18]About this program[/font_size][/center]
+
+[ol]
+本程序处于早期开发阶段，当前出现的内容不代表最终品质；
+对于未接触过国际象棋的用户，建议其他渠道了解并学习其规则和策略，当然，您也可以在游戏环境中摸索；
+当前版本的程序为技术演示，无需顾虑“为何无固定体验流程”等问题，因为您本应该感到迷茫。
+若对于程序有一定的想法，您可在评论区中分享您的观点，反馈一些不符合预期的问题。
+祝您游玩愉快。
+[/ol]
+"
