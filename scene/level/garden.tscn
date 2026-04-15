@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvkdts055jeng"]
 
-[ext_resource type="Script" uid="uid://cjddqgsgfo4hw" path="res://src/level/outside.gd" id="1_02fpy"]
+[ext_resource type="Script" uid="uid://bb576u7tj5at3" path="res://src/level/garden.gd" id="1_bedx7"]
 [ext_resource type="PackedScene" uid="uid://b3ml34bssywkr" path="res://scene/player.tscn" id="2_02fpy"]
 [ext_resource type="PackedScene" uid="uid://dwvyc2qlcdag0" path="res://scene/chessboard_large.tscn" id="3_85gfo"]
 [ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="5_6tgvo"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://jeaolg2mf178" path="res://assets/model/tree_1.glb" id="9_fvl7i"]
 [ext_resource type="PackedScene" uid="uid://dmwl65mg7565u" path="res://scene/actor/piece_pawn_black.tscn" id="9_u1qnn"]
 [ext_resource type="PackedScene" uid="uid://dgvq7kuhcahlb" path="res://scene/teleport_pointer.tscn" id="10_bedx7"]
+[ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="11_u1qnn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w25ob"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -28,7 +29,7 @@ reflected_light_source = 1
 sdfgi_read_sky_light = false
 
 [node name="garden" type="Node3D" unique_id=833531337]
-script = ExtResource("1_02fpy")
+script = ExtResource("1_bedx7")
 metadata/_custom_type_script = "uid://rhdq34na2j5m"
 metadata/by = 3
 
@@ -315,3 +316,14 @@ args = {
 "by": 71
 }
 bit = 4294967296
+
+[node name="marker_callback" type="Node3D" parent="." unique_id=1823859777 node_paths=PackedStringArray("node")]
+script = ExtResource("11_u1qnn")
+node = NodePath("..")
+method_name = &"interact_carnation"
+selection = "CARNATION_TALK"
+bit = 35184372088832
+metadata/_custom_type_script = "uid://cpyviir7sli6u"
+
+[node name="camera_carnation_dialog" type="Camera3D" parent="." unique_id=597081388]
+transform = Transform3D(-0.9329912, 0.12309277, -0.33819458, 0, 0.9396926, 0.34202018, 0.35989916, 0.3191018, -0.87672496, 2, 2, 1.4332323)
