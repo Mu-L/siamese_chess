@@ -617,6 +617,9 @@ script = ExtResource("31_2nvbi")
 file_path = "user://archive/printed.chess_movements.json"
 file_content = {
 "lines": [],
+"notable": [{
+"lines": []
+}],
 "path": "res://assets/texture/chess_movements.png"
 }
 selection = "DOCUMENT_TITLE_CHESS_MOVEMENT"

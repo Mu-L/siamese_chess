@@ -25,3 +25,9 @@ func dict() -> Dictionary:
 
 func get_rect() -> Rect2:
 	return $sprite_2d.get_rect() * $sprite_2d.transform
+
+func page_index() -> int:
+	return 0
+
+func page_size() -> int:
+	return 1

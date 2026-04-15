@@ -68,4 +68,4 @@ func page_count() -> int:
 	return 0
 
 func page_index() -> int:
-	return 1
+	return 0
