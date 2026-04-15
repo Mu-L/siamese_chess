@@ -66,8 +66,10 @@ func _ready() -> void:
 				if !interact_list.has(by):
 					interact_list[by] = {}
 				interact_list[by][node.selection] = node.event
-				title[by] = ""
 				bit = Chess.next_bit(bit)
+		if node is MarkerTitle:
+			var by:int = chessboard.vector3_to_x88(node.position)
+			title[by] = node.text
 	var storage_piece:int = 0
 	storage_piece += int(Progress.get_value("storage", 0) << (player_group * 32))
 	state.set_bit(ord("6"), storage_piece)
@@ -388,7 +390,7 @@ func state_ready_player(_arg:Dictionary) -> void:
 	var selection:PackedStringArray = []
 	if chessboard.state.get_bit(ord("z")) & Chess.mask(Chess.x88_to_c64(by)):
 		selection = interact_list[by].keys()
-		Dialog.push_selection(selection, title[by], false, false)
+		Dialog.push_selection(selection, title.get(by, ""), false, false)
 	chessboard.set_square_selection(start_from)
 
 func state_exit_player() -> void:
