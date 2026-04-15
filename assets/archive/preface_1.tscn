@@ -29,8 +29,5 @@ offset_right = 475.0
 offset_bottom = 642.0
 theme_override_fonts/normal_font = ExtResource("2_ct7ke")
 bbcode_enabled = true
-text = "Curabitur varius congue felis, in euismod elit aliquet vitae. Vivamus tortor magna, euismod quis felis ut, faucibus mattis felis. Curabitur elementum quam eros, et consequat velit imperdiet non. Phasellus malesuada facilisis mi eu aliquet. Mauris vitae fringilla leo. Pellentesque sed ultrices odio. Curabitur bibendum ligula eros, id scelerisque risus gravida ut. Morbi congue nisl vel diam luctus, quis finibus dui hendrerit. Nullam convallis placerat metus, quis bibendum diam consequat a. Cras finibus sem dolor, vel blandit dui euismod in. Vestibulum pharetra maximus velit, id placerat dui porttitor et. Proin vulputate augue nec efficitur accumsan. Nunc quis orci elit.
-
-Phasellus varius, est quis semper mattis, eros tellus suscipit turpis, in rhoncus nunc enim non ipsum. Pellentesque tempus sodales porta. Fusce sed erat vitae eros pharetra iaculis vel eget enim. Suspendisse ullamcorper vehicula sagittis. Etiam semper id ante at aliquet. Praesent sit amet nulla quam. Nulla ut sem id tortor facilisis vestibulum. Proin dignissim, dui feugiat ultrices mollis, tortor purus mollis orci, nec pulvinar orci sapien eu nisi. Aliquam erat volutpat. Morbi nulla quam, bibendum nec fringilla a, ultricies eget velit.
-
-Pellentesque ipsum enim, egestas venenatis tempor a, aliquam in dolor. Aliquam purus leo, lobortis eu mi a, porttitor efficitur enim. Etiam feugiat sapien nibh, eget convallis magna varius imperdiet. Cras bibendum non justo vitae iaculis. In neque odio, condimentum ut orci vestibulum, sodales iaculis sapien. Vestibulum fringilla pellentesque pulvinar. Quisque id felis metus. Proin laoreet enim in nisl dictum pretium. Sed erat odio, posuere gravida ornare sit amet, posuere vitae mi. Etiam commodo ante congue elementum dictum. Aenean volutpat risus ut sem posuere maximus. Maecenas massa ipsum, aliquet ac elit ac, vestibulum imperdiet dui. Nunc posuere nec turpis quis bibendum."
+text = "[font_size=30][center]About SiameseChess[/center][/font_size]
+"
