@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dmwl65mg7565u" path="res://scene/actor/piece_pawn_black.tscn" id="9_u1qnn"]
 [ext_resource type="PackedScene" uid="uid://dgvq7kuhcahlb" path="res://scene/teleport_pointer.tscn" id="10_bedx7"]
 [ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="11_u1qnn"]
+[ext_resource type="Script" uid="uid://wbnfk8tm8skk" path="res://src/marker_title.gd" id="12_kjls8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w25ob"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -327,3 +328,9 @@ metadata/_custom_type_script = "uid://cpyviir7sli6u"
 
 [node name="camera_carnation_dialog" type="Camera3D" parent="." unique_id=597081388]
 transform = Transform3D(-0.9329912, 0.12309277, -0.33819458, 0, 0.9396926, 0.34202018, 0.35989916, 0.3191018, -0.87672496, 2, 2, 1.4332323)
+
+[node name="marker_title" type="Marker3D" parent="." unique_id=1194249445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+script = ExtResource("12_kjls8")
+text = "CHAR_CARNATION"
+metadata/_custom_type_script = "uid://wbnfk8tm8skk"
