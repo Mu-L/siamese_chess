@@ -15,8 +15,9 @@ class ChessboardPointer extends Node3D:
 	func _ready() -> void:
 		material.albedo_color = color
 		material.render_priority = 1
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
 		material.blend_mode = BaseMaterial3D.BLEND_MODE_MUL
+		material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 		global_transform = chessboard.get_node(Chess.x88_to_name(by)).global_transform
 		for iter:CollisionShape3D in chessboard.get_node(Chess.x88_to_name(by)).get_children():
 			var mesh_instance:MeshInstance3D = MeshInstance3D.new()
