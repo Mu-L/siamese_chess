@@ -208,6 +208,7 @@ func state_premove_travel_ready(_arg:Dictionary) -> void:
 		premove_branch.move_order.append_array(path_to)
 		for move:int in path_to:
 			Chess.apply_move(premove_branch.future_state, move)
+		premove_state_machine.change_state.call_deferred("from")
 	)
 	premove_state_machine.state_signal_connect(Dialog.on_next, func() -> void:
 		premove_state_machine.change_state.call_deferred("from")
@@ -441,8 +442,6 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 				Photo.open()
 				state_machine.change_state.call_deferred("player")
 			"SELECTION_THIRD_EYE":
-				ThirdEye3D.set_chessboard_scale(chessboard.scale.x)
-				ThirdEye3D.set_pov($player.get_camera())
 				ThirdEye3D.set_state(chessboard.state)
 				ThirdEye3D.open()
 				state_machine.change_state.call_deferred("player")
