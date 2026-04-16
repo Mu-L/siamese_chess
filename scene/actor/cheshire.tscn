@@ -108,7 +108,7 @@ states/idle/position = Vector2(521, 265)
 states/thinking/node = SubResource("AnimationNodeAnimation_iy7iy")
 states/thinking/position = Vector2(666.333, 265)
 transitions = ["battle_idle", "battle_move", SubResource("AnimationNodeStateMachineTransition_uowm0"), "battle_move", "battle_idle", SubResource("AnimationNodeStateMachineTransition_uniqn"), "battle_idle", "battle_target", SubResource("AnimationNodeStateMachineTransition_pjgvl"), "battle_target", "battle_attack", SubResource("AnimationNodeStateMachineTransition_a5ln7"), "battle_attack", "battle_idle", SubResource("AnimationNodeStateMachineTransition_68j70"), "battle_target", "battle_died", SubResource("AnimationNodeStateMachineTransition_cm4hu"), "battle_idle", "battle_died", SubResource("AnimationNodeStateMachineTransition_4on3n")]
-graph_offset = Vector2(35, -53)
+graph_offset = Vector2(-60, -6)
 
 [sub_resource type="Curve" id="Curve_uniqn"]
 _limits = [0.0, 3.0, 0.0, 1.0]
@@ -145,7 +145,7 @@ collision_mask = 0
 motion_mode = 1
 script = ExtResource("2_lp02k")
 
-[node name="skeleton" parent="." index="0" unique_id=1777654016]
+[node name="skeleton" parent="." index="0" unique_id=1598839715]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="animation_tree" type="AnimationTree" parent="." index="2" unique_id=1835909228]
