@@ -12,8 +12,8 @@ signal empty_double_click()
 signal selection_hold()
 signal animation_finished()
 
-@export var COLOR_LAST_MOVE:Color = Color(0.347, 0.417, 0.63, 1.0)
-@export var COLOR_MOVE:Color = Color(0.85, 0.297, 0.297, 1.0)
+@export var COLOR_LAST_MOVE:Color = Color(0.52, 0.333, 0.27, 1.0)
+@export var COLOR_MOVE:Color = Color(0.655, 0.208, 0.199, 1.0)
 @export var COLOR_POINTER:Color = Color(0.78, 0.619, 0.32, 1.0)
 @export var actor_scale_factor:float = 1
 
