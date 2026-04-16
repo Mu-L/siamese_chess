@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var pastor:Actor = $texture_rect/sub_viewport_container/sub_viewport/pastor
 @onready var chessboard:Chessboard = $texture_rect/sub_viewport_container/sub_viewport/chessboard
 @onready var camera:Camera3D = $texture_rect/sub_viewport_container/sub_viewport/camera
 @onready var button_close:Button = $texture_rect_top/margin_container_close/button_close
@@ -18,14 +19,6 @@ func set_state(_state:State) -> void:
 	chessboard.state = _state
 	chessboard.remove_piece_set()
 	chessboard.add_default_piece_set()
-
-func set_pov(_camera:Camera3D) -> void:
-	target_camera = _camera
-	camera.global_transform = _camera.global_transform
-	camera.fov = _camera.fov
-
-func set_chessboard_scale(_scale:float) -> void:
-	chessboard.scale = Vector3(16, 16, 16) * _scale
 
 func open() -> void:
 	set_physics_process(true)
