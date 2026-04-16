@@ -520,6 +520,7 @@ func state_ready_check_move(_arg:Dictionary) -> void:
 		if premove_branch.move_order:
 			premove_branch.move_order.clear()
 			premove_branch.future_state = chessboard.state.duplicate()
+		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("player", {})
 		return
 	elif move_list.size() > 1:
