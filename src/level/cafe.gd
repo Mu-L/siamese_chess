@@ -419,7 +419,7 @@ func state_ready_result(_arg:Dictionary) -> void:
 	standard_state_machine.state_signal_connect(Dialog.on_next, standard_state_machine.change_state.bind("end"))
 
 func state_ready_end(_arg:Dictionary) -> void:
-	$player.force_set_camera($camera)
+	$player.force_set_camera($camera_pastor)
 	$chessboard/pieces/cheshire.play_animation("battle_idle")
 	$chessboard/pieces/cheshire.set_position($chessboard.name_to_vector3("e3"))
 	$chessboard.set_enabled(true)
