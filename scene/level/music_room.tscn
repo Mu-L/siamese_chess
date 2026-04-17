@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://c3peh1jag1bb1" path="res://assets/model/reception_chair.glb" id="11_qtr2s"]
 [ext_resource type="Script" uid="uid://c07j5dqfy7nsx" path="res://src/marker_multi_actor.gd" id="11_tkywf"]
 [ext_resource type="Script" uid="uid://b5f46bgwa3pux" path="res://src/marker_camera.gd" id="12_tkywf"]
+[ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="13_nlty5"]
+[ext_resource type="PackedScene" uid="uid://d1orpuo40iup6" path="res://scene/actor/carnation.tscn" id="14_5uhcj"]
+[ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="15_5uhcj"]
 [ext_resource type="PackedScene" uid="uid://cingkxj4uodjo" path="res://assets/model/window.glb" id="15_okh5y"]
 [ext_resource type="PackedScene" uid="uid://cefxs7grh28rs" path="res://assets/model/door.glb" id="16_7f6gv"]
 [ext_resource type="Script" uid="uid://bbi6kjxerg3hk" path="res://src/marker_teleport.gd" id="18_lay20"]
@@ -55,7 +58,10 @@ sky_mode = 1
 
 [node name="camera" type="Camera3D" parent="." unique_id=895779528]
 transform = Transform3D(-4.334241e-08, 0.76884204, -0.63943875, 5.6677125e-09, 0.63943875, 0.76884204, 1, 2.9699315e-08, -3.20724e-08, -5.806548, 3.60401, 0.66703)
-fov = 87.4991
+fov = 100.0
+
+[node name="camera_carnation_dialog" type="Camera3D" parent="." unique_id=2122014208]
+transform = Transform3D(0.25881907, 0.18430734, -0.94817907, 0, 0.98162717, 0.19080901, 0.9659258, -0.049385007, 0.25406387, 2, 1.746788, 1.7230856)
 
 [node name="window" parent="." unique_id=781463162 instance=ExtResource("15_okh5y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
@@ -118,7 +124,7 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3)
 script = ExtResource("11_tkywf")
 piece = 35
-bit = -18650183629930497
+bit = -18650458507837441
 metadata/_custom_type_script = "uid://c07j5dqfy7nsx"
 
 [node name="marker_camera" type="Node3D" parent="." unique_id=918451059 node_paths=PackedStringArray("camera")]
@@ -207,3 +213,18 @@ light_energy = 0.3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.1664828, -0.98214126)
 light_color = Color(0.55994356, 0.41980478, 0.27536556, 1)
 light_energy = 0.3
+
+[node name="marker_actor" type="Marker3D" parent="." unique_id=1629679967]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5, 0, 1)
+script = ExtResource("13_nlty5")
+piece = 35
+actor = ExtResource("14_5uhcj")
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_callback" type="Node3D" parent="." unique_id=942073465 node_paths=PackedStringArray("node")]
+script = ExtResource("15_5uhcj")
+node = NodePath("..")
+method_name = &"interact_carnation"
+selection = "CARNATION_TALK"
+bit = 137438953472
+metadata/_custom_type_script = "uid://cpyviir7sli6u"

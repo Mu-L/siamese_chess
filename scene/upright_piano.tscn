@@ -27,4 +27,4 @@ transform = Transform3D(1.15197, 0, 0, 0, 1.15197, 0, 0, 0, 1.15197, 0.0138089, 
 transform = Transform3D(1.15197, 0, 0, 0, 1.15197, 0, 0, 0, 1.15197, -0.000336002, -0.000632915, -0.624198)
 
 [node name="upright_piano_chair" parent="." index="7" unique_id=173764630 instance=ExtResource("2_qtvcp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.544648)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.98137426)
