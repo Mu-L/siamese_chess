@@ -24,6 +24,9 @@
 [ext_resource type="PackedScene" uid="uid://bst0x07bms637" path="res://scene/telephone.tscn" id="20_uvhf0"]
 [ext_resource type="PackedScene" uid="uid://blfa7tg8uh5xo" path="res://assets/model/book_stack_0.glb" id="21_865ms"]
 [ext_resource type="PackedScene" uid="uid://chkp5305aorwt" path="res://scene/actor/basement_safe.tscn" id="21_wwxdu"]
+[ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="25_ovdn2"]
+[ext_resource type="PackedScene" uid="uid://b7uycfov8t6ed" path="res://scene/actor/piece_rook_black.tscn" id="26_hm8qo"]
+[ext_resource type="PackedScene" uid="uid://bbfelit1kiw6s" path="res://scene/actor/piece_rook_white.tscn" id="27_hm8qo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5l1ss"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -52,6 +55,7 @@ fog_light_color = Color(1, 1, 1, 1)
 
 [node name="hallway_2f" type="Node3D" unique_id=1150747816]
 script = ExtResource("1_gs125")
+engine_standard_think_depth = 4
 metadata/_custom_type_script = "uid://rhdq34na2j5m"
 metadata/by = 16
 
@@ -73,131 +77,131 @@ shadow_enabled = true
 
 [node name="chessboard" parent="." unique_id=1145732609 instance=ExtResource("3_7733s")]
 
-[node name="f8_001" parent="chessboard" index="18" unique_id=792672971]
+[node name="f8_001" parent="chessboard" index="18" unique_id=1635144423]
 visible = false
 
-[node name="f7_001" parent="chessboard" index="19" unique_id=1661686316]
+[node name="f7_001" parent="chessboard" index="19" unique_id=1469343971]
 visible = false
 
-[node name="f6_001" parent="chessboard" index="20" unique_id=1905342937]
+[node name="f6_001" parent="chessboard" index="20" unique_id=2041526962]
 visible = false
 
-[node name="f4_001" parent="chessboard" index="22" unique_id=2010896522]
+[node name="f4_001" parent="chessboard" index="22" unique_id=462780547]
 visible = false
 
-[node name="f3_001" parent="chessboard" index="23" unique_id=811664143]
+[node name="f3_001" parent="chessboard" index="23" unique_id=14694729]
 visible = false
 
-[node name="f2_001" parent="chessboard" index="24" unique_id=653898624]
+[node name="f2_001" parent="chessboard" index="24" unique_id=754935370]
 visible = false
 
-[node name="f1_001" parent="chessboard" index="25" unique_id=1642323279]
+[node name="f1_001" parent="chessboard" index="25" unique_id=729555948]
 visible = false
 
-[node name="e8_001" parent="chessboard" index="26" unique_id=151896323]
+[node name="e8_001" parent="chessboard" index="26" unique_id=864887156]
 visible = false
 
-[node name="e7_001" parent="chessboard" index="27" unique_id=994832604]
+[node name="e7_001" parent="chessboard" index="27" unique_id=1086158146]
 visible = false
 
-[node name="e6_001" parent="chessboard" index="28" unique_id=760722487]
+[node name="e6_001" parent="chessboard" index="28" unique_id=964294831]
 visible = false
 
-[node name="e4_001" parent="chessboard" index="30" unique_id=1710784981]
+[node name="e4_001" parent="chessboard" index="30" unique_id=715285085]
 visible = false
 
-[node name="e3_001" parent="chessboard" index="31" unique_id=713567511]
+[node name="e3_001" parent="chessboard" index="31" unique_id=1113490539]
 visible = false
 
-[node name="e2_001" parent="chessboard" index="32" unique_id=1630306049]
+[node name="e2_001" parent="chessboard" index="32" unique_id=318034604]
 visible = false
 
-[node name="e1_001" parent="chessboard" index="33" unique_id=1724400431]
+[node name="e1_001" parent="chessboard" index="33" unique_id=957739576]
 visible = false
 
-[node name="d8_001" parent="chessboard" index="34" unique_id=977767109]
+[node name="d8_001" parent="chessboard" index="34" unique_id=1279591867]
 visible = false
 
-[node name="d7_001" parent="chessboard" index="35" unique_id=1953773732]
+[node name="d7_001" parent="chessboard" index="35" unique_id=515513230]
 visible = false
 
-[node name="d6_001" parent="chessboard" index="36" unique_id=1983266635]
+[node name="d6_001" parent="chessboard" index="36" unique_id=206798927]
 visible = false
 
-[node name="d4_001" parent="chessboard" index="38" unique_id=2109372378]
+[node name="d4_001" parent="chessboard" index="38" unique_id=106723882]
 visible = false
 
-[node name="d3_001" parent="chessboard" index="39" unique_id=1338851531]
+[node name="d3_001" parent="chessboard" index="39" unique_id=347766479]
 visible = false
 
-[node name="d2_001" parent="chessboard" index="40" unique_id=2061774238]
+[node name="d2_001" parent="chessboard" index="40" unique_id=301719775]
 visible = false
 
-[node name="d1_001" parent="chessboard" index="41" unique_id=1955114326]
+[node name="d1_001" parent="chessboard" index="41" unique_id=305717719]
 visible = false
 
-[node name="c8_001" parent="chessboard" index="42" unique_id=465236761]
+[node name="c8_001" parent="chessboard" index="42" unique_id=1000043458]
 visible = false
 
-[node name="c7_001" parent="chessboard" index="43" unique_id=2105179173]
+[node name="c7_001" parent="chessboard" index="43" unique_id=465269345]
 visible = false
 
-[node name="c6_001" parent="chessboard" index="44" unique_id=1936897563]
+[node name="c6_001" parent="chessboard" index="44" unique_id=1290441045]
 visible = false
 
-[node name="c4_001" parent="chessboard" index="46" unique_id=64261827]
+[node name="c4_001" parent="chessboard" index="46" unique_id=1725763193]
 visible = false
 
-[node name="c3_001" parent="chessboard" index="47" unique_id=1432937449]
+[node name="c3_001" parent="chessboard" index="47" unique_id=848799378]
 visible = false
 
-[node name="c2_001" parent="chessboard" index="48" unique_id=88321463]
+[node name="c2_001" parent="chessboard" index="48" unique_id=107022799]
 visible = false
 
-[node name="c1_001" parent="chessboard" index="49" unique_id=1035561629]
+[node name="c1_001" parent="chessboard" index="49" unique_id=134292570]
 visible = false
 
-[node name="d1" parent="chessboard" index="92" unique_id=1066932701]
+[node name="d1" parent="chessboard" index="92" unique_id=1869812655]
 visible = false
 
-[node name="d2" parent="chessboard" index="93" unique_id=1911117014]
+[node name="d2" parent="chessboard" index="93" unique_id=1424881788]
 visible = false
 
-[node name="d3" parent="chessboard" index="94" unique_id=1045391255]
+[node name="d3" parent="chessboard" index="94" unique_id=1567151485]
 visible = false
 
-[node name="d4" parent="chessboard" index="95" unique_id=828328867]
+[node name="d4" parent="chessboard" index="95" unique_id=759459479]
 visible = false
 
-[node name="d7" parent="chessboard" index="98" unique_id=202223291]
+[node name="d7" parent="chessboard" index="98" unique_id=1625260230]
 visible = false
 
-[node name="d8" parent="chessboard" index="99" unique_id=1372427347]
+[node name="d8" parent="chessboard" index="99" unique_id=422514836]
 visible = false
 
-[node name="e1" parent="chessboard" index="100" unique_id=491321873]
+[node name="e1" parent="chessboard" index="100" unique_id=1460316554]
 visible = false
 
-[node name="e2" parent="chessboard" index="101" unique_id=35295175]
+[node name="e2" parent="chessboard" index="101" unique_id=1192437331]
 visible = false
 
-[node name="e3" parent="chessboard" index="102" unique_id=1988939214]
+[node name="e3" parent="chessboard" index="102" unique_id=1215365855]
 visible = false
 
-[node name="e4" parent="chessboard" index="103" unique_id=1815902409]
+[node name="e4" parent="chessboard" index="103" unique_id=2043547978]
 visible = false
 
-[node name="e7" parent="chessboard" index="106" unique_id=919947333]
+[node name="e7" parent="chessboard" index="106" unique_id=2131536931]
 visible = false
 
-[node name="e8" parent="chessboard" index="107" unique_id=610413816]
+[node name="e8" parent="chessboard" index="107" unique_id=701762277]
 visible = false
 
 [node name="elevator" parent="." unique_id=956614934 instance=ExtResource("4_ucain")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.87943, 0, -5)
 
 [node name="door_2" parent="." unique_id=2129415252 instance=ExtResource("5_gs125")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, 3)
+transform = Transform3D(-4.3711378e-08, 0, 1, 0, 1, 0, -1, 0, -4.3711378e-08, 8.114018, 0, 5)
 
 [node name="painting_frame_rect_4" parent="." unique_id=1577293548 instance=ExtResource("9_n2gtx")]
 transform = Transform3D(-2.6226832e-07, 2.6226832e-07, -2, -2, -8.742278e-08, 2.6226832e-07, -8.742275e-08, 2, 2.6226832e-07, 8.002962, 2.2407565, -1)
@@ -206,12 +210,12 @@ transform = Transform3D(-2.6226832e-07, 2.6226832e-07, -2, -2, -8.742278e-08, 2.
 transform = Transform3D(2.6226832e-07, 0, -2, 0, 2, 0, 2, 0, 2.6226832e-07, 8.0334015, 1.9238081, 2.6371717)
 
 [node name="marker_teleport_music_room" parent="." unique_id=1414167548 instance=ExtResource("8_37aeh")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7, 0, 3)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 7, 0, 5)
 to = "res://scene/level/music_room.tscn"
 args = {
 "by": 33
 }
-bit = 1099511627776
+bit = 36028797018963968
 
 [node name="multi_actor_barrier" type="Node3D" parent="." unique_id=85789475]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
@@ -359,8 +363,13 @@ operation = 2
 size = Vector3(2.1000001, 2.6621094, 0.4732666)
 material = SubResource("StandardMaterial3D_vf3t0")
 
+[node name="csg_elevator_wall_3" type="CSGBox3D" parent="csg_combiner_3d" unique_id=1679835564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.191338, 1.86379, 0.0010325909)
+size = Vector3(0.408875, 3.7, 16.002075)
+material = SubResource("StandardMaterial3D_ucain")
+
 [node name="csg_door" type="CSGBox3D" parent="csg_combiner_3d" unique_id=750965906]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.968087, 1.3917197, 3.00049)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.104638, 1.3917197, 5.00049)
 operation = 2
 size = Vector3(1.0507, 2.7558594, 1.1787102)
 material = SubResource("StandardMaterial3D_gs125")
@@ -477,8 +486,8 @@ box_projection = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.2219152, 0)
 
 [node name="csg_wall_7" type="CSGBox3D" parent="1f/csg_combiner_3d" unique_id=1618405808]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.201963, 4.4637904, -0.2517252)
-size = Vector3(0.3688584, 8.900001, 16.490627)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.201963, 2.5137901, -0.2517252)
+size = Vector3(0.3688584, 5, 16.490627)
 material = SubResource("StandardMaterial3D_e0ue8")
 
 [node name="csg_elevator_wall_6" type="CSGBox3D" parent="1f/csg_combiner_3d" unique_id=1089140231]
@@ -546,5 +555,45 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.97
 operation = 2
 size = Vector3(14.4619875, 2.6621094, 2.4)
 material = SubResource("StandardMaterial3D_vf3t0")
+
+[node name="marker_actor" type="Marker3D" parent="." unique_id=654598075]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -1)
+script = ExtResource("25_ovdn2")
+piece = 114
+actor = ExtResource("26_hm8qo")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_2" type="Marker3D" parent="." unique_id=350810486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -7)
+script = ExtResource("25_ovdn2")
+piece = 82
+actor = ExtResource("27_hm8qo")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_3" type="Marker3D" parent="." unique_id=2083036545]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7)
+script = ExtResource("25_ovdn2")
+piece = 82
+actor = ExtResource("27_hm8qo")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_4" type="Marker3D" parent="." unique_id=687447887]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 1)
+script = ExtResource("25_ovdn2")
+piece = 114
+actor = ExtResource("26_hm8qo")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [editable path="chessboard"]
