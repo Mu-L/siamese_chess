@@ -97,7 +97,6 @@ func _ready() -> void:
 	state_machine.add_state("select_piece", state_ready_select_piece)
 	state_machine.add_state("player_win", state_ready_player_win)
 	state_machine.add_state("enemy_win", state_ready_enemy_win)
-	state_machine.add_state("conclude", state_ready_conclude)
 	state_machine.add_state("draw", state_ready_draw)
 	state_machine.add_state("dialog", state_ready_dialog)
 	state_machine.add_state("interact", state_ready_interact)
@@ -232,7 +231,6 @@ func state_premove_extra_ready(_arg:Dictionary) -> void:
 		else:
 			premove_state_machine.change_state.call_deferred("confirm", {"move": decision_to_move[Dialog.selected]})
 	)
-	premove_state_machine.state_signal_connect(Clock.timeout, premove_state_machine.change_state.call_deferred.bind("enemy_win"))
 	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, false)
 
 func state_premove_extra_exit() -> void:
@@ -356,7 +354,9 @@ func state_ready_move(_arg:Dictionary) -> void:
 	if premove_state_machine.current_state == "stop":
 		premove_state_machine.change_state.call_deferred("start")
 	state_machine.state_signal_connect(chessboard.animation_finished, func() -> void:
-		if _arg["move"] != -1 && (chessboard.state.get_bit(ord("Z")) & Chess.mask(Chess.x88_to_c64(Chess.to(_arg["move"])))):
+		if Chess.get_end_type(chessboard.state) == ("checkmate_white" if player_group == 1 else "checkmate_black"):
+			state_machine.change_state.call_deferred("enemy_win")
+		elif _arg["move"] != -1 && (chessboard.state.get_bit(ord("Z")) & Chess.mask(Chess.x88_to_c64(Chess.to(_arg["move"])))):
 			state_machine.change_state.call_deferred("interact", {"callback": interact_list[Chess.to(_arg["move"])][""]})
 		else:
 			back_to_game()
@@ -627,11 +627,8 @@ func state_ready_enemy_win(_arg:Dictionary) -> void:
 	var by:int = Chess.c64_to_x88(Chess.first_bit($chessboard.state.get_bit(player_king)))
 	chessboard.state.capture_piece(Chess.c64_to_x88(by))
 	#chessboard.chessboard_piece[Chess.c64_to_x88(by)].captured()
-	state_machine.state_signal_connect(Dialog.on_next, state_machine.change_state.call_deferred.bind("conclude"))
+	state_machine.state_signal_connect(Dialog.on_next, Loading.reset_scene)
 	Dialog.push_dialog("HINT_YOU_LOSE", "", true, true)
-
-func state_ready_conclude(_arg:Dictionary) -> void:
-	Loading.change_scene("res://scene/conclude.tscn", {}, 1)
 
 func state_ready_draw(_arg:Dictionary) -> void:
 	history_document.save_file()
