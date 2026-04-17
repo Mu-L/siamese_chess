@@ -373,10 +373,10 @@ omni_range = 10.077
 [node name="hotel_door_large" parent="." unique_id=1943249449 instance=ExtResource("9_7pf3j")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
 
-[node name="door_large_face_l" parent="hotel_door_large" index="1" unique_id=627746975]
+[node name="door_large_face_l" parent="hotel_door_large" index="1" unique_id=1074130197]
 transform = Transform3D(-0.9036046, 0, -0.42836744, 0, 1, 0, 0.42836744, 0, -0.9036046, -1.0750201, 1.0110773, 0.14069557)
 
-[node name="door_large_face_r" parent="hotel_door_large" index="2" unique_id=1541761361]
+[node name="door_large_face_r" parent="hotel_door_large" index="2" unique_id=1383251871]
 transform = Transform3D(-0.8933636, 0, 0.4493345, 0, 1, 0, -0.4493345, 0, -0.8933636, 1.0579906, 1.0110773, 0.14069605)
 
 [node name="omni_light_3d" type="OmniLight3D" parent="hotel_door_large" unique_id=1404077087]
@@ -462,7 +462,6 @@ metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="reflection_probe" type="ReflectionProbe" parent="." unique_id=184629974]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1510468, 0)
-update_mode = 1
 blend_distance = 0.1
 size = Vector3(18, 4.742485, 18)
 box_projection = true
