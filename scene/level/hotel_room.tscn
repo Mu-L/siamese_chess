@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cb0x1dotn46nw"]
 
-[ext_resource type="Script" uid="uid://dv6xi5e2p0qcl" path="res://src/level/music_room.gd" id="1_lsvsq"]
+[ext_resource type="Script" uid="uid://oipip48kbo6w" path="res://src/level/hotel_room.gd" id="1_njksd"]
 [ext_resource type="PackedScene" uid="uid://b3ml34bssywkr" path="res://scene/player.tscn" id="2_qvsbv"]
 [ext_resource type="PackedScene" uid="uid://dwvyc2qlcdag0" path="res://scene/chessboard_large.tscn" id="3_w2bcl"]
 [ext_resource type="PackedScene" uid="uid://cingkxj4uodjo" path="res://assets/model/window.glb" id="4_4jgku"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://chtqhpiu556i1" path="res://src/marker_bit.gd" id="29_q2hjl"]
 [ext_resource type="Script" uid="uid://c07j5dqfy7nsx" path="res://src/marker_multi_actor.gd" id="30_njksd"]
 [ext_resource type="Script" uid="uid://b5f46bgwa3pux" path="res://src/marker_camera.gd" id="31_njksd"]
+[ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="32_3t1c3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e1edc"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -54,7 +55,7 @@ fog_light_color = Color(1, 1, 1, 1)
 fog_density = 1.0
 
 [node name="hotel_room" type="Node3D" unique_id=1824757778]
-script = ExtResource("1_lsvsq")
+script = ExtResource("1_njksd")
 metadata/by = 49
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1630622662]
@@ -115,8 +116,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1179, 0.637757, -3.82458)
 [node name="hotel_room_desk" parent="." unique_id=731619866 instance=ExtResource("13_1gag5")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1, 0, 1)
 
-[node name="chessboard_2" parent="." unique_id=814008119 instance=ExtResource("14_gqgar")]
-transform = Transform3D(0.3999991, 0, 0.0007539259, 0, 0.39999992, 0, -0.0007539259, 0, 0.3999991, 1, 0.84014225, 1.6142263)
+[node name="chessboard_sandbox" parent="." unique_id=814008119 instance=ExtResource("14_gqgar")]
+transform = Transform3D(-0.39999908, 0, -0.00075389096, 0, 0.39999986, 0, 0.00075389096, 0, -0.39999908, 1, 0.84014225, 1.6142263)
 
 [node name="hotel_room_desk_chair" parent="." unique_id=1137251488 instance=ExtResource("15_5i566")]
 transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 1.69429, 0, 0.639467)
@@ -148,7 +149,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8343501, 0, 3.399881)
 [node name="door_2" parent="." unique_id=1775898386 instance=ExtResource("5_10bqq")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -5, 0, 2)
 
-[node name="face" parent="door_2" index="1"]
+[node name="face" parent="door_2" index="1" unique_id=1176201569]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5224618, 1.0110773, 0.14069557)
 
 [node name="phonograph" parent="." unique_id=624737484 instance=ExtResource("24_ncv1s")]
@@ -247,6 +248,14 @@ script = ExtResource("30_njksd")
 piece = 35
 bit = -6726424068097
 metadata/_custom_type_script = "uid://c07j5dqfy7nsx"
+
+[node name="marker_callback_sandbox" type="Node3D" parent="." unique_id=1459913739 node_paths=PackedStringArray("node")]
+script = ExtResource("32_3t1c3")
+node = NodePath("..")
+method_name = &"use_chessboard"
+selection = "HOTEL_ROOM_PLAY_CHESS"
+bit = 68719476736
+metadata/_custom_type_script = "uid://cpyviir7sli6u"
 
 [node name="spot_light_3d" type="SpotLight3D" parent="." unique_id=1944436160]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -3.2160754, 3.253437, -0.011084318)
@@ -372,5 +381,8 @@ transform = Transform3D(-2.7975288e-08, 0, 0.64, 0, 0.64, 0, -0.64, 0, -2.797528
 
 [node name="curtain" parent="curtain_support2_2" unique_id=677423093 instance=ExtResource("27_rjel0")]
 transform = Transform3D(1.5624998, 0, -3.4769573e-07, 0, 1.5625, 0, 3.4769573e-07, 0, 1.5624998, 0.9085841, 0.0024824142, 0.023418427)
+
+[node name="camera_chessboard" type="Camera3D" parent="." unique_id=1415267442]
+transform = Transform3D(-1, -7.658195e-08, 4.2165706e-08, 0, 0.48231944, 0.8759954, -8.742278e-08, 0.8759954, -0.48231944, 0.9871948, 1.2738005, 1.373588)
 
 [editable path="door_2"]

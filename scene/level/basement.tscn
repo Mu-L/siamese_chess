@@ -19,6 +19,7 @@
 [sub_resource type="Environment" id="Environment_ywqhp"]
 background_mode = 1
 ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.0
 reflected_light_source = 1
 sdfgi_read_sky_light = false

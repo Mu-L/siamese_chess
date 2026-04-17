@@ -30,7 +30,6 @@ sky_material = SubResource("ProceduralSkyMaterial_w25ob")
 [sub_resource type="Environment" id="Environment_toco3"]
 background_mode = 2
 sky = SubResource("Sky_cdevh")
-ambient_light_source = 1
 reflected_light_source = 1
 sdfgi_read_sky_light = false
 volumetric_fog_density = 0.1487
@@ -58,52 +57,52 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 metadata/_edit_lock_ = true
 
-[node name="f6_001" parent="chessboard" index="20" unique_id=1905342937]
+[node name="f6_001" parent="chessboard" index="20" unique_id=2041526962]
 visible = false
 
-[node name="f5_001" parent="chessboard" index="21" unique_id=1349862213]
+[node name="f5_001" parent="chessboard" index="21" unique_id=76943700]
 visible = false
 
-[node name="f4_001" parent="chessboard" index="22" unique_id=2010896522]
+[node name="f4_001" parent="chessboard" index="22" unique_id=462780547]
 visible = false
 
-[node name="f3_001" parent="chessboard" index="23" unique_id=811664143]
+[node name="f3_001" parent="chessboard" index="23" unique_id=14694729]
 visible = false
 
-[node name="e6_001" parent="chessboard" index="28" unique_id=760722487]
+[node name="e6_001" parent="chessboard" index="28" unique_id=964294831]
 visible = false
 
-[node name="e5_001" parent="chessboard" index="29" unique_id=367166236]
+[node name="e5_001" parent="chessboard" index="29" unique_id=1179211803]
 visible = false
 
-[node name="e4_001" parent="chessboard" index="30" unique_id=1710784981]
+[node name="e4_001" parent="chessboard" index="30" unique_id=715285085]
 visible = false
 
-[node name="e3_001" parent="chessboard" index="31" unique_id=713567511]
+[node name="e3_001" parent="chessboard" index="31" unique_id=1113490539]
 visible = false
 
-[node name="d6_001" parent="chessboard" index="36" unique_id=1983266635]
+[node name="d6_001" parent="chessboard" index="36" unique_id=206798927]
 visible = false
 
-[node name="d5_001" parent="chessboard" index="37" unique_id=609311913]
+[node name="d5_001" parent="chessboard" index="37" unique_id=1254493999]
 visible = false
 
-[node name="d4_001" parent="chessboard" index="38" unique_id=2109372378]
+[node name="d4_001" parent="chessboard" index="38" unique_id=106723882]
 visible = false
 
-[node name="d3_001" parent="chessboard" index="39" unique_id=1338851531]
+[node name="d3_001" parent="chessboard" index="39" unique_id=347766479]
 visible = false
 
-[node name="c6_001" parent="chessboard" index="44" unique_id=1936897563]
+[node name="c6_001" parent="chessboard" index="44" unique_id=1290441045]
 visible = false
 
-[node name="c5_001" parent="chessboard" index="45" unique_id=1998258835]
+[node name="c5_001" parent="chessboard" index="45" unique_id=425414978]
 visible = false
 
-[node name="c4_001" parent="chessboard" index="46" unique_id=64261827]
+[node name="c4_001" parent="chessboard" index="46" unique_id=1725763193]
 visible = false
 
-[node name="c3_001" parent="chessboard" index="47" unique_id=1432937449]
+[node name="c3_001" parent="chessboard" index="47" unique_id=848799378]
 visible = false
 
 [node name="pool" parent="." unique_id=2037384043 instance=ExtResource("4_vie8g")]
