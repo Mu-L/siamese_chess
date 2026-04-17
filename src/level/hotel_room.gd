@@ -106,16 +106,20 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 func state_ready_in_game_check_move(_arg:Dictionary) -> void:
 	var from:int = _arg["from"]
 	var to:int = _arg["to"]
+	var actor:Actor = chessboard_sandbox.chessboard_piece[from]
 	var check_move_list:PackedInt32Array = Array(sandbox_move_list).filter(func (move:int) -> bool: return from == Chess.from(move) && to == Chess.to(move))
 	if check_move_list.size() == 0:
+		actor.idle()
 		sandbox_state_machine.change_state("player", {})
 		return
 	elif check_move_list.size() > 1:
-		sandbox_state_machine.change_state("extra_move", {"move_list": check_move_list})
+		sandbox_state_machine.change_state("extra_move", {"from": from, "to": to, "move_list": check_move_list})
 	else:
 		sandbox_state_machine.change_state("move", {"move": check_move_list[0]})
 
 func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
+	var from:int = _arg["from"]
+	var actor:Actor = chessboard_sandbox.chessboard_piece[from]
 	var decision_list:PackedStringArray = []
 	var decision_to_move:Dictionary = {}
 	for iter:int in _arg["move_list"]:
@@ -124,6 +128,7 @@ func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
 	decision_list.push_back("cancel")
 	sandbox_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
 		if Dialog.selected == "cancel":
+			actor.idle()
 			sandbox_state_machine.change_state("player")
 		else:
 			sandbox_state_machine.change_state("move", {"move": decision_to_move[Dialog.selected]})

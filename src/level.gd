@@ -430,6 +430,7 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 				state_machine.change_state.call_deferred("select_empty_square", {"selection": introduce_selection})
 			"SELECTION_DOCUMENTS":
 				Archive.open()
+				actor.idle()
 				state_machine.change_state.call_deferred("player")
 			"SELECTION_STATUS":
 				Dialog.push_selection(["SELECTION_STATUS", "SELECTION_PIECES", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"], 
@@ -440,15 +441,19 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 				var from_rotation:Vector3 = chessboard.chessboard_piece[from].global_rotation
 				Photo.move_camera(from_position, from_rotation)
 				Photo.open()
+				actor.idle()
 				state_machine.change_state.call_deferred("player")
 			"SELECTION_THIRD_EYE":
 				ThirdEye3D.set_state(chessboard.state)
 				ThirdEye3D.open()
+				actor.idle()
 				state_machine.change_state.call_deferred("player")
 			"SELECTION_SETTINGS":
 				Setting.open()
+				actor.idle()
 				state_machine.change_state.call_deferred("player")
 			"SELECTION_CANCEL":
+				actor.idle()
 				state_machine.change_state.call_deferred("player")
 	)
 	if from_piece == player_king:
@@ -467,12 +472,16 @@ func state_exit_ready_to_move() -> void:
 
 func state_ready_travel(_arg:Dictionary) -> void:
 	var from:int = _arg["from"]
+	var actor:Actor = chessboard.chessboard_piece[from]
 	var path:PackedInt32Array = Chess.generate_path(chessboard.state, from)
 	var bit:int = 0
 	for i:int in path.size():
 		if path[i] != -1:
 			bit |= Chess.mask(i)
-	state_machine.state_signal_connect(chessboard.click_empty, state_machine.change_state.bind("player"))
+	state_machine.state_signal_connect(chessboard.click_empty, func () -> void:
+		actor.idle()
+		state_machine.change_state("player")
+	)
 	state_machine.state_signal_connect(chessboard.click_selection, func () -> void:
 		var to:int = chessboard.selected
 		var iter:int = to
@@ -482,6 +491,7 @@ func state_ready_travel(_arg:Dictionary) -> void:
 			iter = path[Chess.x88_to_c64(iter)]
 			chessboard.draw_pointer("premove", Color(0.64, 0.051, 0.198, 1.0), iter)
 			if iter == -1:
+				actor.idle()
 				state_machine.change_state.call_deferred("player")
 				chessboard.clear_pointer("premove")
 				return
@@ -496,6 +506,7 @@ func state_ready_travel(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(first_move), "to": Chess.to(first_move)})
 	)
 	state_machine.state_signal_connect(Dialog.on_next, func() -> void:
+		actor.idle()
 		state_machine.change_state.call_deferred("player")
 	)
 
@@ -524,19 +535,22 @@ func state_ready_check_move(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("player", {})
 		return
 	elif move_list.size() > 1:
-		state_machine.change_state.call_deferred("extra_move", {"move_list": move_list})
+		state_machine.change_state.call_deferred("extra_move", {"from": from, "to": to, "move_list": move_list})
 	else:
 		state_machine.change_state.call_deferred("move", {"move": move_list[0]})
 
 func state_ready_extra_move(_arg:Dictionary) -> void:
 	var decision_list:PackedStringArray = []
 	var decision_to_move:Dictionary = {}
+	var from:int = _arg["from"]
+	var actor:Actor = chessboard.chessboard_piece[from]
 	for iter:int in _arg["move_list"]:
 		decision_list.push_back("%c" % Chess.extra(iter))
 		decision_to_move[decision_list[-1]] = iter
 	decision_list.push_back("SELECTION_CANCEL")
 	state_machine.state_signal_connect(Dialog.on_next, func () -> void:
 		if Dialog.selected == "SELECTION_CANCEL":
+			actor.idle()
 			state_machine.change_state.call_deferred("player")
 		else:
 			state_machine.change_state.call_deferred("move", {"move": decision_to_move[Dialog.selected]})

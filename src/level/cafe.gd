@@ -370,6 +370,7 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 func state_ready_in_game_check_move(_arg:Dictionary) -> void:
 	var from:int = _arg["from"]
 	var to:int = _arg["to"]
+	var actor:Actor = standard_chessboard.chessboard_piece[from]
 	var move_list:PackedInt32Array = Chess.generate_valid_move(standard_chessboard.state, standard_player_group)
 	if _arg.has("from"):
 		move_list = Array(move_list).filter(func (move:int) -> bool: return _arg["from"] == Chess.from(move))
@@ -381,14 +382,17 @@ func state_ready_in_game_check_move(_arg:Dictionary) -> void:
 		if premove_branch.move_order:
 			premove_branch.move_order.clear()
 			premove_branch.future_state = standard_chessboard.state.duplicate()
+		actor.idle()
 		standard_state_machine.change_state.call_deferred("player", {})
 		return
 	elif move_list.size() > 1:
-		standard_state_machine.change_state.call_deferred("extra_move", {"move_list": move_list})
+		standard_state_machine.change_state.call_deferred("extra_move", {"from": from, "to": to, "move_list": move_list})
 	else:
 		standard_state_machine.change_state.call_deferred("move", {"move": move_list[0]})
 
 func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
+	var from:int = _arg["from"]
+	var actor:Actor = standard_chessboard.chessboard_piece[from]
 	var decision_list:PackedStringArray = []
 	var decision_to_move:Dictionary = {}
 	for iter:int in _arg["move_list"]:
@@ -397,6 +401,7 @@ func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
 	decision_list.push_back("cancel")
 	standard_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
 		if Dialog.selected == "cancel":
+			actor.idle()
 			standard_state_machine.change_state("player")
 		else:
 			standard_state_machine.change_state("move", {"move": decision_to_move[Dialog.selected]})
