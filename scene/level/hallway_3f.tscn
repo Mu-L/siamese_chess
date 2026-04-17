@@ -54,13 +54,13 @@ environment = SubResource("Environment_pjyyy")
 [node name="player" parent="." unique_id=1112884615 instance=ExtResource("2_snhjh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
 
-[node name="camera" type="Camera3D" parent="." unique_id=2111512209]
-transform = Transform3D(1, 7.0633113e-09, 3.7414928e-08, -2.2294117e-08, 0.9052056, 0.42497396, -3.0866477e-08, -0.42497396, 0.9052056, -5.20776, 2.6508784, 7.438856)
-fov = 58.5874
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=125944513]
 transform = Transform3D(0.84076184, 0.23945908, -0.4855708, 0.24234495, 0.63554907, 0.7330392, 0.48413688, -0.733987, 0.47631368, 2.6149602, 2.82427, 0)
 shadow_enabled = true
+
+[node name="camera" type="Camera3D" parent="." unique_id=1166682457]
+transform = Transform3D(1, 7.0633095e-09, 3.7414935e-08, -2.949474e-08, 0.7651348, 0.6438702, -2.4079611e-08, -0.6438702, 0.7651348, -5, 3.1834378, 6.7310476)
+fov = 82.4
 
 [node name="chessboard" parent="." unique_id=2104505134 instance=ExtResource("3_yedm7")]
 
