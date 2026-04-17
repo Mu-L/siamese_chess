@@ -14,7 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://u1ropnj7v0ap" path="res://assets/model/hotel_room_desk_chair.glb" id="12_vykmq"]
 [ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="13_vykmq"]
 [ext_resource type="PackedScene" uid="uid://dgvq7kuhcahlb" path="res://scene/teleport_pointer.tscn" id="14_nwskg"]
+[ext_resource type="PackedScene" uid="uid://dvfilx1shno5w" path="res://scene/actor/piece_king_white.tscn" id="16_ati7g"]
 [ext_resource type="Script" uid="uid://b5f46bgwa3pux" path="res://src/marker_camera.gd" id="16_idfw3"]
+[ext_resource type="PackedScene" uid="uid://wlf2bpitdmjk" path="res://scene/actor/piece_queen_black.tscn" id="17_ati7g"]
 
 [sub_resource type="Environment" id="Environment_ywqhp"]
 background_mode = 1
@@ -32,6 +34,7 @@ metallic = 0.81
 
 [node name="basement" type="Node3D" unique_id=587138851]
 script = ExtResource("1_mtw5c")
+engine_standard_think_depth = 4
 metadata/_custom_type_script = "uid://rhdq34na2j5m"
 metadata/by = 48
 
@@ -478,5 +481,25 @@ script = ExtResource("16_idfw3")
 camera = NodePath("../camera_3d_deeper")
 bit = -1085102592571150096
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
+
+[node name="marker_actor" type="Marker3D" parent="." unique_id=2124931697]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
+script = ExtResource("3_ywqhp")
+piece = 75
+actor = ExtResource("16_ati7g")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
+
+[node name="marker_actor_2" type="Marker3D" parent="." unique_id=1067424781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -3)
+script = ExtResource("3_ywqhp")
+piece = 113
+actor = ExtResource("17_ati7g")
+meta = {
+"larger_scale": true
+}
+metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [editable path="hotel_door_large"]
