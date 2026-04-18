@@ -31,7 +31,7 @@ PastorEngine::PastorEngine()
 	max_depth = 100;
 	piece_value = {
 		{0, 0},
-		{'K', 60000},
+		{'K', 0},
 		{'Q', 929},
 		{'R', 479},
 		{'B', 320},
@@ -40,7 +40,7 @@ PastorEngine::PastorEngine()
 		{'*', 0},
 		{'#', 0},
 		{'Z', 0},
-		{'k', -60000},
+		{'k', -0},
 		{'q', -929},
 		{'r', -479},
 		{'b', -320},
