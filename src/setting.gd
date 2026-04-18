@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal language_changed()
+
 var resolutions:Array[Vector2i] = [
 	Vector2i(800, 600),
 	Vector2i(1024, 600),
@@ -183,6 +185,7 @@ func set_camera_rotate_axis(index:int) -> void:
 func set_language(index:int) -> void:
 	table.set("language", index)
 	TranslationServer.set_locale(languages.keys()[index])
+	language_changed.emit()
 
 func set_relax(toggled_on:bool) -> void:
 	table.set("relax", toggled_on)
