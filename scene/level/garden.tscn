@@ -298,7 +298,7 @@ transform = Transform3D(1.0354694, 0, 0.14793622, 0, 1.0436014, 0, -0.129011, 0,
 [node name="tree_35" parent="background" unique_id=1021802437 instance=ExtResource("9_fvl7i")]
 transform = Transform3D(0.6496641, 0, 0.93634874, 0, 1.0436014, 0, -0.8165637, 0, 0.7449658, -6.145869, 0, 8.027139)
 
-[node name="marker_actor" type="Marker3D" parent="." unique_id=58941707]
+[node name="marker_actor_carnatiion" type="Marker3D" parent="." unique_id=58941707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)
 script = ExtResource("5_6tgvo")
 piece = 112
