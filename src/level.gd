@@ -368,6 +368,7 @@ func state_ready_move(_arg:Dictionary) -> void:
 
 func state_ready_player(_arg:Dictionary) -> void:
 	var start_from:int = 0
+	var by:int = Chess.c64_to_x88(Chess.first_bit(chessboard.state.get_bit(player_king)))
 	var can_introduce:bool = false
 	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
 	for iter:int in move_list:
@@ -383,11 +384,12 @@ func state_ready_player(_arg:Dictionary) -> void:
 		state_machine.state_signal_connect(chessboard.empty_double_click, func () -> void:
 			state_machine.change_state.call_deferred("select_piece", {"by": chessboard.selected})
 		)
-	state_machine.state_signal_connect(Dialog.on_next, state_machine.change_state.call_deferred.bind("dialog"))
+	state_machine.state_signal_connect(Dialog.on_next, func () -> void:
+		state_machine.change_state.call_deferred("interact", {"callback": interact_list[by][Dialog.selected]})
+	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	if chessboard.state.get_bit(enemy_all):
 		Clock.resume()
-	var by:int = Chess.c64_to_x88(Chess.first_bit(chessboard.state.get_bit(player_king)))
 	var selection:PackedStringArray = []
 	if chessboard.state.get_bit(ord("z")) & Chess.mask(Chess.x88_to_c64(by)):
 		selection = interact_list[by].keys()

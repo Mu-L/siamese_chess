@@ -9,6 +9,8 @@ var	connection_list:Array = []
 var mutex:Mutex = Mutex.new()
 
 func add_state(new_state:String, ready_callback:Callable = Callable(), exit_callback:Callable = Callable(), process_callback:Callable = Callable()) -> void:
+	assert(new_state)
+	assert(ready_callback.is_valid())
 	state_list[new_state] = {
 		"ready": ready_callback,
 		"exit": exit_callback,
