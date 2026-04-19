@@ -45,7 +45,6 @@ func _ready() -> void:
 	standard_premove_state_machine.add_state("from", state_game_premove_from_ready, state_game_premove_from_exit)
 	standard_premove_state_machine.add_state("to", state_game_premove_to_ready)
 	standard_premove_state_machine.add_state("extra", state_game_premove_extra_ready, state_game_premove_extra_exit)
-	standard_premove_state_machine.add_state("select_piece", state_game_premove_select_piece_ready)
 	standard_premove_state_machine.add_state("confirm", state_game_premove_confirm_ready)
 	standard_premove_state_machine.add_state("stop", state_game_premove_stop_ready)
 	game_premove_branch = PremoveBranch.new()
@@ -108,15 +107,11 @@ func state_game_premove_from_ready(_arg:Dictionary) -> void:
 	game_premove_from = -1
 	game_premove_to = -1
 	var start_from:int = 0
-	var can_introduce:bool = false
 	var move_list:PackedInt32Array = Chess.generate_premove(game_premove_branch.future_state, standard_player_group)
 	if game_premove_branch.move_order.size():
 		Dialog.push_selection(["SELECTION_CANCEL"], "", false, false)
 	for iter:int in move_list:
-		if Chess.from(iter) == Chess.to(iter):
-			can_introduce = true
-		else:
-			start_from |= Chess.mask(Chess.x88_to_c64(Chess.from(iter)))
+		start_from |= Chess.mask(Chess.x88_to_c64(Chess.from(iter)))
 
 	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_selection, func () -> void:
 		game_premove_from = standard_chessboard.selected
@@ -126,10 +121,6 @@ func state_game_premove_from_ready(_arg:Dictionary) -> void:
 		game_premove_branch.future_state = standard_chessboard.state.duplicate()
 		game_premove_branch.move_order = []
 	)
-	if can_introduce:
-		standard_premove_state_machine.state_signal_connect(standard_chessboard.empty_double_click, func () -> void:
-			standard_premove_state_machine.change_state.call_deferred("select_piece", {"by": standard_chessboard.selected})
-		)
 	standard_chessboard.set_square_selection(start_from)
 
 func state_game_premove_from_exit() -> void:
@@ -177,64 +168,6 @@ func state_game_premove_extra_ready(_arg:Dictionary) -> void:
 
 func state_game_premove_extra_exit() -> void:
 	Dialog.clear()
-
-func state_game_premove_select_piece_ready(_arg:Dictionary) -> void:
-	var storage_piece:int = game_premove_branch.future_state.get_storage_piece()
-	var by:int = _arg["by"]
-	var start_from:int = game_premove_branch.future_state.get_bit(player_all)
-
-	var move_valid:bool = false
-	var move_list:PackedInt32Array = Chess.generate_premove(game_premove_branch.future_state, standard_player_group)
-	var pawn_available:bool = false 
-	for iter:int in move_list:
-		if Chess.from(iter) == Chess.to(iter) && Chess.from(iter) == by:
-			move_valid = true
-			if Chess.extra(iter) & 95 == ord("P"):
-				pawn_available = true
-	if !move_valid:
-		standard_premove_state_machine.change_state.call_deferred("from")
-		return
-	var selection:Array = []
-	if ((storage_piece >> (32 * standard_player_group)) & 0xFFFFFFFF) >= 9:
-		selection.push_back("PIECE_QUEEN")
-	if ((storage_piece >> (32 * standard_player_group)) & 0xFFFFFFFF) >= 5:
-		selection.push_back("PIECE_ROOK")
-	if ((storage_piece >> (32 * standard_player_group)) & 0xFFFFFFFF) >= 3:
-		selection.push_back("PIECE_BISHOP")
-	if ((storage_piece >> (32 * standard_player_group)) & 0xFFFFFFFF) >= 3:
-		selection.push_back("PIECE_KNIGHT")
-	if ((storage_piece >> (32 * standard_player_group)) & 0xFFFFFFFF) >= 1 && pawn_available:
-		selection.push_back("PIECE_PAWN")
-	selection.push_back("SELECTION_CANCEL")
-	standard_premove_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
-		match Dialog.selected:
-			"SELECTION_CANCEL":
-				standard_premove_state_machine.change_state.call_deferred("from")
-			"PIECE_QUEEN":
-				standard_chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_queen_black.tscn").instantiate().set_larger_scale(), ord("Q" if standard_player_group == 0 else "q"))
-				standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("q"))})
-			"PIECE_ROOK":
-				standard_chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_rook_black.tscn").instantiate().set_larger_scale(), ord("R" if standard_player_group == 0 else "r"))
-				standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("r"))})
-			"PIECE_BISHOP":
-				standard_chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_bishop_black.tscn").instantiate().set_larger_scale(), ord("B" if standard_player_group == 0 else "b"))
-				standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("b"))})
-			"PIECE_KNIGHT":
-				standard_chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_knight_black.tscn").instantiate().set_larger_scale(), ord("N" if standard_player_group == 0 else "n"))
-				standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("n"))})
-			"PIECE_PAWN":
-				standard_chessboard.add_piece_instance_to_steady(load("res://scene/actor/piece_pawn_black.tscn").instantiate().set_larger_scale(), ord("P" if standard_player_group == 0 else "p"))
-				standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(by, by, ord("p"))})
-	)
-	standard_premove_state_machine.state_signal_connect(standard_chessboard.empty_double_click, func () -> void:
-		standard_premove_state_machine.change_state.call_deferred("select_piece", {"by": standard_chessboard.selected})
-	)
-	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_empty, standard_premove_state_machine.change_state.call_deferred.bind("idle"))
-	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_selection, func () -> void:
-		standard_premove_state_machine.change_state.call_deferred("ready_to_move", {"from": standard_chessboard.selected})
-	)
-	Dialog.push_selection(selection, "HINT_ADD_PIECE", false, false)
-	standard_chessboard.set_square_selection(start_from)
 
 func state_game_premove_confirm_ready(_arg:Dictionary) -> void:
 	game_premove_from = -1

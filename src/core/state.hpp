@@ -12,7 +12,6 @@ enum StateBit
 	STEP_TO_DRAW = '3',
 	ROUND = '4',
 	KING_PASSANT = '5',
-	STORAGE_PIECE = '6',
 	MOD = '7',
 	ZOBRIST_HASH = '8',
 	ALL_PIECE = '.',
@@ -64,8 +63,6 @@ class State : public godot::RefCounted
 		void set_round(int _round);
 		int64_t get_king_passant();
 		void set_king_passant(int64_t _king_passant);
-		int64_t get_storage_piece();
-		void set_storage_piece(int64_t _storage_piece);
 		int64_t get_zobrist();
 		godot::String print_board();
 		godot::String print_bit_square(int _piece);

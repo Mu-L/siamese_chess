@@ -881,8 +881,7 @@ godot::String Chess::get_end_type(const godot::Ref<State> &_state)
 		return "50_moves";
 	}
 	if (population((_state->get_bit('A') | _state->get_bit('a')) ^ _state->get_bit('K') ^ _state->get_bit('k')) == 0
-	 && _state->get_bit('K') && _state->get_bit('k') &&
-		_state->get_bit(STORAGE_PIECE) == 0)
+	 && _state->get_bit('K') && _state->get_bit('k'))
 	{
 		return "not_enough_piece";
 	}
@@ -1562,33 +1561,6 @@ void Chess::_internal_generate_move(godot::PackedInt32Array &output, const godot
 			}
 		}
 	}
-	//摆放棋子部分
-	int64_t empty_bit = ~_state->get_bit(ALL_PIECE);
-	empty_bit &= king_attacks[Chess::first_bit(_state->get_bit(_group == 0 ? 'K' : 'k'))];
-	uint64_t storage_piece = _state->get_storage_piece();
-	//每种棋子存放最多8颗，意味着每种棋子占4位，那就需要4 * 5 * 2 = 40位
-	//棋子的顺序：QRBNPqrbnp
-	int storage_piece_order[10] = {'Q', 'R', 'B', 'N', 'P', 'q', 'r', 'b', 'n', 'p'};
-	int storage_piece_value[10] = {9, 5, 3, 3, 1, 9, 5, 3, 3, 1};
-	int value = _group == 0 ? (storage_piece & 0xFFFFFFFF) : (storage_piece >> 32);
-	while (empty_bit)
-	{
-		int by_c64 = Chess::first_bit(empty_bit);
-		int by = Chess::c64_to_x88(by_c64);
-		for (int i = 0; i < 5; i++)
-		{
-			int shift = _group == 0 ? i : i + 5;
-			if ((storage_piece_order[shift] & 95) == 'P' && (by < 0x10 || by >= 0x70))
-			{
-				continue;
-			}
-			if (storage_piece_value[shift] <= value)
-			{
-				output.push_back(Chess::create(by, by, storage_piece_order[shift]));
-			}
-		}
-		empty_bit = Chess::next_bit(empty_bit);
-	}
 }
 
 godot::PackedInt32Array Chess::generate_valid_move(const godot::Ref<State> &_state, int _group)
@@ -1813,34 +1785,6 @@ void Chess::apply_move(const godot::Ref<State> &_state, int _move)
 	int to = Chess::to(_move);
 	int to_piece = _state->get_piece(to);
 	int extra = Chess::extra(_move);
-	if (from == to)
-	{
-		if (from_piece)
-		{
-			_state->capture_piece(from);
-		}
-		else if (extra)
-		{
-			DEV_ASSERT(extra >= 'A' && extra <= 'Z' || extra >= 'a' && extra <= 'z');
-			_state->add_piece(to, extra);
-			int64_t storage_piece = _state->get_storage_piece();
-			switch (extra)
-			{
-				case 'Q': storage_piece -= 9ll; break;
-				case 'R': storage_piece -= 5ll; break;
-				case 'B': storage_piece -= 3ll; break;
-				case 'N': storage_piece -= 3ll; break;
-				case 'P': storage_piece -= 1ll; break;
-				case 'q': storage_piece -= 9ll << 32; break;
-				case 'r': storage_piece -= 5ll << 32; break;
-				case 'b': storage_piece -= 3ll << 32; break;
-				case 'n': storage_piece -= 3ll << 32; break;
-				case 'p': storage_piece -= 1ll << 32; break;
-			}
-			_state->set_storage_piece(storage_piece);
-		}
-		return;
-	}
 
 	bool dont_move = false;
 	bool has_en_passant = false;
@@ -1985,23 +1929,6 @@ godot::Dictionary Chess::apply_move_custom(const godot::Ref<State> &_state, int 
 	int to = Chess::to(_move);
 	int to_piece = _state->get_piece(to);
 	int extra = Chess::extra(_move);
-	if (from == to)
-	{
-		if (from_piece)
-		{
-			output["type"] = "leave";
-			output["by"] = from;
-			output["piece"] = from_piece;
-			return output;
-		} 
-		else if (extra)
-		{
-			output["type"] = "introduce";
-			output["by"] = from;
-			output["piece"] = extra;
-			return output;
-		}
-	}
 	if ((from_piece & 95) == 'P')
 	{
 		int front = direction(from_piece, 0);
