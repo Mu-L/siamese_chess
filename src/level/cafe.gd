@@ -149,12 +149,22 @@ func state_game_premove_to_ready(_arg:Dictionary) -> void:
 	standard_chessboard.set_square_selection(selection)
 
 func state_game_premove_extra_ready(_arg:Dictionary) -> void:
+	var map:Dictionary = {
+		ord("Q"): "PIECE_QUEEN",
+		ord("R"): "PIECE_ROOK",
+		ord("B"): "PIECE_BISHOP",
+		ord("N"): "PIECE_KNIGHT",
+		ord("q"): "PIECE_QUEEN",
+		ord("r"): "PIECE_ROOK",
+		ord("b"): "PIECE_BISHOP",
+		ord("n"): "PIECE_KNIGHT",
+	}
 	var move_list:PackedInt32Array = Chess.generate_premove(standard_chessboard.state, standard_player_group)
 	var decision_list:PackedStringArray = []
 	var decision_to_move:Dictionary = {}
 	for iter:int in move_list:
 		if Chess.from(iter) == _arg["from"] && Chess.to(iter) == _arg["to"]:
-			decision_list.push_back("%c" % Chess.extra(iter))
+			decision_list.push_back(map[Chess.extra(iter)])
 			decision_to_move[decision_list[-1]] = iter
 	decision_list.push_back("SELECTION_CANCEL")
 	standard_premove_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
@@ -324,12 +334,22 @@ func state_ready_in_game_check_move(_arg:Dictionary) -> void:
 		standard_state_machine.change_state.call_deferred("move", {"move": move_list[0]})
 
 func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
+	var map:Dictionary = {
+		ord("Q"): "PIECE_QUEEN",
+		ord("R"): "PIECE_ROOK",
+		ord("B"): "PIECE_BISHOP",
+		ord("N"): "PIECE_KNIGHT",
+		ord("q"): "PIECE_QUEEN",
+		ord("r"): "PIECE_ROOK",
+		ord("b"): "PIECE_BISHOP",
+		ord("n"): "PIECE_KNIGHT",
+	}
 	var from:int = _arg["from"]
 	var actor:Actor = standard_chessboard.chessboard_piece[from]
 	var decision_list:PackedStringArray = []
 	var decision_to_move:Dictionary = {}
 	for iter:int in _arg["move_list"]:
-		decision_list.push_back("%c" % Chess.extra(iter))
+		decision_list.push_back(map[Chess.extra(iter)])
 		decision_to_move[decision_list[-1]] = iter
 	decision_list.push_back("cancel")
 	standard_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
