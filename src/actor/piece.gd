@@ -1,6 +1,6 @@
 extends Actor
 
-var position_name:String = ""
+var original_position:Vector3 = Vector3(0, 0, 0)
 var sfx:AudioStreamPlayer3D = null
 var larger_scale:bool = false
 var promote_instance:Actor = null
@@ -20,19 +20,16 @@ func _ready() -> void:
 	sfx.volume_db = 0 if larger_scale else 0
 	if has_meta("larger_scale") && get_meta("larger_scale"):
 		set_larger_scale()
-	#if position_name:
-	#	position = chessboard.name_to_vector3(position_name)
-	#else:
-	#	position_name = chessboard.vector3_to_name(position)
-	#	position = chessboard.name_to_vector3(position_name)
 
 func move(_pos:Vector3) -> void:
+	original_position = _pos
 	var tween:Tween = create_tween()
 	tween.tween_callback(sfx.play)
 	tween.tween_property(self, "global_position", _pos, 0.3).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(animation_finished.emit)
 
 func capturing(_pos:Vector3, _captured:Actor) -> void:	# 攻击
+	original_position = _pos
 	var tween:Tween = create_tween()
 	tween.tween_callback(sfx.play)
 	tween.tween_property(self, "global_position", _pos, 0.3).set_trans(Tween.TRANS_SINE)
@@ -46,6 +43,7 @@ func captured(_capturing:Actor = null) -> void:	# 被攻击
 	return
 
 func promote(_pos:Vector3, _piece:int) -> void:
+	original_position = _pos
 	var tween:Tween = create_tween()
 	tween.tween_callback(sfx.play)
 	tween.tween_property(self, "global_position", _pos, 0.3).set_trans(Tween.TRANS_SINE)
@@ -58,10 +56,10 @@ func unpromote() -> void:
 	$piece.visible = true
 
 func ready_to_move() -> void:
-	global_position += Vector3(0, 0.1, 0)
+	global_position = original_position + Vector3(0, 0.1, 0)
 
 func idle() -> void:
-	global_position -= Vector3(0, 0.1, 0)
+	global_position = original_position
 
 func change_model(_piece:int) -> void:
 	$piece.visible = false
@@ -91,3 +89,7 @@ func set_larger_scale() -> Actor:
 	$piece.scale = Vector3(8, 8, 8)
 	larger_scale = true
 	return self
+
+func introduce(_pos:Vector3) -> void:
+	super.introduce(_pos)
+	original_position = _pos
