@@ -248,15 +248,14 @@ func state_ready_in_game_move(_arg:Dictionary) -> void:
 			standard_chessboard.clear_pointer("premove")
 		standard_state_machine.change_state.call_deferred("check_move", {"from": Chess.from(next_premove), "to": Chess.to(next_premove), "extra": Chess.extra(next_premove)})
 	elif game_premove_from != -1 && (standard_chessboard.mouse_hold || standard_chessboard.button_input_hold):
-		standard_premove_state_machine.change_state("stop")
 		standard_state_machine.change_state("ready_to_move", {"from": game_premove_from})
 		game_premove_from = -1
 		game_premove_to = -1
 	else:
-		standard_premove_state_machine.change_state("stop")
 		standard_state_machine.change_state("player")
 
 func state_ready_in_game_player(_arg:Dictionary) -> void:
+	standard_premove_state_machine.change_state("stop")
 	var start_from:int = standard_chessboard.state.get_bit(ord('A') if standard_player_group == 0 else ord('a'))
 	standard_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
 		if Dialog.selected == "SELECTION_TAKE_BACK":
@@ -293,6 +292,7 @@ func state_exit_in_game_player() -> void:
 	Dialog.clear()
 
 func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
+	standard_premove_state_machine.change_state("stop")
 	var move_list:PackedInt32Array = Chess.generate_valid_move(standard_chessboard.state, standard_player_group)
 	var selection:int = 0
 	var from:int = _arg["from"]
@@ -334,6 +334,7 @@ func state_ready_in_game_check_move(_arg:Dictionary) -> void:
 		standard_state_machine.change_state.call_deferred("move", {"move": move_list[0]})
 
 func state_ready_in_game_extra_move(_arg:Dictionary) -> void:
+	standard_premove_state_machine.change_state("stop")
 	var map:Dictionary = {
 		ord("Q"): "PIECE_QUEEN",
 		ord("R"): "PIECE_ROOK",

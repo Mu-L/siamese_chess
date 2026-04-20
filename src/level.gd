@@ -305,6 +305,7 @@ func state_ready_move(_arg:Dictionary) -> void:
 	chessboard.execute_move(_arg["move"])
 
 func state_ready_player(_arg:Dictionary) -> void:
+	premove_state_machine.change_state.call_deferred("stop")
 	var start_from:int = 0
 	var by:int = Chess.c64_to_x88(Chess.first_bit(chessboard.state.get_bit(player_king)))
 	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
@@ -331,6 +332,7 @@ func state_exit_player() -> void:
 	Dialog.clear()
 
 func state_ready_ready_to_move(_arg:Dictionary) -> void:
+	premove_state_machine.change_state.call_deferred("stop")
 	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
 	var selection:int = 0
 	var from:int = _arg["from"]
@@ -395,6 +397,7 @@ func state_exit_ready_to_move() -> void:
 	Dialog.clear()
 
 func state_ready_travel(_arg:Dictionary) -> void:
+	premove_state_machine.change_state.call_deferred("stop")
 	var from:int = _arg["from"]
 	var actor:Actor = chessboard.chessboard_piece[from]
 	var path:PackedInt32Array = Chess.generate_path(chessboard.state, from)
@@ -455,7 +458,6 @@ func state_ready_check_move(_arg:Dictionary) -> void:
 		if premove_branch.move_order:
 			premove_branch.move_order.clear()
 			premove_branch.future_state = chessboard.state.duplicate()
-		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("player", {})
 		return
 	elif move_list.size() > 1:
@@ -464,6 +466,7 @@ func state_ready_check_move(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("move", {"move": move_list[0]})
 
 func state_ready_extra_move(_arg:Dictionary) -> void:
+	premove_state_machine.change_state.call_deferred("stop")
 	var map:Dictionary = {
 		ord("Q"): "PIECE_QUEEN",
 		ord("R"): "PIECE_ROOK",
@@ -542,11 +545,8 @@ func back_to_game() -> void:
 			chessboard.clear_pointer("premove")
 		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(next_premove), "to": Chess.to(next_premove), "extra": Chess.extra(next_premove)})
 	elif premove_state_machine.current_state == "to":
-		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("ready_to_move", {"from": premove_from})
 	elif premove_state_machine.current_state == "travel":
-		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("travel", {"from": premove_from})
 	else:
-		premove_state_machine.change_state.call_deferred("stop")
 		state_machine.change_state.call_deferred("player")
