@@ -305,7 +305,7 @@ func state_ready_move(_arg:Dictionary) -> void:
 	chessboard.execute_move(_arg["move"])
 
 func state_ready_player(_arg:Dictionary) -> void:
-	premove_state_machine.change_state.call_deferred("stop")
+	premove_state_machine.change_state("stop")
 	var start_from:int = 0
 	var by:int = Chess.c64_to_x88(Chess.first_bit(chessboard.state.get_bit(player_king)))
 	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
