@@ -117,5 +117,3 @@ transform = Transform3D(-0.005829345, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.005
 
 [node name="book_tied_11" parent="0/library_handcart_3" unique_id=23764466 instance=ExtResource("3_1s0sc")]
 transform = Transform3D(-0.9998945, 0, 0.01452063, 0, 1, 0, -0.01452063, 0, -0.9998945, -0.17740873, 0.14061272, 0.2150966)
-
-[node name="multi_mesh_instance_3d" type="MultiMeshInstance3D" parent="0/library_handcart_3" unique_id=418452344]
