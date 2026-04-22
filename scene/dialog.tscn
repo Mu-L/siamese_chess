@@ -105,9 +105,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="texture_rect_left" type="TextureRect" parent="." unique_id=254052441]
-anchors_preset = 9
+anchors_preset = -1
+anchor_right = 0.113000005
 anchor_bottom = 1.0
-offset_right = 90.0
+offset_right = -0.17601013
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_ggi1b")
 expand_mode = 1
@@ -123,6 +124,7 @@ grow_horizontal = 2
 theme_override_fonts/normal_font = ExtResource("2_ow5ht")
 theme_override_font_sizes/normal_font_size = 23
 bbcode_enabled = true
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="label_hint_down" type="RichTextLabel" parent="texture_rect_left" unique_id=1092154144]
@@ -136,7 +138,7 @@ offset_right = 1.6800003
 theme_override_fonts/normal_font = ExtResource("2_ow5ht")
 theme_override_font_sizes/normal_font_size = 23
 bbcode_enabled = true
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="label" type="RichTextLabel" parent="texture_rect_left" unique_id=1304240361]
@@ -157,10 +159,10 @@ vertical_alignment = 1
 
 [node name="texture_rect_right" type="TextureRect" parent="." unique_id=915097100]
 anchors_preset = -1
-anchor_left = 0.92200005
+anchor_left = 0.887
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.14404297
+offset_left = 0.17596436
 grow_horizontal = 0
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_ggi1b")
