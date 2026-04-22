@@ -173,7 +173,7 @@ actor = ExtResource("5_80gqw")
 metadata/_custom_type_script = "uid://c7cwb1ro3e2r"
 
 [node name="teleport_pointer_basement" parent="." unique_id=82850098 instance=ExtResource("14_nwskg")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -5, 0, -7)
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -7, 0, 0)
 to = "res://scene/level/hallway_minus_1f.tscn"
 args = {
 "by": 1
@@ -306,10 +306,10 @@ omni_range = 10.077
 [node name="hotel_door_large" parent="." unique_id=2031737367 instance=ExtResource("9_7pf3j")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, 0)
 
-[node name="door_large_face_l" parent="hotel_door_large" index="1" unique_id=577387886]
+[node name="door_large_face_l" parent="hotel_door_large" index="0" unique_id=2121374871]
 transform = Transform3D(-0.9036046, 0, -0.42836744, 0, 1, 0, 0.42836744, 0, -0.9036046, -1.0750201, 1.0110773, 0.14069557)
 
-[node name="door_large_face_r" parent="hotel_door_large" index="2" unique_id=446727160]
+[node name="door_large_face_r" parent="hotel_door_large" index="1" unique_id=289935555]
 transform = Transform3D(-0.8933636, 0, 0.4493345, 0, 1, 0, -0.4493345, 0, -0.8933636, 1.0579906, 1.0110773, 0.14069605)
 
 [node name="omni_light_3d" type="OmniLight3D" parent="hotel_door_large" unique_id=1404077087]
@@ -318,10 +318,6 @@ light_color = Color(0.7490196, 0.7137255, 0.68235296, 1)
 light_energy = 0.305
 light_specular = 0.0
 omni_range = 4.529
-
-[node name="camera_3d" type="Camera3D" parent="." unique_id=1334859970]
-transform = Transform3D(-0.0383878, 0.90041286, -0.43333942, 0, 0.43365905, 0.90107703, 0.9992629, 0.034590367, -0.016647218, -6.573, 4.403, -1.758)
-fov = 102.04714
 
 [node name="player" parent="." unique_id=1111666 instance=ExtResource("10_mtw5c")]
 
@@ -387,12 +383,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1, 
 [node name="hotel_room_desk_chair" parent="." unique_id=512521497 instance=ExtResource("12_vykmq")]
 transform = Transform3D(-0.8660254, 0, 0.50000006, 0, 1, 0, -0.50000006, 0, -0.8660254, -0.39965963, 0, 6.567529)
 
-[node name="marker_camera" type="Node3D" parent="." unique_id=1458669753 node_paths=PackedStringArray("camera")]
-script = ExtResource("16_idfw3")
-camera = NodePath("../camera_3d")
-bit = 1085102592571150095
-metadata/_custom_type_script = "uid://b5f46bgwa3pux"
-
 [node name="lightmap_gi" type="LightmapGI" parent="." unique_id=1823503648]
 light_data = ExtResource("18_x66wa")
 
@@ -403,14 +393,14 @@ size = Vector3(18, 4.742485, 18)
 box_projection = true
 enable_shadows = true
 
-[node name="camera_3d_deeper" type="Camera3D" parent="." unique_id=2106480737]
-transform = Transform3D(-2.3648674e-08, 0.84101063, -0.5410185, 3.676174e-08, 0.5410185, 0.84101063, 1, 0, -4.371139e-08, -2.109017, 4.749997, 0)
-fov = 90.571365
+[node name="camera_3d" type="Camera3D" parent="." unique_id=2106480737]
+transform = Transform3D(-1.922967e-08, 0.8980352, -0.43992355, 3.9254363e-08, 0.43992355, 0.8980352, 1, 1.7763568e-15, -4.3711385e-08, -6.5161004, 7.440488, 0)
+fov = 93.72957
 
-[node name="marker_camera_deeper" type="Node3D" parent="." unique_id=849737879 node_paths=PackedStringArray("camera")]
+[node name="marker_camera_2" type="Node3D" parent="." unique_id=849737879 node_paths=PackedStringArray("camera")]
 script = ExtResource("16_idfw3")
-camera = NodePath("../camera_3d_deeper")
-bit = -1085102592571150096
+camera = NodePath("../camera_3d")
+bit = -1
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="marker_actor" type="Marker3D" parent="." unique_id=2124931697]
