@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cpyviir7sli6u" path="res://src/marker_callback.gd" id="15_5uhcj"]
 [ext_resource type="PackedScene" uid="uid://cingkxj4uodjo" path="res://assets/model/window.glb" id="15_okh5y"]
 [ext_resource type="PackedScene" uid="uid://cefxs7grh28rs" path="res://assets/model/door.glb" id="16_7f6gv"]
+[ext_resource type="Script" uid="uid://wbnfk8tm8skk" path="res://src/marker_title.gd" id="16_xr75f"]
 [ext_resource type="Script" uid="uid://bbi6kjxerg3hk" path="res://src/marker_teleport.gd" id="18_lay20"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e1edc"]
@@ -226,3 +227,9 @@ method_name = &"interact_carnation"
 selection = "CARNATION_TALK"
 bit = 137438953472
 metadata/_custom_type_script = "uid://cpyviir7sli6u"
+
+[node name="marker_title" type="Marker3D" parent="." unique_id=1369485858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 1)
+script = ExtResource("16_xr75f")
+text = "CHAR_CARNATION"
+metadata/_custom_type_script = "uid://wbnfk8tm8skk"
