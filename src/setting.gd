@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal language_changed()
+signal dialog_border_changed()
 
 var resolutions:Array[Vector2i] = [
 	Vector2i(800, 600),
@@ -45,6 +46,7 @@ var table:Dictionary = {}
 @onready var camera_rotate_sensitive_value:Label = $texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_sensitive/v_box_container/h_box_container/label_value
 @onready var camera_rotate_axis_input:OptionButton = $texture_rect/tab_container/control/v_box_container/margin_container_camera_rotate_axis/h_box_container/option_button
 @onready var language_input:OptionButton = $texture_rect/tab_container/accessibility/v_box_container/margin_container_language/h_box_container/option_button
+@onready var dialog_border_input:CheckBox = $texture_rect/tab_container/accessibility/v_box_container/margin_container_dialog_border/v_box_container/h_box_container/check_box
 @onready var relax_input:CheckBox = $texture_rect/tab_container/game/v_box_container/margin_container_relax/v_box_container/h_box_container/check_box
 @onready var clean_archive_input:Button = $texture_rect/tab_container/files/v_box_container/margin_container_clean_archive/h_box_container/button
 @onready var reset_progress_input:Button = $texture_rect/tab_container/files/v_box_container/margin_container_reset_progress/v_box_container/h_box_container/button
@@ -70,6 +72,7 @@ func _ready() -> void:
 	camera_rotate_sensitive_input.connect("value_changed", set_camera_rotate_sensitive)
 	camera_rotate_axis_input.connect("item_selected", set_camera_rotate_axis)
 	language_input.connect("item_selected", set_language)
+	dialog_border_input.connect("toggled", set_dialog_border)
 	relax_input.connect("toggled", set_relax)
 	clean_archive_input.connect("pressed", set_clean_archive)
 	reset_progress_input.connect("pressed", set_reset_progress)
@@ -88,7 +91,7 @@ func _ready() -> void:
 	env_volume_input.set_value(table.get_or_add("env_volume", 80))
 	env_volume_value.text = "%d%%" % (table.get_or_add("env_volume", 80))
 	language_input.select(table.get_or_add("language", languages.keys().find(TranslationServer.get_locale())))
-	set_language(table.get_or_add("language"))
+	dialog_border_input.set_pressed(table.get_or_add("dialog_border", false))
 	relax_input.set_pressed(table.get_or_add("relax", false))
 	camera_move_speed_input.set_value(table.get_or_add("camera_move_speed", 50))
 	camera_move_speed_value.text = "%d%%" % (table.get_or_add("camera_move_speed", 50))
@@ -96,6 +99,7 @@ func _ready() -> void:
 	camera_rotate_sensitive_value.text = "%d%%" % (table.get_or_add("camera_rotate_sensitive", 50))
 	camera_rotate_axis_input.select(table.get_or_add("camera_rotate_axis", 0))
 	visible = false
+	set_language(table.get_or_add("language"))
 
 func open() -> void:
 	visible = true
@@ -186,6 +190,10 @@ func set_language(index:int) -> void:
 	table.set("language", index)
 	TranslationServer.set_locale(languages.keys()[index])
 	language_changed.emit()
+
+func set_dialog_border(toggled_on:bool) -> void:
+	table.set("dialog_border", toggled_on)
+	dialog_border_changed.emit()
 
 func set_relax(toggled_on:bool) -> void:
 	table.set("relax", toggled_on)

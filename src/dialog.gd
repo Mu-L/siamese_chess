@@ -26,6 +26,7 @@ func _ready() -> void:
 	$texture_rect_bottom/label.connect("meta_clicked", clicked_selection)
 	$texture_rect_right/label.connect("meta_clicked", clicked_selection)
 	Setting.connect("language_changed", update_dialog)
+	Setting.connect("dialog_border_changed", update_dialog)
 
 func _unhandled_input(event:InputEvent) -> void:
 	if click_anywhere && !waiting:
@@ -127,7 +128,7 @@ func selection_to_bbcode() -> String:
 			bbcode += "[url=\"" + selection[i] + "\"]" + tr(selection[i]) + "[/url]"
 		if i == selection.size() - 1:
 			break
-		if border_position:
+		if !border_position:
 			bbcode += "  "
 		else:
 			bbcode += "\n\n"
@@ -137,6 +138,7 @@ func block_input() -> bool:
 	return click_anywhere || force_selection || Time.get_unix_time_from_system() - click_cooldown < 0.3
 
 func update_dialog() -> void:
+	set_border_position(Setting.get_value("dialog_border"))
 	if selection:
 		text = selection_to_bbcode()
 		text_label.text = text
@@ -146,7 +148,7 @@ func update_dialog() -> void:
 
 func set_border_position(_border_position:bool) -> void:
 	border_position = _border_position
-	if border_position:
+	if !border_position:
 		$texture_rect_left.visible = false
 		$texture_rect_right.visible = false
 		$texture_rect_top.visible = true
@@ -164,4 +166,3 @@ func set_border_position(_border_position:bool) -> void:
 		title_label = $texture_rect_left/label
 		time_label = $texture_rect_left/label_hint_up
 		other_label = $texture_rect_left/label_hint_down
-	update_dialog()
