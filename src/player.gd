@@ -6,9 +6,10 @@ var can_move:bool = true
 var inspectable_item_list:Array[InspectableItem] = []
 var current_area:Area3D = null
 var using_dialog:bool = false
+var target_camera:Camera3D = null
 
 func _ready() -> void:
-	pass
+	Setting.connect("dialog_border_changed", refresh_camera)
 
 func _physics_process(_delta:float) -> void:
 	$head/camera.set_rotation(Vector3(deg_to_rad(sin(Time.get_unix_time_from_system())), 0, 0))
@@ -108,16 +109,24 @@ func find_area(direction:Vector2) -> Area3D:
 func move_camera(other:Camera3D) -> void:
 	if !is_instance_valid(other):
 		return
+	target_camera = other
 	var tween:Tween = create_tween()
 	#tween.tween_callback($audio_stream_player.play)
 	tween.tween_property($head, "global_transform", other.global_transform, 1).set_trans(Tween.TRANS_SINE)
 	tween.set_parallel(true)
-	tween.tween_property($head/camera, "fov", other.fov, 1).set_trans(Tween.TRANS_SINE)
+	tween.tween_property($head/camera, "fov", other.fov * 0.85 if Setting.get_value("dialog_border") else other.fov, 1).set_trans(Tween.TRANS_SINE)
 	tween.set_parallel(false)
 
 func force_set_camera(other:Camera3D) -> void:
+	target_camera = other
 	$head.global_transform = other.global_transform
-	$head/camera.fov = other.fov
+	$head/camera.fov = other.fov * 0.85 if Setting.get_value("dialog_border") else other.fov
+
+func refresh_camera() -> void:
+	if !is_instance_valid(target_camera):
+		return
+	$head.global_transform = target_camera.global_transform
+	$head/camera.fov = target_camera.fov * 0.85 if Setting.get_value("dialog_border") else target_camera.fov
 
 func get_camera() -> Camera3D:
 	return $head/camera
