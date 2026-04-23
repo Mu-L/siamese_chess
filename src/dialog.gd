@@ -87,6 +87,8 @@ func clear() -> void:
 	click_anywhere = false
 	force_selection = false
 	waiting = false
+	text = ""
+	title = ""
 	selection.clear()
 	select_focus = -1
 
