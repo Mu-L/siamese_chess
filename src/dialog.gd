@@ -25,6 +25,12 @@ func _ready() -> void:
 	set_border_position(false)
 	$texture_rect_bottom/label.connect("meta_clicked", clicked_selection)
 	$texture_rect_right/label.connect("meta_clicked", clicked_selection)
+	$texture_rect_top/label.connect("meta_clicked", clicked_global_selection)
+	$texture_rect_left/label.connect("meta_clicked", clicked_global_selection)
+	$texture_rect_top/label.connect("mouse_entered", show_global_selection)
+	$texture_rect_top/label.connect("mouse_exited", hide_global_selection)
+	$texture_rect_left/label.connect("mouse_entered", show_global_selection)
+	$texture_rect_left/label.connect("mouse_exited", hide_global_selection)
 	Setting.connect("language_changed", update_dialog)
 	Setting.connect("dialog_border_changed", update_dialog)
 
@@ -59,7 +65,7 @@ func push_selection(_selection:PackedStringArray, _title:String, _force_selectio
 	click_anywhere = false
 	force_selection = _force_selection
 	selection = _selection
-	text = selection_to_bbcode()
+	text = selection_to_bbcode(_selection)
 	title = _title
 	if tween && tween.is_running():
 		tween.kill()
@@ -72,6 +78,12 @@ func push_selection(_selection:PackedStringArray, _title:String, _force_selectio
 	tween.tween_property(text_label, "text", text, 0)
 	tween.tween_property(title_label, "text", tr(title), 0)
 	tween.tween_property($texture_rect_full, "visible", false, 0)
+
+func show_global_selection() -> void:
+	title_label.text = selection_to_bbcode(["SELECTION_STATUS", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"])
+
+func hide_global_selection() -> void:
+	title_label.text = title
 
 func set_hint_left(_text:String) -> void:
 	time_label.text = _text
@@ -111,24 +123,43 @@ func direction(axis:int) -> void:
 		select_focus += axis
 		select_focus = (select_focus + selection.size()) % selection.size()
 	selected = selection[select_focus]
-	text_label.text = selection_to_bbcode()
+	text_label.text = selection_to_bbcode(selection)
 
 func cancel_focus() -> void:
 	select_focus = -1
-	text_label.text = selection_to_bbcode()
+	text_label.text = selection_to_bbcode(selection)
 
 func clicked_selection(_selected:String) -> void:
 	selected = _selected
 	next()
 
-func selection_to_bbcode() -> String:
+func clicked_global_selection(_selected:String) -> void:
+	match _selected:
+		"SELECTION_DOCUMENTS":
+			Archive.open()
+		"SELECTION_STATUS":
+			Dialog.push_selection(["SELECTION_STATUS", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"], 
+				tr("HINT_STATUS") % [Progress.get_value("obtains", 0), Progress.get_value("wins", 0)], false, false)
+		"SELECTION_CAMERA":
+			#var from_position:Vector3 = chessboard.chessboard_piece[from].global_position
+			#from_position += Vector3(0, 1.6, 0)
+			#var from_rotation:Vector3 = chessboard.chessboard_piece[from].global_rotation
+			#Photo.move_camera(from_position, from_rotation)
+			Photo.open()
+		"SELECTION_THIRD_EYE":
+			#ThirdEye3D.set_state(chessboard.state)
+			ThirdEye3D.open()
+		"SELECTION_SETTINGS":
+			Setting.open()
+
+func selection_to_bbcode(_selection:PackedStringArray) -> String:
 	var bbcode:String = ""
-	for i:int in selection.size():
+	for i:int in _selection.size():
 		if i == select_focus:
-			bbcode += "[url=\"" + selection[i] + "\"][color=red]" + tr(selection[i]) + "[/color][/url]"
+			bbcode += "[url=\"" + _selection[i] + "\"][color=red]" + tr(_selection[i]) + "[/color][/url]"
 		else:
-			bbcode += "[url=\"" + selection[i] + "\"]" + tr(selection[i]) + "[/url]"
-		if i == selection.size() - 1:
+			bbcode += "[url=\"" + _selection[i] + "\"]" + tr(_selection[i]) + "[/url]"
+		if i == _selection.size() - 1:
 			break
 		if !border_position:
 			bbcode += "  "
@@ -142,7 +173,7 @@ func block_input() -> bool:
 func update_dialog() -> void:
 	set_border_position(Setting.get_value("dialog_border"))
 	if selection:
-		text = selection_to_bbcode()
+		text = selection_to_bbcode(selection)
 		text_label.text = text
 	else:
 		text_label.text = tr(text)
