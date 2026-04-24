@@ -334,14 +334,16 @@ func state_exit_player() -> void:
 func state_ready_ready_to_move(_arg:Dictionary) -> void:
 	premove_state_machine.change_state.call_deferred("stop")
 	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
-	var selection:int = 0
+	var square_selection:int = 0
 	var from:int = _arg["from"]
-	var from_piece:int = chessboard.state.get_piece(from)
+	if !chessboard.state.has_piece(from):
+		state_machine.change_state("player")
+		return
 	var actor:Actor = chessboard.chessboard_piece[from]
 	for iter:int in move_list:
 		if Chess.from(iter) == from:
-			selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
-	if selection == 0:
+			square_selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
+	if square_selection == 0:
 		state_machine.change_state.call_deferred("player")
 		return
 	state_machine.state_signal_connect(chessboard.click_selection, func () -> void:
@@ -356,41 +358,15 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	state_machine.state_signal_connect(Dialog.on_next, func() -> void:
-		match Dialog.selected:
-			"SELECTION_DOCUMENTS":
-				Archive.open()
-				actor.idle()
-				state_machine.change_state.call_deferred("player")
-			"SELECTION_STATUS":
-				Dialog.push_selection(["SELECTION_STATUS", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"], 
-					tr("HINT_STATUS") % [Progress.get_value("obtains", 0), Progress.get_value("wins", 0)], false, false)
-			"SELECTION_CAMERA":
-				var from_position:Vector3 = chessboard.chessboard_piece[from].global_position
-				from_position += Vector3(0, 1.6, 0)
-				var from_rotation:Vector3 = chessboard.chessboard_piece[from].global_rotation
-				Photo.move_camera(from_position, from_rotation)
-				Photo.open()
-				actor.idle()
-				state_machine.change_state.call_deferred("player")
-			"SELECTION_THIRD_EYE":
-				ThirdEye3D.set_state(chessboard.state)
-				ThirdEye3D.open()
-				actor.idle()
-				state_machine.change_state.call_deferred("player")
-			"SELECTION_SETTINGS":
-				Setting.open()
-				actor.idle()
-				state_machine.change_state.call_deferred("player")
-			"SELECTION_CANCEL":
-				actor.idle()
-				state_machine.change_state.call_deferred("player")
+		actor.idle()
+		state_machine.change_state.call_deferred("interact", {"callback": interact_list[from][Dialog.selected]})
 	)
-	if from_piece == player_king:
-		Dialog.push_selection(["SELECTION_STATUS", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS", "SELECTION_CANCEL"], "", false, false)
-	else:
-		Dialog.push_selection(["SELECTION_CANCEL"], "", false, false)
+	var interact_selection:PackedStringArray = []
+	if chessboard.state.get_bit(ord("z")) & Chess.mask(Chess.x88_to_c64(from)):
+		interact_selection = interact_list[from].keys()
+	Dialog.push_selection(interact_selection, "", false, false)
 	actor.ready_to_move()
-	chessboard.set_square_selection(selection)
+	chessboard.set_square_selection(square_selection)
 
 func state_exit_ready_to_move() -> void:
 	chessboard.set_square_selection(0)
@@ -422,6 +398,11 @@ func state_ready_travel(_arg:Dictionary) -> void:
 				state_machine.change_state.call_deferred("player")
 				chessboard.clear_pointer("premove")
 				return
+		if !path_to.size():
+			actor.idle()
+			state_machine.change_state.call_deferred("player")
+			chessboard.clear_pointer("premove")
+			return
 		var first_move:int = path_to[-1]
 		path_to.resize(path_to.size() - 1)
 		path_to.reverse()
