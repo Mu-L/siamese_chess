@@ -208,7 +208,7 @@ metadata/_custom_type_script = "uid://cpyviir7sli6u"
 
 [node name="camera_white_side" type="Camera3D" parent="." unique_id=1746372595]
 transform = Transform3D(-1, 7.789426e-08, -3.9689112e-08, -9.399129e-09, 0.3555638, 0.93465203, 8.691604e-08, 0.93465203, -0.3555638, 0.08276367, 6.8607984, 0.64996505)
-fov = 85.829895
+fov = 95.0
 
 [node name="marker_camera_white_side" type="Node3D" parent="." unique_id=1303561354 node_paths=PackedStringArray("camera")]
 script = ExtResource("18_fhf0e")
@@ -217,7 +217,7 @@ bit = -4294967296
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="camera_black_side" type="Camera3D" parent="." unique_id=617284860]
-transform = Transform3D(-1, 5.9510516e-08, -6.404094e-08, -1.7106217e-08, 0.58518416, 0.8109005, 8.573284e-08, 0.8109005, -0.58518416, -0.2826128, 5.3205085, -7.9536924)
+transform = Transform3D(-1, 5.951051e-08, -6.404094e-08, -3.8712635e-08, 0.35536793, 0.9347265, 7.838415e-08, 0.9347265, -0.35536796, -0.2826128, 6.3205085, -6.9536924)
 fov = 100.4
 
 [node name="marker_camera_black_side" type="Node3D" parent="." unique_id=778137627 node_paths=PackedStringArray("camera")]
