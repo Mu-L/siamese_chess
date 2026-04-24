@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal on_next()
+signal on_select(selected:String)
 
 const packed_scene:PackedScene = preload("res://scene/dialog.tscn")
 
@@ -131,6 +132,7 @@ func cancel_focus() -> void:
 
 func clicked_selection(_selected:String) -> void:
 	selected = _selected
+	on_select.emit(_selected)
 	next()
 
 func clicked_global_selection(_selected:String) -> void:

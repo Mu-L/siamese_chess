@@ -2,14 +2,14 @@ extends InspectableItem
 class_name Chessboard
 
 signal clicked()
-signal click_selection()
-signal click_empty()
-signal selection_down()
-signal empty_down()
-signal selection_up()
-signal empty_up()
-signal empty_double_click()
-signal selection_hold()
+signal click_selection(selected:int)
+signal click_empty(selected:int)
+signal selection_down(selected:int)
+signal empty_down(selected:int)
+signal selection_up(selected:int)
+signal empty_up(selected:int)
+signal empty_double_click(selected:int)
+signal selection_hold(selected:int)
 signal animation_finished()
 
 @export var COLOR_LAST_MOVE:Color = Color(0.52, 0.333, 0.27, 1.0)
@@ -188,25 +188,25 @@ func tap_position(position_name:String, down:bool = true) -> void:
 	selected = Chess.name_to_x88(position_name)
 	if square_selection != -1 && (Chess.mask(Chess.x88_to_c64(selected)) & square_selection):
 		if down:
-			selection_down.emit.call_deferred()
+			selection_down.emit.call_deferred(selected)
 			get_tree().create_timer(0.3).timeout.connect(func () -> void:
 				if mouse_hold && !mouse_moved:
-					selection_hold.emit.call_deferred()
+					selection_hold.emit.call_deferred(selected)
 			)
 		else:
-			selection_up.emit.call_deferred()
-		click_selection.emit.call_deferred()
+			selection_up.emit.call_deferred(selected)
+		click_selection.emit.call_deferred(selected)
 		return
-	click_empty.emit.call_deferred()
+	click_empty.emit.call_deferred(selected)
 	if down:
 		if (Time.get_unix_time_from_system() - double_click_timer <= 0.3):
-			empty_double_click.emit.call_deferred()
+			empty_double_click.emit.call_deferred(selected)
 			double_click_timer = 0
 		else:
 			double_click_timer = Time.get_unix_time_from_system()
-		empty_down.emit.call_deferred()
+		empty_down.emit.call_deferred(selected)
 	else:
-		empty_up.emit.call_deferred()
+		empty_up.emit.call_deferred(selected)
 
 func finger_on_position(position_name:String) -> void:
 	$canvas.clear_pointer("pointer")
