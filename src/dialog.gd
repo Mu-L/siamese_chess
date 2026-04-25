@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal on_next()
 signal on_select(selected:String)
+signal on_cancel()
 
 const packed_scene:PackedScene = preload("res://scene/dialog.tscn")
 
@@ -9,7 +10,7 @@ var border_position:bool = true
 var text_label:RichTextLabel = null
 var title_label:RichTextLabel = null
 var time_label:RichTextLabel = null
-var other_label:RichTextLabel = null
+var cancel_label:RichTextLabel = null
 
 var text:String = ""
 var title:String = ""
@@ -32,6 +33,8 @@ func _ready() -> void:
 	$texture_rect_top/label.connect("mouse_exited", hide_global_selection)
 	$texture_rect_left/label.connect("mouse_entered", show_global_selection)
 	$texture_rect_left/label.connect("mouse_exited", hide_global_selection)
+	$texture_rect_top/label_hint_left.connect("gui_input", cancel_gui_input)
+	$texture_rect_left/label_hint_up.connect("gui_input", cancel_gui_input)
 	Setting.connect("language_changed", update_dialog)
 	Setting.connect("dialog_border_changed", update_dialog)
 
@@ -42,6 +45,10 @@ func _unhandled_input(event:InputEvent) -> void:
 			click_cooldown = Time.get_unix_time_from_system()
 	if block_input():
 		get_viewport().set_input_as_handled()
+
+func cancel_gui_input(_event:InputEvent) -> void:
+	if _event is InputEventMouseButton && _event.button_index == MOUSE_BUTTON_LEFT && _event.pressed:
+		on_cancel.emit()
 
 func push_dialog(_text:String, _title:String, blackscreen:bool = false, _click_anywhere:bool = false, _waiting:bool = false) -> void:
 	text = _text
@@ -87,10 +94,16 @@ func hide_global_selection() -> void:
 	title_label.text = title
 
 func set_hint_left(_text:String) -> void:
-	time_label.text = _text
+	cancel_label.text = _text
 
 func set_hint_right(_text:String) -> void:
-	other_label.text = _text
+	time_label.text = _text
+
+func show_cancel() -> void:
+	cancel_label.text = "SELECTION_CANCEL"
+
+func hide_cancel() -> void:
+	cancel_label.text = ""
 
 func clear() -> void:
 	if tween && tween.is_running():
@@ -190,8 +203,8 @@ func set_border_position(_border_position:bool) -> void:
 		$texture_rect_bottom.visible = true
 		text_label = $texture_rect_bottom/label
 		title_label = $texture_rect_top/label
-		time_label = $texture_rect_top/label_hint_left
-		other_label = $texture_rect_top/label_hint_right
+		time_label = $texture_rect_top/label_hint_right
+		cancel_label = $texture_rect_top/label_hint_left
 	else:
 		$texture_rect_left.visible = true
 		$texture_rect_right.visible = true
@@ -199,5 +212,5 @@ func set_border_position(_border_position:bool) -> void:
 		$texture_rect_bottom.visible = false
 		text_label = $texture_rect_right/label
 		title_label = $texture_rect_left/label
-		time_label = $texture_rect_left/label_hint_up
-		other_label = $texture_rect_left/label_hint_down
+		time_label = $texture_rect_left/label_hint_down
+		cancel_label = $texture_rect_left/label_hint_up

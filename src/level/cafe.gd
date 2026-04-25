@@ -35,7 +35,7 @@ func _ready() -> void:
 	standard_state_machine.add_state("waiting", state_ready_in_game_waiting)
 	standard_state_machine.add_state("move", state_ready_in_game_move)
 	standard_state_machine.add_state("player", state_ready_in_game_player, state_exit_in_game_player)
-	standard_state_machine.add_state("ready_to_move", state_ready_in_game_ready_to_move)
+	standard_state_machine.add_state("ready_to_move", state_ready_in_game_ready_to_move, state_exit_in_game_ready_to_move)
 	standard_state_machine.add_state("check_move", state_ready_in_game_check_move)
 	standard_state_machine.add_state("extra_move", state_ready_in_game_extra_move)
 	standard_state_machine.add_state("result", state_ready_result)
@@ -43,7 +43,7 @@ func _ready() -> void:
 	standard_premove_state_machine.name = "yulan_premove"
 	standard_premove_state_machine.add_state("start", state_game_premove_start_ready)
 	standard_premove_state_machine.add_state("from", state_game_premove_from_ready, state_game_premove_from_exit)
-	standard_premove_state_machine.add_state("to", state_game_premove_to_ready)
+	standard_premove_state_machine.add_state("to", state_game_premove_to_ready, state_game_premove_to_exit)
 	standard_premove_state_machine.add_state("extra", state_game_premove_extra_ready, state_game_premove_extra_exit)
 	standard_premove_state_machine.add_state("confirm", state_game_premove_confirm_ready)
 	standard_premove_state_machine.add_state("stop", state_game_premove_stop_ready)
@@ -109,15 +109,15 @@ func state_game_premove_from_ready(_arg:Dictionary) -> void:
 	var start_from:int = 0
 	var move_list:PackedInt32Array = Chess.generate_premove(game_premove_branch.future_state, standard_player_group)
 	if game_premove_branch.move_order.size():
-		Dialog.push_selection(["SELECTION_CANCEL"], "", false, false)
+		Dialog.show_cancel()
 	for iter:int in move_list:
 		start_from |= Chess.mask(Chess.x88_to_c64(Chess.from(iter)))
 
-	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_selection, func () -> void:
-		game_premove_from = standard_chessboard.selected
-		standard_premove_state_machine.change_state.call_deferred("to", {"from": standard_chessboard.selected})
+	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_selection, func (_selected:int) -> void:
+		game_premove_from = _selected
+		standard_premove_state_machine.change_state.call_deferred("to", {"from": _selected})
 	)
-	standard_premove_state_machine.state_signal_connect(Dialog.on_next, func() -> void:
+	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func() -> void:
 		game_premove_branch.future_state = standard_chessboard.state.duplicate()
 		game_premove_branch.move_order = []
 	)
@@ -125,6 +125,7 @@ func state_game_premove_from_ready(_arg:Dictionary) -> void:
 
 func state_game_premove_from_exit() -> void:
 	Dialog.clear()
+	Dialog.hide_cancel()
 
 func state_game_premove_to_ready(_arg:Dictionary) -> void:
 	var move_list:PackedInt32Array = Chess.generate_premove(game_premove_branch.future_state, standard_player_group)
@@ -132,21 +133,28 @@ func state_game_premove_to_ready(_arg:Dictionary) -> void:
 	for iter:int in move_list:
 		if Chess.from(iter) == _arg["from"]:
 			selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
-	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_selection, func() -> void:
-		game_premove_to = standard_chessboard.selected
+	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_selection, func(_selected:int) -> void:
+		game_premove_to = _selected
 		var cnt:int = 0
 		for iter:int in move_list:
-			if Chess.from(iter) == _arg["from"] && Chess.to(iter) == standard_chessboard.selected:
+			if Chess.from(iter) == _arg["from"] && Chess.to(iter) == _selected:
 				cnt += 1
 		if cnt == 1:
-			standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(_arg["from"], standard_chessboard.selected, 0)})
+			standard_premove_state_machine.change_state.call_deferred("confirm", {"move": Chess.create(_arg["from"], _selected, 0)})
 		elif cnt > 1:
-			standard_premove_state_machine.change_state.call_deferred("extra", {"from": _arg["from"], "to": standard_chessboard.selected})
+			standard_premove_state_machine.change_state.call_deferred("extra", {"from": _arg["from"], "to": _selected})
 	)
-	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_empty, func() -> void:
+	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_empty, func(_selected:int) -> void:
 		standard_premove_state_machine.change_state.call_deferred("from")
 	)
+	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func() -> void:
+		standard_premove_state_machine.change_state.call_deferred("from")
+	)
+	Dialog.show_cancel()
 	standard_chessboard.set_square_selection(selection)
+
+func state_game_premove_to_exit() -> void:
+	Dialog.hide_cancel()
 
 func state_game_premove_extra_ready(_arg:Dictionary) -> void:
 	var map:Dictionary = {
@@ -166,18 +174,19 @@ func state_game_premove_extra_ready(_arg:Dictionary) -> void:
 		if Chess.from(iter) == _arg["from"] && Chess.to(iter) == _arg["to"]:
 			decision_list.push_back(map[Chess.extra(iter)])
 			decision_to_move[decision_list[-1]] = iter
-	decision_list.push_back("SELECTION_CANCEL")
 	standard_premove_state_machine.state_signal_connect(Dialog.on_next, func () -> void:
-		if Dialog.selected == "SELECTION_CANCEL":
-			standard_premove_state_machine.change_state.call_deferred("from")
-		else:
-			standard_premove_state_machine.change_state.call_deferred("confirm", {"move": decision_to_move[Dialog.selected]})
+		standard_premove_state_machine.change_state.call_deferred("confirm", {"move": decision_to_move[Dialog.selected]})
+	)
+	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
+		standard_premove_state_machine.change_state.call_deferred("from")
 	)
 	standard_premove_state_machine.state_signal_connect(Clock.timeout, standard_premove_state_machine.change_state.call_deferred.bind("enemy_win"))
+	Dialog.show_cancel()
 	Dialog.push_selection(decision_list, "HINT_EXTRA_MOVE", true, false)
 
 func state_game_premove_extra_exit() -> void:
 	Dialog.clear()
+	Dialog.hide_cancel()
 
 func state_game_premove_confirm_ready(_arg:Dictionary) -> void:
 	game_premove_from = -1
@@ -278,8 +287,8 @@ func state_ready_in_game_player(_arg:Dictionary) -> void:
 		elif Dialog.selected == "SELECTION_LEAVE_GAME":
 			standard_state_machine.change_state("end")
 	)
-	standard_state_machine.state_signal_connect(standard_chessboard.click_selection, func () -> void:
-		standard_state_machine.change_state("ready_to_move", {"from": standard_chessboard.selected})
+	standard_state_machine.state_signal_connect(standard_chessboard.click_selection, func (_selected:int) -> void:
+		standard_state_machine.change_state("ready_to_move", {"from": _selected})
 	)
 
 	if standard_history_event.size() <= 1:
@@ -300,15 +309,23 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 	for iter:int in move_list:
 		if Chess.from(iter) == from:
 			selection |= Chess.mask(Chess.x88_to_c64(Chess.to(iter)))
-	standard_state_machine.state_signal_connect(standard_chessboard.click_selection, func () -> void:
-		standard_state_machine.change_state("check_move", {"from": from, "to": standard_chessboard.selected})
+	standard_state_machine.state_signal_connect(standard_chessboard.click_selection, func (_selected:int) -> void:
+		standard_state_machine.change_state("check_move", {"from": from, "to": _selected})
 	)
 	standard_state_machine.state_signal_connect(standard_chessboard.click_empty, func () -> void:
 		actor.idle()
 		standard_state_machine.change_state("player")
 	)
+	standard_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
+		actor.idle()
+		standard_state_machine.change_state("player")
+	)
+	Dialog.show_cancel()
 	actor.ready_to_move()
 	standard_chessboard.set_square_selection(selection)
+
+func state_exit_in_game_ready_to_move(_arg:Dictionary) -> void:
+	Dialog.hide_cancel()
 
 func state_ready_in_game_check_move(_arg:Dictionary) -> void:
 	var from:int = _arg["from"]
