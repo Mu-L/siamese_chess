@@ -805,11 +805,13 @@ int64_t Chess::bit_rotate_315(int64_t bit)
 
 int Chess::x88_to_c64(int n)
 {
+	DEV_ASSERT(!(n & 0x88));
 	return (n >> 4 << 3) | (n & 0xF);
 }
 
 int Chess::c64_to_x88(int n)
 {
+	DEV_ASSERT(n >= 0 && n < 64);
 	return (n >> 3 << 4) | (n & 7);
 }
 
@@ -820,21 +822,25 @@ int Chess::group(int piece)
 
 bool Chess::is_same_group(int piece_1, int piece_2)
 {
-	return (piece_1 >= 'A' && piece_1 <= 'Z') == (piece_2 >= 'A' && piece_2 <= 'Z');
+	return group(piece_1) == group(piece_2);
 }
 
 int Chess::name_to_x88(const godot::String &_position_name)
 {
+	DEV_ASSERT(_position_name.length() == 2 && _position_name[0] >= 'a' && _position_name[0] <= 'h' && _position_name[1] >= '1' && _position_name[1] <= '8');
 	return ((7 - (_position_name[1] - '1')) << 4) + _position_name[0] - 'a';
 }
 
 godot::String Chess::x88_to_name(int _position)
 {
+	DEV_ASSERT(!(_position & 0x88));
 	return godot::String::chr((_position & 15) + 'a') + godot::String::chr((7 - (_position >> 4)) + '1');
 }
 
 int Chess::create(int _from, int _to, int _extra)
 {
+	DEV_ASSERT(!(_from & 0x88));
+	DEV_ASSERT(!(_to & 0x88));
 	return _from + (_to << 8) + (_extra << 16);
 }
 
@@ -864,6 +870,7 @@ Chess *Chess::get_singleton()
 
 godot::String Chess::get_end_type(const godot::Ref<State> &_state)
 {
+	DEV_ASSERT(_state.is_valid());
 	int group = _state->get_turn();
 	if (generate_valid_move(_state, group).size() == 0)
 	{
@@ -890,7 +897,7 @@ godot::String Chess::get_end_type(const godot::Ref<State> &_state)
 
 godot::Ref<State> Chess::parse(const godot::String &_str)
 {
-	godot::Ref<State>state = memnew(State);
+	godot::Ref<State> state = memnew(State);
 	godot::Vector2i pointer = godot::Vector2i(0, 0);
 	godot::PackedStringArray fen_splited = _str.split(" ");
 	for (int i = 0; i < fen_splited[0].length(); i++)
@@ -1118,93 +1125,10 @@ godot::String Chess::stringify(const godot::Ref<State> &_state)
 	return godot::String(" ").join(output);
 }
 
-//针对置换表着法/杀手着法中某种状态下着法合法，但其他状态不一定合法的情况
-bool Chess::is_move_valid(const godot::Ref<State> &_state, int _group, int _move)
-{
-	DEV_ASSERT(_state.is_valid());
-	DEV_ASSERT(_move != -1);
-	int from = Chess::from(_move);
-	int from_c64 = Chess::x88_to_c64(from);
-	int from_piece = _state->get_piece(from);
-	if (!from_piece || _group != Chess::group(from_piece))
-	{
-		return false;
-	}
-	int to = Chess::to(_move);
-	int x88_to_c64 = Chess::x88_to_c64(to);
-	int to_piece = _state->get_piece(to);
-	if ((from_piece & 95) == 'P')
-	{
-		int front = direction(from_piece, 0);
-		int front_capture_left = direction_pawn_capture(_group, false);
-		int front_capture_right = direction_pawn_capture(_group, true);
-		bool on_start = pawn_on_start(_group, from);
-		if (to == from + front && _state->has_piece(from + front))
-		{
-			return false;
-		}
-		if (to == from + front + front && _state->has_piece(from + front + front))
-		{
-			return false;
-		}
-		if (to == from + front_capture_left && (!_state->has_piece(to) || !(!on_start && _state->get_en_passant() == to)))
-		{
-			return false;
-		}
-		if (to == from + front_capture_right && (!_state->has_piece(to) || !(!on_start && _state->get_en_passant() == to)))
-		{
-			return false;
-		}
-	}
-	if ((from_piece & 95) == 'B')
-	{
-		uint64_t occupied = _state->get_bit(ALL_PIECE);
-		uint64_t occupied_rotate_45 = bit_rotate_45(occupied);
-		uint64_t occupied_rotate_315 = bit_rotate_315(occupied);
-		int64_t diag_a1h8 = (occupied_rotate_45 >> Chess::rotate_45_shift(from_c64)) & Chess::rotate_45_length_mask(from_c64);
-		int64_t diag_a8h1 = (occupied_rotate_315 >> Chess::rotate_315_shift(from_c64)) & Chess::rotate_315_length_mask(from_c64);
-		int64_t bishop_attacks = diag_a1h8_attacks[from_c64][diag_a1h8] | diag_a8h1_attacks[from_c64][diag_a8h1];
-		if (!(bishop_attacks & Chess::mask(x88_to_c64)))
-		{
-			return false;
-		}
-	}
-	if ((from_piece & 95) == 'R')
-	{
-		uint64_t occupied = _state->get_bit(ALL_PIECE);
-		uint64_t occupied_rotate_90 = bit_rotate_90(occupied);
-		int64_t rank = (occupied >> Chess::rotate_0_shift(from_c64)) & 255;
-		int64_t file = (occupied_rotate_90 >> Chess::rotate_90_shift(from_c64)) & 255;
-		int64_t rook_attacks = rank_attacks[from_c64][rank] | file_attacks[from_c64][file];
-		if (!(rook_attacks & Chess::mask(x88_to_c64)))
-		{
-			return false;
-		}
-	}
-	if ((from_piece & 95) == 'Q')
-	{
-		uint64_t occupied = _state->get_bit(ALL_PIECE);
-		uint64_t occupied_rotate_90 = bit_rotate_90(occupied);
-		uint64_t occupied_rotate_45 = bit_rotate_45(occupied);
-		uint64_t occupied_rotate_315 = bit_rotate_315(occupied);
-		int64_t diag_a1h8 = (occupied_rotate_45 >> Chess::rotate_45_shift(from_c64)) & Chess::rotate_45_length_mask(from_c64);
-		int64_t diag_a8h1 = (occupied_rotate_315 >> Chess::rotate_315_shift(from_c64)) & Chess::rotate_315_length_mask(from_c64);
-		int64_t rank = (occupied >> Chess::rotate_0_shift(from_c64)) & 255;
-		int64_t file = (occupied_rotate_90 >> Chess::rotate_90_shift(from_c64)) & 255;
-		int64_t queen_attacks = diag_a1h8_attacks[from_c64][diag_a1h8] | diag_a8h1_attacks[from_c64][diag_a8h1] | rank_attacks[from_c64][rank] | file_attacks[from_c64][file];
-		if (!(queen_attacks & Chess::mask(x88_to_c64)))
-		{
-			return false;
-		}
-	}
-	godot::Ref<State>test_state = _state->duplicate();
-	apply_move(test_state, _move);
-	return !is_check(test_state, 1 - _group);
-}
-
 bool Chess::is_check(const godot::Ref<State> &_state, int _group)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_group == 0 || _group == 1);
 	int enemy_king = _group == 0 ? 'k' : 'K';
 	uint64_t enemy_king_mask = _state->get_bit(enemy_king);
 	if (_state->get_king_passant() != -1)
@@ -1299,8 +1223,8 @@ bool Chess::is_check(const godot::Ref<State> &_state, int _group)
 bool Chess::is_blocked(const godot::Ref<State> &_state, int _from, int _to)
 {
 	DEV_ASSERT(_state.is_valid());
-	DEV_ASSERT(_from != -1);
-	DEV_ASSERT(_to != -1);
+	DEV_ASSERT(!(_from & 0x88));
+	DEV_ASSERT(!(_to & 0x88));
 	if (_to & 0x88)
 	{
 		return true;
@@ -1365,18 +1289,23 @@ bool Chess::is_blocked(const godot::Ref<State> &_state, int _from, int _to)
 bool Chess::is_enemy(const godot::Ref<State> &_state, int _from, int _to)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(!(_from & 0x88));
+	DEV_ASSERT(!(_to & 0x88));
 	return _state->has_piece(_to) && (!Chess::is_same_group(_state->get_piece(_from), _state->get_piece(_to)) || _state->get_piece(_to) == '*');
 }
 
 bool Chess::is_en_passant(const godot::Ref<State> &_state, int _from, int _to)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(!(_from & 0x88));
+	DEV_ASSERT(!(_to & 0x88));
 	return ((_from >> 4) == 3 || (_from >> 4) == 4) && _state->get_en_passant() == _to;
 }
 
 godot::PackedInt32Array Chess::generate_premove(const godot::Ref<State> &_state, int _group)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_group == 0 || _group == 1);
 	godot::PackedInt32Array output;
 	for (State::PieceIterator iter = _state->piece_iterator_begin(_group == 0 ? WHITE : BLACK); !iter.end(); iter.next())
 	{
@@ -1464,6 +1393,7 @@ godot::PackedInt32Array Chess::generate_premove(const godot::Ref<State> &_state,
 godot::PackedInt32Array Chess::generate_move(const godot::Ref<State> &_state, int _group)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_group == 0 || _group == 1);
 	godot::PackedInt32Array output;
 	_internal_generate_move(output, _state, _group);
 	return output;
@@ -1472,6 +1402,7 @@ godot::PackedInt32Array Chess::generate_move(const godot::Ref<State> &_state, in
 void Chess::_internal_generate_move(godot::PackedInt32Array &output, const godot::Ref<State> &_state, int _group)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_group == 0 || _group == 1);
 	for (State::PieceIterator iter = _state->piece_iterator_begin(_group == 0 ? WHITE : BLACK); !iter.end(); iter.next())
 	{
 		int _from = iter.pos();
@@ -1576,6 +1507,7 @@ void Chess::_internal_generate_move(godot::PackedInt32Array &output, const godot
 godot::PackedInt32Array Chess::generate_valid_move(const godot::Ref<State> &_state, int _group)
 {
 	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_group == 0 || _group == 1);
 	godot::PackedInt32Array output;
 	_internal_generate_valid_move(output, _state, _group);
 	return output;
@@ -1599,7 +1531,7 @@ void Chess::_internal_generate_valid_move(godot::PackedInt32Array &output, const
 godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, int _from)
 {
 	DEV_ASSERT(_state.is_valid());
-	DEV_ASSERT(_from != -1);
+	DEV_ASSERT(!(_from & 0x88));
 	int from_64 = Chess::x88_to_c64(_from);
 	int from_piece = _state->get_piece(_from);
 	bool is_slider = (from_piece & 95) == 'Q' || (from_piece & 95) == 'R' || (from_piece & 95) == 'B';
@@ -1667,10 +1599,16 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 
 godot::String Chess::get_move_name(const godot::Ref<State> &_state, int move)
 {
-	int from = Chess::get_singleton()->from(move);
-	int to = Chess::get_singleton()->to(move);
+	if (move == -1)
+	{
+		return "-";
+	}
+	int from = Chess::from(move);
+	int to = Chess::to(move);
+	DEV_ASSERT(!(from & 0x88));
+	DEV_ASSERT(!(to & 0x88));
 	int from_piece = _state->get_piece(from);
-	int extra = Chess::get_singleton()->extra(move);
+	int extra = Chess::extra(move);
 	int group = Chess::group(from_piece);
 	if ((from_piece & 95) == 'K' && extra)
 	{
@@ -1778,6 +1716,7 @@ int Chess::name_to_move(const godot::Ref<State> &_state, const godot::String &_n
 
 void Chess::apply_move(const godot::Ref<State> &_state, int _move)
 {
+
 	if (_state->get_turn() == 1 && _state->get_bit('A'))
 	{
 		_state->set_round(_state->get_round() + 1);
@@ -2084,7 +2023,6 @@ void Chess::_bind_methods()
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("swap_group"), &Chess::swap_group);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("stringify"), &Chess::stringify);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("is_check"), &Chess::is_check);
-	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("is_move_valid"), &Chess::is_move_valid);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_premove"), &Chess::generate_premove);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_move"), &Chess::generate_move);
 	godot::ClassDB::bind_static_method(get_class_static(), godot::D_METHOD("generate_valid_move"), &Chess::generate_valid_move);

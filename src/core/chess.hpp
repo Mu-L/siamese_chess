@@ -61,7 +61,6 @@ class Chess : public godot::Object
 		static godot::Ref<State> rotate_state(const godot::Ref<State> &_state);
 		static godot::Ref<State> swap_group(const godot::Ref<State> &_state);
 		static godot::String stringify(const godot::Ref<State> &_state);
-		static bool is_move_valid(const godot::Ref<State> &_state, int _group, int _move);
 		static bool is_check(const godot::Ref<State> &_state, int _group);
 		static bool is_blocked(const godot::Ref<State> &_state, int _from, int _to);
 		static bool is_enemy(const godot::Ref<State> &_state, int _from, int _to);
