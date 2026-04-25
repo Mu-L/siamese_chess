@@ -48,7 +48,6 @@ var chessboard_piece:Dictionary[int, Actor] = {}
 var king_instance:Array[Actor] = [null, null]
 
 var square_selection:int = 0
-var selected:int = -1
 var double_click_timer:float = 0
 
 func _ready() -> void:
@@ -185,7 +184,7 @@ func name_to_vector3(_position_name:String) -> Vector3:
 	return get_node(_position_name).position
 
 func tap_position(position_name:String, down:bool = true) -> void:
-	selected = Chess.name_to_x88(position_name)
+	var selected:int = Chess.name_to_x88(position_name)
 	if square_selection != -1 && (Chess.mask(Chess.x88_to_c64(selected)) & square_selection):
 		if down:
 			selection_down.emit.call_deferred(selected)
@@ -236,7 +235,6 @@ func execute_move(move:int) -> Dictionary:
 		$canvas.draw_pointer("last_move", COLOR_LAST_MOVE, Chess.to(move))
 	#king_instance[0].set_warning(Chess.is_check(state, 1))
 	#king_instance[1].set_warning(Chess.is_check(state, 0))
-	selected = -1
 	return rollback_event
 
 # 由引擎通过字典传入事件、并通过字典返回撤销事件。
@@ -478,7 +476,6 @@ func set_enabled(_enabled:bool) -> void:
 	if !enabled:
 		$canvas.clear_pointer("move")
 		$canvas.clear_pointer("pointer")
-		selected = -1
 
 func draw_pointer(type:String, color:Color, by:int) -> void:
 	$canvas.draw_pointer(type, color, by)

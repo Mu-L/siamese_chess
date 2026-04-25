@@ -1011,6 +1011,7 @@ godot::Ref<State> Chess::create_random_state(int piece_count)
 
 godot::Ref<State> Chess::mirror_state(const godot::Ref<State> &_state)
 {
+	DEV_ASSERT(_state.is_valid());
 	godot::Ref<State> output = memnew(State);
 	for (State::PieceIterator iter = _state->piece_iterator_begin(); !iter.end(); iter.next())
 	{
@@ -1030,6 +1031,7 @@ godot::Ref<State> Chess::mirror_state(const godot::Ref<State> &_state)
 
 godot::Ref<State> Chess::rotate_state(const godot::Ref<State> &_state)
 {
+	DEV_ASSERT(_state.is_valid());
 	godot::Ref<State> output = memnew(State);
 	for (State::PieceIterator iter = _state->piece_iterator_begin(); !iter.end(); iter.next())
 	{
@@ -1049,7 +1051,7 @@ godot::Ref<State> Chess::rotate_state(const godot::Ref<State> &_state)
 
 godot::Ref<State> Chess::swap_group(const godot::Ref<State> &_state)
 {
-	
+	DEV_ASSERT(_state.is_valid());
 	godot::Ref<State> output = memnew(State);
 	for (State::PieceIterator iter = _state->piece_iterator_begin(); !iter.end(); iter.next())
 	{
@@ -1069,6 +1071,7 @@ godot::Ref<State> Chess::swap_group(const godot::Ref<State> &_state)
 
 godot::String Chess::stringify(const godot::Ref<State> &_state)
 {
+	DEV_ASSERT(_state.is_valid());
 	int null_counter = 0;
 	godot::PackedStringArray chessboard;
 	for (int i = 0; i < 8; i++)
@@ -1118,6 +1121,8 @@ godot::String Chess::stringify(const godot::Ref<State> &_state)
 //针对置换表着法/杀手着法中某种状态下着法合法，但其他状态不一定合法的情况
 bool Chess::is_move_valid(const godot::Ref<State> &_state, int _group, int _move)
 {
+	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_move != -1);
 	int from = Chess::from(_move);
 	int from_c64 = Chess::x88_to_c64(from);
 	int from_piece = _state->get_piece(from);
@@ -1293,6 +1298,9 @@ bool Chess::is_check(const godot::Ref<State> &_state, int _group)
 
 bool Chess::is_blocked(const godot::Ref<State> &_state, int _from, int _to)
 {
+	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_from != -1);
+	DEV_ASSERT(_to != -1);
 	if (_to & 0x88)
 	{
 		return true;
@@ -1356,11 +1364,13 @@ bool Chess::is_blocked(const godot::Ref<State> &_state, int _from, int _to)
 
 bool Chess::is_enemy(const godot::Ref<State> &_state, int _from, int _to)
 {
+	DEV_ASSERT(_state.is_valid());
 	return _state->has_piece(_to) && (!Chess::is_same_group(_state->get_piece(_from), _state->get_piece(_to)) || _state->get_piece(_to) == '*');
 }
 
 bool Chess::is_en_passant(const godot::Ref<State> &_state, int _from, int _to)
 {
+	DEV_ASSERT(_state.is_valid());
 	return ((_from >> 4) == 3 || (_from >> 4) == 4) && _state->get_en_passant() == _to;
 }
 
@@ -1565,6 +1575,7 @@ void Chess::_internal_generate_move(godot::PackedInt32Array &output, const godot
 
 godot::PackedInt32Array Chess::generate_valid_move(const godot::Ref<State> &_state, int _group)
 {
+	DEV_ASSERT(_state.is_valid());
 	godot::PackedInt32Array output;
 	_internal_generate_valid_move(output, _state, _group);
 	return output;
@@ -1587,6 +1598,8 @@ void Chess::_internal_generate_valid_move(godot::PackedInt32Array &output, const
 
 godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, int _from)
 {
+	DEV_ASSERT(_state.is_valid());
+	DEV_ASSERT(_from != -1);
 	int from_64 = Chess::x88_to_c64(_from);
 	int from_piece = _state->get_piece(_from);
 	bool is_slider = (from_piece & 95) == 'Q' || (from_piece & 95) == 'R' || (from_piece & 95) == 'B';
