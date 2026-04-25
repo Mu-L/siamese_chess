@@ -88,7 +88,7 @@ func push_selection(_selection:PackedStringArray, _title:String, _force_selectio
 	tween.tween_property($texture_rect_full, "visible", false, 0)
 
 func show_global_selection() -> void:
-	title_label.text = selection_to_bbcode(["SELECTION_STATUS", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"])
+	title_label.text = selection_to_bbcode(["SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"])
 
 func hide_global_selection() -> void:
 	title_label.text = title
@@ -152,9 +152,6 @@ func clicked_global_selection(_selected:String) -> void:
 	match _selected:
 		"SELECTION_DOCUMENTS":
 			Archive.open()
-		"SELECTION_STATUS":
-			Dialog.push_selection(["SELECTION_STATUS", "SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"], 
-				tr("HINT_STATUS") % [Progress.get_value("obtains", 0), Progress.get_value("wins", 0)], false, false)
 		"SELECTION_CAMERA":
 			#var from_position:Vector3 = chessboard.chessboard_piece[from].global_position
 			#from_position += Vector3(0, 1.6, 0)
