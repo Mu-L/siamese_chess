@@ -935,7 +935,14 @@ godot::Ref<State> Chess::parse(const godot::String &_str)
 	}
 	state->set_turn(fen_splited[1] == "w" ? 0 : 1);
 	state->set_castle((int(fen_splited[2].contains("K")) << 3) + (int(fen_splited[2].contains("Q")) << 2) + (int(fen_splited[2].contains("k")) << 1) + int(fen_splited[2].contains("q")));
-	state->set_en_passant(Chess::name_to_x88(fen_splited[3]));
+	if (fen_splited[3] != "-")
+	{
+		state->set_en_passant(Chess::name_to_x88(fen_splited[3]));
+	}
+	else
+	{
+		state->set_en_passant(-1);
+	}
 	if (fen_splited.size() >= 5)
 	{
 		state->set_step_to_draw(fen_splited[4].to_int());
@@ -1118,7 +1125,7 @@ godot::String Chess::stringify(const godot::Ref<State> &_state)
 	{
 		output[2] = "-";
 	}
-	output.push_back(_state->get_en_passant() ? Chess::x88_to_name(_state->get_en_passant()) : "-");
+	output.push_back(_state->get_en_passant() != -1 ? Chess::x88_to_name(_state->get_en_passant()) : "-");
 	output.push_back(godot::String::num(_state->get_step_to_draw(), 0));
 	output.push_back(godot::String::num(_state->get_round(), 0));
 	// king_passant是为了判定是否违规走子，临时记录的，这里不做转换
@@ -1564,11 +1571,11 @@ godot::PackedInt32Array Chess::generate_path(const godot::Ref<State> &_state, in
 			while (true)
 			{
 				to += direction(from_piece, j);
-				to_64 = Chess::x88_to_c64(to);
 				if (to & 0x88)
 				{
 					break;
 				}
+				to_64 = Chess::x88_to_c64(to);
 				if (is_blocked(_state, Chess::c64_to_x88(min_node), to))
 				{
 					break;

@@ -6,13 +6,19 @@
 void State::PieceIterator::begin()
 {
 	bit = parent->get_bit(target_piece);
-	by = Chess::c64_to_x88(Chess::first_bit(bit));
+	if (bit != 0)
+	{
+		by = Chess::c64_to_x88(Chess::first_bit(bit));
+	}
 }
 
 void State::PieceIterator::next()
 {
 	bit = Chess::next_bit(bit);
-	by = Chess::c64_to_x88(Chess::first_bit(bit));
+	if (bit != 0)
+	{
+		by = Chess::c64_to_x88(Chess::first_bit(bit));
+	}
 }
 
 int State::PieceIterator::piece()
