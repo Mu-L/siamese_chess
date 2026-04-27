@@ -1,11 +1,19 @@
 @tool
-extends Marker3D
+extends MarkerEvent
 class_name MarkerActor
 
 @export var piece:int = 0
 @export var actor:PackedScene = null: set = set_actor, get = get_actor
 @export var meta:Dictionary = {}
 var editor_instance:Actor = null
+
+func on_init() -> void:
+	var by:int = level.chessboard.vector3_to_x88(position)
+	level.chessboard.state.add_piece(by, piece)
+	var instance:Actor = instantiate()
+	instance.transform = transform
+	if is_instance_valid(instance):
+		level.chessboard.add_piece_instance(instance, by)
 
 func _ready() -> void:
 	if Engine.is_editor_hint():

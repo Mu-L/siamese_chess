@@ -12,12 +12,13 @@ var engine:ChessEngine = null	# 有可能会出现多线作战，共用同一个
 @export var engine_standard_think_depth = 20
 @export var engine_relax_think_time = INF
 @export var engine_relax_think_depth = 2
-var chessboard:Chessboard = null
+@onready var player:Player = $player
+@onready var chessboard:Chessboard = $chessboard
 var in_battle:bool = false
 var teleport:Dictionary = {}
 var history_state:PackedInt64Array = []
 @onready var history_document:Document = load("res://scene/doc/history.tscn").instantiate()
-var interact_list:Dictionary[int, Dictionary] = {}
+var events:Array = []
 var title:Dictionary[int, String] = {}
 var state_machine:StateMachine = null
 var premove_state_machine:StateMachine = null
@@ -35,50 +36,13 @@ func _ready() -> void:
 	history_document.load_file()
 
 	var state = State.new()
-	chessboard = $chessboard
-	$player.add_inspectable_item(chessboard)
-	for node:Node in get_children():
-		if node is MarkerActor:
-			var by:int = chessboard.vector3_to_x88(node.position)
-			state.add_piece(by, node.piece)
-		if node is MarkerMultiActor:
-			var bit:int = node.bit
-			while bit:
-				var by:int = Chess.c64_to_x88(Chess.first_bit(bit))
-				state.add_piece(by, node.piece)
-				bit = Chess.next_bit(bit)
-		if node is MarkerBit:
-			state.set_bit(node.piece, state.get_bit(node.piece) | node.bit)
-		if node is MarkerEvent:
-			state.set_bit(ord("Z"), state.get_bit(ord("Z")) | node.bit)
-			var bit:int = node.bit
-			while bit:
-				var by:int = Chess.c64_to_x88(Chess.first_bit(bit))
-				if !interact_list.has(by):
-					interact_list[by] = {}
-				interact_list[by][""] = node.event
-				bit = Chess.next_bit(bit)
-		if node is MarkerSelection:
-			state.set_bit(ord("z"), state.get_bit(ord("z")) | node.bit)
-			var bit:int = node.bit
-			while bit:
-				var by:int = Chess.c64_to_x88(Chess.first_bit(bit))
-				if !interact_list.has(by):
-					interact_list[by] = {}
-				interact_list[by][node.selection] = node.event
-				bit = Chess.next_bit(bit)
-		if node is MarkerTitle:
-			var by:int = chessboard.vector3_to_x88(node.position)
-			title[by] = node.text
-
 	chessboard.set_state(state)
+	player.add_inspectable_item(chessboard)
 	for node:Node in get_children():
-		if node is MarkerActor:
-			var by:int = chessboard.vector3_to_x88(node.position)
-			var instance:Actor = node.instantiate()
-			instance.transform = node.transform
-			if is_instance_valid(instance):
-				chessboard.add_piece_instance(instance, by)
+		if node is MarkerEvent:
+			events.push_back(node)
+			node.on_init()
+	
 	Progress.create_if_not_exist("obtains", 0)
 	Progress.create_if_not_exist("wins", 0)
 	state_machine.add_state("start", state_ready_start)
@@ -93,7 +57,8 @@ func _ready() -> void:
 	state_machine.add_state("player_win", state_ready_player_win)
 	state_machine.add_state("enemy_win", state_ready_enemy_win)
 	state_machine.add_state("draw", state_ready_draw)
-	state_machine.add_state("interact", state_ready_interact)
+	state_machine.add_state("stop", state_ready_stop)
+	state_machine.add_state("resume", state_ready_resume)
 	state_machine.name = "level"
 	premove_state_machine.add_state("start", state_premove_start_ready)
 	premove_state_machine.add_state("from", state_premove_from_ready, state_premove_from_exit)
@@ -264,12 +229,11 @@ func state_ready_start(_arg:Dictionary) -> void:
 	chessboard.state.set_round(1)
 	history_document.new_page()
 	history_document.set_state(chessboard.state)
+	
 	if Chess.get_end_type(chessboard.state) == "checkmate_black":
 		state_machine.change_state.call_deferred("player_win")
 	elif Chess.get_end_type(chessboard.state) == "checkmate_white":
 		state_machine.change_state.call_deferred("enemy_win")
-	elif chessboard.state.get_bit(ord("Z")) & chessboard.state.get_bit(player_king):
-		state_machine.change_state.call_deferred("interact", {"callback": interact_list[Chess.c64_to_x88(Chess.first_bit(chessboard.state.get_bit(player_king)))][""]})
 	else:
 		back_to_game()
 
@@ -306,8 +270,6 @@ func state_ready_move(_arg:Dictionary) -> void:
 	state_machine.state_signal_connect(chessboard.animation_finished, func() -> void:
 		if Chess.get_end_type(chessboard.state) == ("checkmate_white" if player_group == 1 else "checkmate_black"):
 			state_machine.change_state.call_deferred("enemy_win")
-		elif _arg["move"] != -1 && (chessboard.state.get_bit(ord("Z")) & Chess.mask(Chess.x88_to_c64(Chess.to(_arg["move"])))):
-			state_machine.change_state.call_deferred("interact", {"callback": interact_list[Chess.to(_arg["move"])][""]})
 		else:
 			back_to_game()
 	)
@@ -315,6 +277,8 @@ func state_ready_move(_arg:Dictionary) -> void:
 	assert(chessboard.state.get_turn() == Chess.group(chessboard.state.get_piece(Chess.from(_arg["move"]))) 
 	|| Chess.from(_arg["move"]) == Chess.to(_arg["move"]) && !chessboard.state.has_piece(Chess.from(_arg["move"])))
 	chessboard.execute_move(_arg["move"])
+
+var available_events:Dictionary = {}
 
 func state_ready_player(_arg:Dictionary) -> void:
 	premove_state_machine.change_state("stop")
@@ -328,15 +292,21 @@ func state_ready_player(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("ready_to_move", {"from": _selected})
 	)
 	state_machine.state_signal_connect(Dialog.on_select, func (_selected:String) -> void:
-		state_machine.change_state.call_deferred("interact", {"callback": interact_list[by][_selected]})
+		available_events[_selected].on_selection()
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	if chessboard.state.get_bit(enemy_all):
 		Clock.resume()
-	var selection:PackedStringArray = []
-	if chessboard.state.get_bit(ord("z")) & Chess.mask(Chess.x88_to_c64(by)):
-		selection = interact_list[by].keys()
-		Dialog.push_selection(selection, title.get(by, ""), false, false)
+
+	var selections:PackedStringArray = []
+	available_events.clear()
+	for iter:MarkerEvent in events:
+		var selection:String = iter.show_selection()
+		if selection != "":
+			available_events[selection] = iter
+			selections.push_back(selection)
+	selections.erase("")
+	Dialog.push_selection(selections, title.get(by, ""), false, false)
 	chessboard.set_square_selection(start_from)
 
 func state_exit_player() -> void:
@@ -373,14 +343,18 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("travel", {"from": _selected})
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
-	state_machine.state_signal_connect(Dialog.on_select, func(selected) -> void:
-		actor.idle()
-		state_machine.change_state.call_deferred("interact", {"callback": interact_list[from][selected]})
+	state_machine.state_signal_connect(Dialog.on_select, func(_selected:String) -> void:
+		available_events[_selected].on_selection()
 	)
-	var interact_selection:PackedStringArray = []
-	if chessboard.state.get_bit(ord("z")) & Chess.mask(Chess.x88_to_c64(from)):
-		interact_selection = interact_list[from].keys()
-	Dialog.push_selection(interact_selection, "", false, false)
+	var selections:PackedStringArray = []
+	available_events.clear()
+	for iter:MarkerEvent in events:
+		var selection:String = iter.show_selection()
+		if selection != "":
+			available_events[selection] = iter
+			selections.push_back(selection)
+	selections.erase("")
+	Dialog.push_selection(selections, title.get(from, ""), false, false)
 	Dialog.show_cancel()
 	actor.ready_to_move()
 	chessboard.set_square_selection(square_selection)
@@ -529,13 +503,17 @@ func state_ready_draw(_arg:Dictionary) -> void:
 	state_machine.state_signal_connect(Dialog.on_next, back_to_game)
 	Dialog.push_dialog("平局", "", true, true)
 
-func state_ready_interact(_arg:Dictionary) -> void:
-	await _arg["callback"].call()
-	back_to_game.call_deferred()
+func state_ready_stop(_arg:Dictionary) -> void:
+	pass
+
+func state_ready_resume(_arg:Dictionary) -> void:
+	back_to_game()
 
 func back_to_game() -> void:
 	if is_queued_for_deletion():
 		return
+	for iter:MarkerEvent in events:
+		iter.on_turn()
 	if chessboard.state.get_turn() != player_group:
 		state_machine.change_state.call_deferred("enemy")
 	elif premove_branch && premove_branch.move_order.size():

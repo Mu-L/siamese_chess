@@ -332,10 +332,10 @@ func add_piece_instance(instance:Actor, by:int) -> void:	# 注意根据state摆�
 	else:
 		instance.visible = true
 		chessboard_piece[by] = instance
-		if state.get_piece(by) == ord("K"):
-			king_instance[0] = instance
-		if state.get_piece(by) == ord("k"):
-			king_instance[1] = instance
+		#if state.get_piece(by) == ord("K"):
+		#	king_instance[0] = instance
+		#if state.get_piece(by) == ord("k"):
+		#	king_instance[1] = instance
 		instance.introduce(get_node(Chess.x88_to_name(by)).global_position)
 
 func add_piece_instance_to_steady(instance:Actor, piece:int) -> void:

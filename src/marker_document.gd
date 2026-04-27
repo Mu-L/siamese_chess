@@ -1,13 +1,18 @@
-extends MarkerSelection
+extends MarkerEvent
 class_name MarkerDocument
 
 @export var file_path:String = "usr://archive/"
 @export var file_content:Dictionary = {"lines": []}
 @export var comment:String = ""
+@export var bit:int = 0
+@export var selection:String = ""
 
-func event() -> void:
-	if !(level.chessboard.state.get_bit(level.player_king) & bit):
-		return
+func show_selection() -> String:
+	if level.chessboard.state.get_bit(level.player_king) & bit:
+		return "selection"
+	return ""
+
+func on_selection() -> void:
 	if !FileAccess.file_exists(file_path):
 		var dir:DirAccess = DirAccess.open("user://archive/")
 		if !dir:

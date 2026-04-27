@@ -1,4 +1,5 @@
 extends Node3D
+class_name Player
 @onready var ray_cast:RayCast3D = $ray_cast
 
 var mouse_moved:bool = false
