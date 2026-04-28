@@ -13,6 +13,7 @@ func _ready() -> void:
 	chessboard.button_input_pointer = cheshire_by
 
 func interact_carnation() -> void:
+	state_machine.change_state("stop")
 	var carnation_pos:Vector3 = $marker_actor_carnation.global_position
 	var current_position_2d:Vector2 = Vector2(global_position.x, global_position.z)
 	var target_position_2d:Vector2 = Vector2(carnation_pos.x, carnation_pos.z)
@@ -27,3 +28,4 @@ func interact_carnation() -> void:
 	await Dialog.on_next
 	$player.force_set_camera($camera)
 	Dialog.set_border_position(Setting.get_value("dialog_border"))
+	state_machine.change_state("resume")

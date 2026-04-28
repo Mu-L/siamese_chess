@@ -1231,7 +1231,6 @@ bool Chess::is_blocked(const godot::Ref<State> &_state, int _from, int _to)
 {
 	DEV_ASSERT(_state.is_valid());
 	DEV_ASSERT(!(_from & 0x88));
-	DEV_ASSERT(!(_to & 0x88));
 	if (_to & 0x88)
 	{
 		return true;

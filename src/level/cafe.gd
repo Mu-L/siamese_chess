@@ -50,6 +50,7 @@ func _ready() -> void:
 	game_premove_branch = PremoveBranch.new()
 
 func interact_pastor(custom_state:bool) -> void:
+	state_machine.change_state("stop")
 	var state:State = null
 	if custom_state:
 		var text_input_instance:TextInput = TextInput.create_text_input_instance("输入FEN格式的布局：", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
@@ -74,10 +75,11 @@ func interact_pastor(custom_state:bool) -> void:
 		standard_chessboard.rotation.y = 0
 	else:
 		standard_chessboard.rotation.y = PI
-		
 
 	var from:int = Chess.c64_to_x88(Chess.first_bit($chessboard.state.get_bit(player_king)))
 	if from != 0x54:
+		history_document.push_move(Chess.create(from, 0x54, 0))
+		history_state.push_back(chessboard.state.get_zobrist())
 		$chessboard.execute_move(Chess.create(from, 0x54, 0))
 		await $chessboard.animation_finished
 	$chessboard.set_enabled(false)
@@ -87,10 +89,6 @@ func interact_pastor(custom_state:bool) -> void:
 	$chessboard/pieces/cheshire.play_animation("thinking")
 	$player.force_set_camera($camera_chessboard)
 	standard_state_machine.change_state("start", {"state": state})
-	while true:
-		await standard_state_machine.state_changed
-		if standard_state_machine.current_state == "end":
-			break
 
 var game_premove_branch:PremoveBranch = PremoveBranch.new()
 var game_premove_from:int = -1
@@ -312,7 +310,7 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 	standard_state_machine.state_signal_connect(standard_chessboard.click_selection, func (_selected:int) -> void:
 		standard_state_machine.change_state("check_move", {"from": from, "to": _selected})
 	)
-	standard_state_machine.state_signal_connect(standard_chessboard.click_empty, func () -> void:
+	standard_state_machine.state_signal_connect(standard_chessboard.click_empty, func (_selected:int) -> void:
 		actor.idle()
 		standard_state_machine.change_state("player")
 	)
@@ -324,7 +322,7 @@ func state_ready_in_game_ready_to_move(_arg:Dictionary) -> void:
 	actor.ready_to_move()
 	standard_chessboard.set_square_selection(selection)
 
-func state_exit_in_game_ready_to_move(_arg:Dictionary) -> void:
+func state_exit_in_game_ready_to_move() -> void:
 	Dialog.hide_cancel()
 
 func state_ready_in_game_check_move(_arg:Dictionary) -> void:
@@ -400,3 +398,4 @@ func state_ready_end(_arg:Dictionary) -> void:
 	$chessboard/pieces/cheshire.set_position($chessboard.name_to_vector3("e3"))
 	$chessboard.set_enabled(true)
 	standard_chessboard.set_enabled(false)
+	state_machine.change_state("resume")

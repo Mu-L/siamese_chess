@@ -292,7 +292,7 @@ func state_ready_player(_arg:Dictionary) -> void:
 		state_machine.change_state.call_deferred("ready_to_move", {"from": _selected})
 	)
 	state_machine.state_signal_connect(Dialog.on_select, func (_selected:String) -> void:
-		available_events[_selected].on_selection()
+		available_events[_selected].on_selection.call_deferred()
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	if chessboard.state.get_bit(enemy_all):
