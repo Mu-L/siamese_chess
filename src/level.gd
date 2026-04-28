@@ -97,7 +97,7 @@ func state_premove_from_ready(_arg:Dictionary) -> void:
 		premove_from = _selected
 		premove_state_machine.change_state.call_deferred("to", {"from": _selected})
 	)
-	premove_state_machine.state_signal_connect(Dialog.on_cancel, func(_selected:String) -> void:
+	premove_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		premove_branch.future_state = chessboard.state.duplicate()
 		premove_branch.move_order = []
 	)
@@ -169,7 +169,7 @@ func state_premove_travel_ready(_arg:Dictionary) -> void:
 			Chess.apply_move(premove_branch.future_state, move)
 		premove_state_machine.change_state.call_deferred("from")
 	)
-	premove_state_machine.state_signal_connect(Dialog.on_cancel, func (_selected:String) -> void:
+	premove_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		premove_state_machine.change_state.call_deferred("from")
 	)
 	Dialog.show_cancel()
@@ -196,7 +196,7 @@ func state_premove_extra_ready(_arg:Dictionary) -> void:
 		if Chess.from(iter) == _arg["from"] && Chess.to(iter) == _arg["to"]:
 			decision_list.push_back(map[Chess.extra(iter)])
 			decision_to_move[decision_list[-1]] = iter
-	premove_state_machine.state_signal_connect(Dialog.on_cancel, func (_selected:String) -> void:
+	premove_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		premove_state_machine.change_state.call_deferred("from")
 	)
 	premove_state_machine.state_signal_connect(Dialog.on_select, func (_selected:String) -> void:
@@ -241,7 +241,7 @@ func state_ready_enemy(_arg:Dictionary) -> void:
 	if !chessboard.state.get_bit(enemy_all):
 		state_machine.change_state.call_deferred("move", {"move": -1})
 		return
-	state_machine.state_signal_connect(engine.search_finished, func() -> void:
+	state_machine.state_signal_connect(engine.search_finished, func () -> void:
 		assert(chessboard.state.get_turn() == Chess.group(chessboard.state.get_piece(Chess.from(engine.get_search_result()))))
 		state_machine.change_state.call_deferred("move", {"move": engine.get_search_result()})
 	)
@@ -267,7 +267,7 @@ func state_ready_move(_arg:Dictionary) -> void:
 	history_state.push_back(chessboard.state.get_zobrist())
 	if premove_state_machine.current_state == "stop":
 		premove_state_machine.change_state.call_deferred("start")
-	state_machine.state_signal_connect(chessboard.animation_finished, func() -> void:
+	state_machine.state_signal_connect(chessboard.animation_finished, func () -> void:
 		if Chess.get_end_type(chessboard.state) == ("checkmate_white" if player_group == 1 else "checkmate_black"):
 			state_machine.change_state.call_deferred("enemy_win")
 		else:
@@ -405,7 +405,7 @@ func state_ready_travel(_arg:Dictionary) -> void:
 			Chess.apply_move(premove_branch.future_state, move)
 		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(first_move), "to": Chess.to(first_move)})
 	)
-	state_machine.state_signal_connect(Dialog.on_cancel, func(_selected:String) -> void:
+	state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		actor.idle()
 		state_machine.change_state.call_deferred("player")
 	)
@@ -458,7 +458,7 @@ func state_ready_extra_move(_arg:Dictionary) -> void:
 		decision_list.push_back(map[Chess.extra(iter)])
 		decision_to_move[decision_list[-1]] = iter
 	
-	state_machine.state_signal_connect(Dialog.on_cancel, func (_selected:String) -> void:
+	state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		actor.idle()
 		state_machine.change_state.call_deferred("player")
 	)

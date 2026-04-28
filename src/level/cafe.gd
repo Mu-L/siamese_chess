@@ -115,7 +115,7 @@ func state_game_premove_from_ready(_arg:Dictionary) -> void:
 		game_premove_from = _selected
 		standard_premove_state_machine.change_state.call_deferred("to", {"from": _selected})
 	)
-	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func() -> void:
+	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		game_premove_branch.future_state = standard_chessboard.state.duplicate()
 		game_premove_branch.move_order = []
 	)
@@ -145,7 +145,7 @@ func state_game_premove_to_ready(_arg:Dictionary) -> void:
 	standard_premove_state_machine.state_signal_connect(standard_chessboard.click_empty, func(_selected:int) -> void:
 		standard_premove_state_machine.change_state.call_deferred("from")
 	)
-	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func() -> void:
+	standard_premove_state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		standard_premove_state_machine.change_state.call_deferred("from")
 	)
 	Dialog.show_cancel()
@@ -214,7 +214,7 @@ func state_ready_in_game_start(_arg:Dictionary) -> void:
 		standard_state_machine.change_state("player")
 
 func state_ready_in_game_opponent(_arg:Dictionary) -> void:
-	standard_state_machine.state_signal_connect(standard_engine.search_finished, func() -> void:
+	standard_state_machine.state_signal_connect(standard_engine.search_finished, func () -> void:
 		print("score: ", standard_engine.get_score())
 		print("deepest depth: ", standard_engine.get_deepest_depth())
 		print("deepest ply: ", standard_engine.get_deepest_ply())
