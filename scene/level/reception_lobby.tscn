@@ -213,6 +213,7 @@ fov = 95.0
 [node name="marker_camera_white_side" type="Node3D" parent="." unique_id=1303561354 node_paths=PackedStringArray("camera")]
 script = ExtResource("18_fhf0e")
 camera = NodePath("../camera_white_side")
+selection = "RECEPTION_LOBBY_WHITE"
 bit = -4294967296
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
@@ -223,6 +224,7 @@ fov = 100.4
 [node name="marker_camera_black_side" type="Node3D" parent="." unique_id=778137627 node_paths=PackedStringArray("camera")]
 script = ExtResource("18_fhf0e")
 camera = NodePath("../camera_black_side")
+selection = "RECEPTION_LOBBY_BLACK"
 bit = 4294967295
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 

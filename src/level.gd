@@ -280,24 +280,8 @@ func state_ready_move(_arg:Dictionary) -> void:
 
 var available_events:Dictionary = {}
 
-func state_ready_player(_arg:Dictionary) -> void:
-	premove_state_machine.change_state("stop")
-	var start_from:int = 0
+func show_selection() -> void:
 	var by:int = Chess.c64_to_x88(Chess.first_bit(chessboard.state.get_bit(player_king)))
-	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
-	for iter:int in move_list:
-		start_from |= Chess.mask(Chess.x88_to_c64(Chess.from(iter)))
-
-	state_machine.state_signal_connect(chessboard.click_selection, func (_selected:int) -> void:
-		state_machine.change_state.call_deferred("ready_to_move", {"from": _selected})
-	)
-	state_machine.state_signal_connect(Dialog.on_select, func (_selected:String) -> void:
-		available_events[_selected].on_selection.call_deferred()
-	)
-	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
-	if chessboard.state.get_bit(enemy_all):
-		Clock.resume()
-
 	var selections:PackedStringArray = []
 	available_events.clear()
 	for iter:MarkerEvent in events:
@@ -307,6 +291,26 @@ func state_ready_player(_arg:Dictionary) -> void:
 			selections.push_back(selection)
 	selections.erase("")
 	Dialog.push_selection(selections, title.get(by, ""), false, false)
+
+func state_ready_player(_arg:Dictionary) -> void:
+	premove_state_machine.change_state("stop")
+	var start_from:int = 0
+	var move_list:PackedInt32Array = Chess.generate_valid_move(chessboard.state, player_group)
+	for iter:int in move_list:
+		start_from |= Chess.mask(Chess.x88_to_c64(Chess.from(iter)))
+
+	state_machine.state_signal_connect(chessboard.click_selection, func (_selected:int) -> void:
+		state_machine.change_state.call_deferred("ready_to_move", {"from": _selected})
+	)
+	state_machine.state_signal_connect(Dialog.on_select, func (_selected:String) -> void:
+		available_events[_selected].on_selection.call_deferred()
+		# 重新显示选项
+		show_selection.call_deferred()
+	)
+	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
+	if chessboard.state.get_bit(enemy_all):
+		Clock.resume()
+	show_selection()
 	chessboard.set_square_selection(start_from)
 
 func state_exit_player() -> void:
@@ -344,17 +348,10 @@ func state_ready_ready_to_move(_arg:Dictionary) -> void:
 	)
 	state_machine.state_signal_connect(Clock.timeout, state_machine.change_state.call_deferred.bind("enemy_win"))
 	state_machine.state_signal_connect(Dialog.on_select, func(_selected:String) -> void:
-		available_events[_selected].on_selection()
+		available_events[_selected].on_selection.call_deferred()
+		show_selection.call_deferred()
 	)
-	var selections:PackedStringArray = []
-	available_events.clear()
-	for iter:MarkerEvent in events:
-		var selection:String = iter.show_selection()
-		if selection != "":
-			available_events[selection] = iter
-			selections.push_back(selection)
-	selections.erase("")
-	Dialog.push_selection(selections, title.get(from, ""), false, false)
+	show_selection()
 	Dialog.show_cancel()
 	actor.ready_to_move()
 	chessboard.set_square_selection(square_selection)
@@ -405,10 +402,15 @@ func state_ready_travel(_arg:Dictionary) -> void:
 			Chess.apply_move(premove_branch.future_state, move)
 		state_machine.change_state.call_deferred("check_move", {"from": Chess.from(first_move), "to": Chess.to(first_move)})
 	)
+	state_machine.state_signal_connect(Dialog.on_select, func(_selected:String) -> void:
+		available_events[_selected].on_selection.call_deferred()
+		show_selection.call_deferred()
+	)
 	state_machine.state_signal_connect(Dialog.on_cancel, func () -> void:
 		actor.idle()
 		state_machine.change_state.call_deferred("player")
 	)
+	show_selection()
 	Dialog.show_cancel()
 	chessboard.set_square_selection(bit)
 
