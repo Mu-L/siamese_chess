@@ -16,3 +16,4 @@ func show_selection() -> String:
 
 func on_selection() -> void:
 	level.get_node("player").force_set_camera(camera)
+	level.show_selection.call_deferred()

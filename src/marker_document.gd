@@ -9,7 +9,7 @@ class_name MarkerDocument
 
 func show_selection() -> String:
 	if level.chessboard.state.get_bit(level.player_king) & bit:
-		return "selection"
+		return selection
 	return ""
 
 func on_selection() -> void:
@@ -24,3 +24,4 @@ func on_selection() -> void:
 		file.close()
 	Archive.open()
 	Archive.open_document(file_path)
+	level.show_selection()
