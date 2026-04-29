@@ -20,6 +20,7 @@ var selection:PackedStringArray = []
 var selected:String = ""
 var select_focus:int = -1
 var global_selection_showing:bool = false
+var cancel_showing:bool = false
 var level_selection:bool = false
 var waiting:bool = false
 var click_anywhere:bool = false
@@ -106,9 +107,11 @@ func set_hint_right(_text:String) -> void:
 	time_label.text = _text
 
 func show_cancel() -> void:
+	cancel_showing = true
 	cancel_label.text = "SELECTION_CANCEL"
 
 func hide_cancel() -> void:
+	cancel_showing = false
 	cancel_label.text = ""
 
 func clear() -> void:

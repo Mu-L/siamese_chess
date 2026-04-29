@@ -64,10 +64,12 @@ func _physics_process(_delta:float) -> void:
 			item.button_input("accept", true)
 		if Input.is_action_just_released("ui_accept"):
 			item.button_input("accept", false)
-		if Input.is_action_just_pressed("select") && Dialog.selection.size():
+		if Input.is_action_just_pressed("ui_cancel") && Dialog.cancel_showing:
+			Dialog.on_cancel.emit()
+		elif Input.is_action_just_pressed("select") && Dialog.selection.size():
 			using_dialog = true
 			Dialog.direction(1)
-		if Input.is_action_just_pressed("menu"):
+		elif Input.is_action_just_pressed("menu"):
 			using_dialog = true
 			Dialog.show_global_selection()
 			Dialog.direction(1)
