@@ -6,6 +6,8 @@ signal on_cancel()
 
 const packed_scene:PackedScene = preload("res://scene/dialog.tscn")
 
+const global_selection:Array = ["SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"]
+
 var border_position:bool = true
 var text_label:RichTextLabel = null
 var title_label:RichTextLabel = null
@@ -17,6 +19,8 @@ var title:String = ""
 var selection:PackedStringArray = []
 var selected:String = ""
 var select_focus:int = -1
+var global_selection_showing:bool = false
+var level_selection:bool = false
 var waiting:bool = false
 var click_anywhere:bool = false
 var force_selection:bool = false
@@ -31,7 +35,7 @@ func _ready() -> void:
 	$texture_rect_left/label.connect("meta_clicked", clicked_global_selection)
 	$texture_rect_top/label.connect("mouse_entered", show_global_selection)
 	$texture_rect_top/label.connect("mouse_exited", hide_global_selection)
-	$texture_rect_left/label.connect("mouse_entered", show_global_selection)
+	$texture_rect_left/label.connect("mouse_entered", show_global_selection.call_deferred)
 	$texture_rect_left/label.connect("mouse_exited", hide_global_selection)
 	$texture_rect_top/label_hint_left.connect("gui_input", cancel_gui_input)
 	$texture_rect_left/label_hint_up.connect("gui_input", cancel_gui_input)
@@ -88,9 +92,11 @@ func push_selection(_selection:PackedStringArray, _title:String, _force_selectio
 	tween.tween_property($texture_rect_full, "visible", false, 0)
 
 func show_global_selection() -> void:
-	title_label.text = selection_to_bbcode(["SELECTION_CAMERA", "SELECTION_THIRD_EYE", "SELECTION_DOCUMENTS", "SELECTION_SETTINGS"])
+	global_selection_showing = true
+	title_label.text = selection_to_bbcode(global_selection)
 
 func hide_global_selection() -> void:
+	global_selection_showing = false
 	title_label.text = title
 
 func set_hint_left(_text:String) -> void:
@@ -129,15 +135,31 @@ func next() -> void:
 	on_next.emit()
 
 func direction(axis:int) -> void:
-	if !selection.size():
+	if !global_selection_showing && !selection.size():
 		return
 	if select_focus == -1:
 		select_focus = 0 if axis == 1 else selection.size() - 1
 	else:
 		select_focus += axis
+	
+	if global_selection_showing:
+		select_focus = (select_focus + global_selection.size()) % global_selection.size()
+	else:
 		select_focus = (select_focus + selection.size()) % selection.size()
-	selected = selection[select_focus]
-	text_label.text = selection_to_bbcode(selection)
+	if global_selection_showing:
+		title_label.text = selection_to_bbcode(global_selection, select_focus)
+	else:
+		selected = selection[select_focus]
+		text_label.text = selection_to_bbcode(selection, select_focus)
+
+func confirm() -> void:
+	if global_selection_showing:
+		clicked_global_selection(global_selection[select_focus])
+		hide_global_selection()
+		return
+	if select_focus != -1:
+		on_select.emit(selected)
+	next()
 
 func cancel_focus() -> void:
 	select_focus = -1
@@ -164,10 +186,10 @@ func clicked_global_selection(_selected:String) -> void:
 		"SELECTION_SETTINGS":
 			Setting.open()
 
-func selection_to_bbcode(_selection:PackedStringArray) -> String:
+func selection_to_bbcode(_selection:PackedStringArray, _select_focus:int = -1) -> String:
 	var bbcode:String = ""
 	for i:int in _selection.size():
-		if i == select_focus:
+		if i == _select_focus:
 			bbcode += "[url=\"" + _selection[i] + "\"][color=red]" + tr(_selection[i]) + "[/color][/url]"
 		else:
 			bbcode += "[url=\"" + _selection[i] + "\"]" + tr(_selection[i]) + "[/url]"
@@ -185,7 +207,7 @@ func block_input() -> bool:
 func update_dialog() -> void:
 	set_border_position(Setting.get_value("dialog_border"))
 	if selection:
-		text = selection_to_bbcode(selection)
+		text = selection_to_bbcode(selection, select_focus)
 		text_label.text = text
 	else:
 		text_label.text = tr(text)

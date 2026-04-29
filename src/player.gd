@@ -22,11 +22,20 @@ func _physics_process(_delta:float) -> void:
 		if Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("tab_right"):
 			Dialog.direction(1)		
 		if Input.is_action_just_released("ui_accept"):
-			Dialog.next()
+			Dialog.confirm()
 			using_dialog = false
 		if Input.is_action_just_pressed("ui_cancel"):
 			using_dialog = false
 			Dialog.cancel_focus()
+			Dialog.hide_global_selection()
+		if Input.is_action_just_pressed("menu"):
+			using_dialog = false
+			Dialog.cancel_focus()
+			Dialog.hide_global_selection()
+		if Input.is_action_just_pressed("select"):
+			using_dialog = false
+			Dialog.cancel_focus()
+			Dialog.hide_global_selection()
 		return
 
 	if !can_move:
@@ -55,13 +64,13 @@ func _physics_process(_delta:float) -> void:
 			item.button_input("accept", true)
 		if Input.is_action_just_released("ui_accept"):
 			item.button_input("accept", false)
-		if Input.is_action_just_pressed("tab_left") && Dialog.selection.size():
-			using_dialog = true
-			Dialog.direction(-1)
-		if Input.is_action_just_pressed("tab_right") && Dialog.selection.size():
+		if Input.is_action_just_pressed("select") && Dialog.selection.size():
 			using_dialog = true
 			Dialog.direction(1)
-	
+		if Input.is_action_just_pressed("menu"):
+			using_dialog = true
+			Dialog.show_global_selection()
+			Dialog.direction(1)
 
 func _unhandled_input(event:InputEvent) -> void:
 	if !can_move || Dialog.block_input() || Setting.visible || Archive.visible || Photo.visible:
