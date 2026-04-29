@@ -229,7 +229,8 @@ func state_ready_start(_arg:Dictionary) -> void:
 	chessboard.state.set_round(1)
 	history_document.new_page()
 	history_document.set_state(chessboard.state)
-	
+	for iter:MarkerEvent in events:
+		iter.on_start()
 	if Chess.get_end_type(chessboard.state) == "checkmate_black":
 		state_machine.change_state.call_deferred("player_win")
 	elif Chess.get_end_type(chessboard.state) == "checkmate_white":

@@ -10,6 +10,9 @@ class_name MarkerEvent
 func on_init() -> void:
 	pass
 
+func on_start() -> void:
+	pass
+
 func on_turn() -> void:
 	pass
 

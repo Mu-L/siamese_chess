@@ -5,12 +5,8 @@ class_name MarkerCamera
 @export var selection:String = ""
 @export_custom(PropertyHint.PROPERTY_HINT_FLAGS, "bitboard") var bit:int = 0
 
-func on_init() -> void:
+func on_start() -> void:
 	if camera && level.chessboard.state.get_bit(level.player_king) & bit:
-		level.get_node("player").force_set_camera(camera)
-
-func on_turn() -> void:
-	if camera && (level.chessboard.state.get_bit(level.player_king) & bit):
 		level.get_node("player").force_set_camera(camera)
 
 func show_selection() -> String:
