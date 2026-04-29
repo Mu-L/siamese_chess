@@ -92,3 +92,8 @@ CARNATION_TALK_1_1,"或许你很有潜能。","Maybe you have some sort of poten
 DOCUMENT_TITLE_MENU,"咖啡厅菜单","Cafe menu"
 DOCUMENT_TITLE_CHESS_MOVEMENT,"棋子的移动","Piece movement"
 DOCUMENT_TITLE_SIAMESE_CHESS,"关于SiameseChess","About SiameseChess"
+RECEPTION_LOBBY_WHITE,"前台","Front Desk"
+RECEPTION_LOBBY_BLACK,"休闲区","Rest Area"
+HOTEL_ROOM_BEDROOM,"卧室","Bedroom"
+HOTEL_ROOM_BATHROOM,"浴室","Bathroom"
+HOTEL_ROOM_MIRROR,"镜子","Mirror"

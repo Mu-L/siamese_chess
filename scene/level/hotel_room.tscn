@@ -149,7 +149,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8343501, 0, 3.399881)
 [node name="door_2" parent="." unique_id=1775898386 instance=ExtResource("5_10bqq")]
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -5, 0, 2)
 
-[node name="face" parent="door_2" index="1" unique_id=1176201569]
+[node name="face" parent="door_2" index="1" unique_id=1077711075]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.5224618, 1.0110773, 0.14069557)
 
 [node name="phonograph" parent="." unique_id=624737484 instance=ExtResource("24_ncv1s")]
@@ -331,23 +331,37 @@ light_energy = 0.723
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
 script = ExtResource("31_njksd")
 camera = NodePath("camera")
+selection = "HOTEL_ROOM_BATHROOM"
 bit = 6597069766656
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="camera" type="Camera3D" parent="marker_camera" unique_id=2001745757]
-transform = Transform3D(-0.7317487, 0.41632628, -0.5396446, -0.025687927, 0.7743531, 0.6322321, 0.6810903, 0.47649738, -0.5559373, -4.3761883, 1.9174926, -1.5232575)
+transform = Transform3D(-0.8011513, 0.36232108, -0.47631937, -0.025687931, 0.7743532, 0.6322322, 0.5979104, 0.5187492, -0.6110667, -4.3761883, 3.0222034, -0.6560347)
 fov = 106.10179
 
 [node name="marker_camera_2" type="Node3D" parent="." unique_id=66818583 node_paths=PackedStringArray("camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
 script = ExtResource("31_njksd")
 camera = NodePath("camera")
+selection = "HOTEL_ROOM_BEDROOM"
 bit = 129354301440
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="camera" type="Camera3D" parent="marker_camera_2" unique_id=2144305316]
 transform = Transform3D(-0.65081406, -0.3796186, 0.65751874, 5.580079e-08, 0.8660254, 0.50000006, -0.7592372, 0.32540706, -0.56362146, 3.4173315, 2.841991, -4.5870304)
 fov = 82.45983
+
+[node name="marker_camera_3" type="Node3D" parent="." unique_id=1807043683 node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+script = ExtResource("31_njksd")
+camera = NodePath("camera")
+selection = "HOTEL_ROOM_MIRROR"
+bit = 6597069766656
+metadata/_custom_type_script = "uid://b5f46bgwa3pux"
+
+[node name="camera" type="Camera3D" parent="marker_camera_3" unique_id=1274399088]
+transform = Transform3D(-1, 4.371139e-08, -7.571033e-08, 3.5785114e-08, 0.99481523, 0.10169871, 7.976319e-08, 0.10169871, -0.99481523, -3.9858909, 1.6927991, 2.7436905)
+fov = 82.5
 
 [node name="reflection_probe" type="ReflectionProbe" parent="." unique_id=1204809324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4735824, 1.9633994, -0.9803901)

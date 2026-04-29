@@ -291,13 +291,9 @@ visible = false
 [node name="CollisionShape3D" parent="chessboard/h8" parent_id_path=PackedInt32Array(1937646692, 1809333659) index="0" unique_id=299422455]
 visible = false
 
-[node name="camera_close" type="Camera3D" parent="." unique_id=546823115]
+[node name="camera" type="Camera3D" parent="." unique_id=546823115]
 transform = Transform3D(1.3039173e-07, 0.83830917, -0.5451953, -8.573711e-09, 0.5451953, 0.83830917, 1, -1.04634225e-07, 7.8276386e-08, -6.1640897, 3.5889688, 1.9989562)
-fov = 101.91581
-
-[node name="camera_far" type="Camera3D" parent="." unique_id=882200857]
-transform = Transform3D(1.2909113e-07, 0.6981029, -0.7159976, 2.0272886e-08, 0.7159976, 0.6981029, 1, -1.0463423e-07, 7.827638e-08, -2.818656, 3.5889688, 2.1653073)
-fov = 91.35613
+fov = 114.0
 
 [node name="camera_pastor" type="Camera3D" parent="." unique_id=1321780903]
 transform = Transform3D(-0.19467205, 0.4867464, -0.8515755, -0.0049543786, 0.8676862, 0.49708766, 0.98085594, 0.10098808, -0.16650273, -2.298256, 2.46423, 3.04269)
@@ -567,8 +563,8 @@ file_content = {
 "path": "res://assets/archive/chess_movement.tscn"
 }]
 }
-selection = "DOCUMENT_TITLE_CHESS_MOVEMENT"
 bit = 274877906944
+selection = "DOCUMENT_TITLE_CHESS_MOVEMENT"
 metadata/_custom_type_script = "uid://dc4n8wl381mqw"
 
 [node name="marker_document_about_siamese_chess" type="Node3D" parent="." unique_id=760818392]
@@ -591,8 +587,8 @@ file_content = {
 "path": "res://assets/archive/credits.tscn"
 }]
 }
-selection = "DOCUMENT_TITLE_SIAMESE_CHESS"
 bit = 274877906944
+selection = "DOCUMENT_TITLE_SIAMESE_CHESS"
 metadata/_custom_type_script = "uid://dc4n8wl381mqw"
 
 [node name="marker_bit_rank" type="Node3D" parent="." unique_id=118890326]
@@ -607,10 +603,10 @@ piece = 43
 bit = 2207646744576
 metadata/_custom_type_script = "uid://chtqhpiu556i1"
 
-[node name="marker_camera_close" type="Node3D" parent="." unique_id=1889064372 node_paths=PackedStringArray("camera")]
+[node name="marker_camera" type="Node3D" parent="." unique_id=1889064372 node_paths=PackedStringArray("camera")]
 script = ExtResource("32_m8sl2")
-camera = NodePath("../camera_close")
-bit = 1704251847868416
+camera = NodePath("../camera")
+bit = 19842072416616448
 metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="spot_light_3d" type="SpotLight3D" parent="." unique_id=1436247631]
@@ -765,18 +761,6 @@ size = Vector3(13.629883, 1.0754395, 9.082031)
 [node name="csg_box_3d" type="CSGBox3D" parent="csg_combiner_3d" unique_id=107142151]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3959961, -0.51085585, 2.0498047)
 size = Vector3(13.618164, 1, 9.0703125)
-
-[node name="marker_camera_far" type="Node3D" parent="." unique_id=1459029983 node_paths=PackedStringArray("camera")]
-script = ExtResource("32_m8sl2")
-camera = NodePath("../camera_far")
-bit = 18085044010614784
-metadata/_custom_type_script = "uid://b5f46bgwa3pux"
-
-[node name="marker_camera_pastor" type="Node3D" parent="." unique_id=1631914391 node_paths=PackedStringArray("camera")]
-script = ExtResource("32_m8sl2")
-camera = NodePath("../camera_pastor")
-bit = 52776558133248
-metadata/_custom_type_script = "uid://b5f46bgwa3pux"
 
 [node name="marker_callback_pastor_play_chess" type="Node3D" parent="." unique_id=2054525426 node_paths=PackedStringArray("node")]
 script = ExtResource("33_m67mf")

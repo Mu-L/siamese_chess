@@ -61,9 +61,12 @@ func interact_pastor(custom_state:bool) -> void:
 			return
 	else:
 		state = Chess.create_initial_state()
+	$player.force_set_camera($camera_pastor)
 	Dialog.push_selection(["SELECTION_PLAY_AS_BLACK", "SELECTION_PLAY_AS_WHITE", "SELECTION_PLAY_AS_RANDOM", "SELECTION_CANCEL"], "", true, false)
 	await Dialog.on_next
 	if Dialog.selected == "SELECTION_CANCEL":
+		$player.force_set_camera($camera)
+		state_machine.change_state("resume")
 		return
 	elif Dialog.selected == "SELECTION_PLAY_AS_WHITE":
 		standard_player_group = 0
@@ -393,7 +396,7 @@ func state_ready_result(_arg:Dictionary) -> void:
 	standard_state_machine.state_signal_connect(Dialog.on_next, standard_state_machine.change_state.bind("end"))
 
 func state_ready_end(_arg:Dictionary) -> void:
-	$player.force_set_camera($camera_pastor)
+	$player.force_set_camera($camera)
 	$chessboard/pieces/cheshire.play_animation("battle_idle")
 	$chessboard/pieces/cheshire.set_position($chessboard.name_to_vector3("e3"))
 	$chessboard.set_enabled(true)
