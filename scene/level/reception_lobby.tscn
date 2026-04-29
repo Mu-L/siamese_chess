@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://chkp5305aorwt" path="res://scene/actor/basement_safe.tscn" id="18_mv43g"]
 [ext_resource type="PackedScene" uid="uid://du20bw8426w4" path="res://assets/model/hotel_hall_stair.glb" id="19_ehpdt"]
 [ext_resource type="Script" uid="uid://c07j5dqfy7nsx" path="res://src/marker_multi_actor.gd" id="20_h5tcc"]
+[ext_resource type="Script" uid="uid://ci1qj2blsa7gp" path="res://src/marker_narrative.gd" id="24_p85mr"]
 [ext_resource type="PackedScene" uid="uid://bq8nyp56cwxfl" path="res://assets/model/fence_metal.glb" id="25_mv43g"]
 [ext_resource type="Script" uid="uid://c7cwb1ro3e2r" path="res://src/marker_actor.gd" id="26_lu7he"]
 [ext_resource type="PackedScene" uid="uid://cgoyrycf6ngyw" path="res://scene/actor/piece_knight_black.tscn" id="27_de6hv"]
@@ -250,6 +251,11 @@ script = ExtResource("20_h5tcc")
 piece = 35
 bit = 3233857536
 metadata/_custom_type_script = "uid://c07j5dqfy7nsx"
+
+[node name="marker_narrative_overall" type="Node3D" parent="." unique_id=218744405]
+script = ExtResource("24_p85mr")
+text = "RECEPTION_LOBBY_NARRATIVE"
+metadata/_custom_type_script = "uid://ci1qj2blsa7gp"
 
 [node name="csg_combiner_3d" type="CSGCombiner3D" parent="." unique_id=398327325]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22191525, 0)
